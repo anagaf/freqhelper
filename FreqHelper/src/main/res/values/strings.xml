@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FreqHelper</string>
+    <string name="lpd_69_channels_title">LPD</string>
+    <string name="lpd_8channels_title">LPD (8 channels)</string>
+    <string name="pmr_title">PMR</string>
+    <string name="frequency_title">Frequency</string>
+    <string name="title_section3">Section 3</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
