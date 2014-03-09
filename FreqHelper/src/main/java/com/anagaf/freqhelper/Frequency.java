@@ -21,4 +21,16 @@ public class Frequency {
     public String toString() {
         return String.valueOf(mKilohertz / KILOHERTZ_PER_MEGAHERTZ) + "." + String.valueOf(mKilohertz % KILOHERTZ_PER_MEGAHERTZ);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Frequency frequency = (Frequency) o;
+
+        if (mKilohertz != frequency.mKilohertz) return false;
+
+        return true;
+    }
 }
