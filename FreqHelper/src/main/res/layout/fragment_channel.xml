@@ -23,12 +23,13 @@
     <TextView
         style="@style/ContentItemTitle"
         android:text="@string/frequency"
-        android:paddingTop="@dimen/content_item_padding"
+        android:paddingTop="@dimen/content_item_medium_gap"
         />
 
     <TextView
         style="@style/ContentItem"
         android:id="@+id/freq_textview"
+        android:paddingTop="@dimen/content_item_small_gap"
         tools:text="433.125 Mhz"
         />
 

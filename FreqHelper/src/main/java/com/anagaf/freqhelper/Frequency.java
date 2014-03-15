@@ -1,8 +1,11 @@
 package com.anagaf.freqhelper;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class Frequency {
     private static final int KILOHERTZ_PER_MEGAHERTZ = 1000;
-
+    private static final NumberFormat sKilohertzFormat = new DecimalFormat("@@@");
     private final int mKilohertz;
 
     public Frequency(int megahertz, int kilohertz) {
@@ -19,7 +22,9 @@ public class Frequency {
 
     @Override
     public String toString() {
-        return String.valueOf(mKilohertz / KILOHERTZ_PER_MEGAHERTZ) + "." + String.valueOf(mKilohertz % KILOHERTZ_PER_MEGAHERTZ);
+        final int mhz = mKilohertz / KILOHERTZ_PER_MEGAHERTZ;
+        final int khz = mKilohertz % KILOHERTZ_PER_MEGAHERTZ;
+        return String.format("%d.%03d", mhz, khz);
     }
 
     @Override

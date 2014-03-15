@@ -2,6 +2,7 @@ package com.anagaf.freqhelper;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.anagaf.freqhelper.converters.ChannelToFrequencyConverter;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class ChannelModeFragment extends Fragment {
 
@@ -61,8 +65,9 @@ public class ChannelModeFragment extends Fragment {
             TextView textView = (TextView) convertView;
             if (textView == null) {
                 textView = new TextView(getActivity());
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.content_item_text_size));
             }
-            textView.setText(String.valueOf(postion + 1));
+            textView.setText(" " + String.valueOf(postion + 1) + " ");
             return textView;
         }
     }
