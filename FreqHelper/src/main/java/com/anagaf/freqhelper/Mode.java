@@ -12,7 +12,7 @@ public enum Mode {
     Lpd69channels(R.string.lpd_69_channels_title, new ChannelModeFragment(new Lpd69ChannelToFrequencyConverter())),
 //    Lpd8channels(R.string.lpd_8channels_title, new ChannelModeFragment(new Lpd8ChannelToFrequencyConverter())),
 //    Pmr(R.string.pmr_title, new ChannelModeFragment(new PmrToFrequenctConverter())),
-    Frequency(R.string.frequency_title, new FrequencyModeFragment());
+    Frequency(R.string.frequency, new FrequencyModeFragment());
 
     private final int mTitleStringId;
     private final Fragment mFragment;

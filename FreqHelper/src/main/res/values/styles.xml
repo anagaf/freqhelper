@@ -5,4 +5,14 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ContentItem">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ContentItemTitle" parent="ContentItem">
+    </style>
+
 </resources>
