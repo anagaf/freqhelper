@@ -1,31 +1,28 @@
 package com.anagaf.freqhelper;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
-public class Frequency {
-    private static final int KILOHERTZ_PER_MEGAHERTZ = 1000;
-    private static final NumberFormat sKilohertzFormat = new DecimalFormat("@@@");
-    private final int mKilohertz;
+public class Frequency implements Comparable<Frequency> {
+    private static final int HERTZ_PER_MEGAHERTZ = 1000000;
+    private static final int HERTZ_PER_KILOHERTZ = 1000;
+    private final Integer mHertz;
 
     public Frequency(int megahertz, int kilohertz) {
-        this(megahertz * KILOHERTZ_PER_MEGAHERTZ + kilohertz);
+        this(megahertz, kilohertz, 0);
     }
 
-    public Frequency(int kilohertz) {
-        mKilohertz = kilohertz;
+    public Frequency(int megahertz, int kilohertz, int hertz) {
+        this(megahertz * HERTZ_PER_MEGAHERTZ + kilohertz * HERTZ_PER_KILOHERTZ + hertz);
     }
 
-    public int getKilohertz() {
-        return mKilohertz;
+    public Frequency(int hertz) {
+        mHertz = hertz;
     }
 
-    @Override
-    public String toString() {
-        final int mhz = mKilohertz / KILOHERTZ_PER_MEGAHERTZ;
-        final int khz = mKilohertz % KILOHERTZ_PER_MEGAHERTZ;
-        return String.format("%d.%03d", mhz, khz);
-    }
+//    @Override
+//    public String toString() {
+//        final int mhz = mKilohertz / HERTZ_PER_MEGAHERTZ;
+//        final int khz = mKilohertz % HERTZ_PER_MEGAHERTZ;
+//        return String.format("%d.%03d", mhz, khz);
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,8 +31,16 @@ public class Frequency {
 
         Frequency frequency = (Frequency) o;
 
-        if (mKilohertz != frequency.mKilohertz) return false;
+        return (mHertz.equals(frequency.mHertz));
 
-        return true;
+    }
+
+    public Frequency append(int hertz) {
+        return new Frequency(mHertz + hertz);
+    }
+
+    @Override
+    public int compareTo(Frequency frequency) {
+        return mHertz.compareTo(frequency.mHertz);
     }
 }

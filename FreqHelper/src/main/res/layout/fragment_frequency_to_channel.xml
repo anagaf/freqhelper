@@ -10,27 +10,44 @@
               tools:context="com.anagaf.freqhelper.MainActivity$PlaceholderFragment">
 
     <TextView
-        style="@style/ContentItemTitle"
-        android:text="@string/channel"
+        style="@style/ItemTitle"
+        android:text="@string/frequency"
         />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <Spinner
-        style="@style/ContentItem"
-        android:id="@+id/channel_spinner"
-        />
+        <Spinner
+            style="@style/ItemContent"
+            android:id="@+id/frequency_mhz_spinner"
+            />
+
+        <Spinner
+            style="@style/ItemContent"
+            android:id="@+id/frequency_khz_spinner"
+            />
+
+    </LinearLayout>
 
     <TextView
-        style="@style/ContentItemTitle"
-        android:text="@string/frequency"
+        style="@style/ItemTitle"
+        android:text="@string/channel"
         android:paddingTop="@dimen/content_item_medium_gap"
         />
 
     <TextView
-        style="@style/ContentItem"
-        android:id="@+id/freq_textview"
+        style="@style/ItemContent"
+        android:id="@+id/exact_channel_text_view"
         android:paddingTop="@dimen/content_item_small_gap"
         tools:text="433.125 Mhz"
+        />
+
+    <TextView
+        style="@style/ItemDetails"
+        android:id="@+id/proximate_channels_text_view"
+        tools:text="(proximate channels: 8 (433.075 Mhz), 9 (433.100 Mhz)"
         />
 
 </LinearLayout>

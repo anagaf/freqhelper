@@ -5,16 +5,23 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ContentItem">
-        <item name="android:textSize">@dimen/content_item_text_size</item>
+    <style name="Item">
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <style name="ContentItemTitle" parent="ContentItem">
-        <item name="android:textSize">@dimen/content_item_title_text_size</item>
+    <style name="ItemTitle" parent="ItemContent">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
+
+    <style name="ItemContent">
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
+    <style name="ItemDetails">
+        <item name="android:textSize">@dimen/small_text_size</item>
     </style>
 
 </resources>

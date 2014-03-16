@@ -3,16 +3,15 @@ package com.anagaf.freqhelper;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-import com.anagaf.freqhelper.converters.Lpd69ChannelToFrequencyConverter;
+import com.anagaf.freqhelper.ranges.Lpd69;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public enum Mode {
 
-    Lpd69channels(R.string.lpd_69_channels_title, new ChannelModeFragment(new Lpd69ChannelToFrequencyConverter())),
-//    Lpd8channels(R.string.lpd_8channels_title, new ChannelModeFragment(new Lpd8ChannelToFrequencyConverter())),
-//    Pmr(R.string.pmr_title, new ChannelModeFragment(new PmrToFrequenctConverter())),
-    Frequency(R.string.frequency, new FrequencyModeFragment());
+    ChannelToFrequencyLpd69(R.string.lpd_69_channels_title, new ChannelModeFragment(new Lpd69())),
+    FrequencyToChannelLpd69(R.string.frequency, new FrequencyModeFragment());
 
     private final int mTitleStringId;
     private final Fragment mFragment;

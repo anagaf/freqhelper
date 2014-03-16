@@ -11,24 +11,21 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.anagaf.freqhelper.converters.ChannelToFrequencyConverter;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import com.anagaf.freqhelper.ranges.Range;
 
 public class ChannelModeFragment extends Fragment {
 
-    private final ChannelToFrequencyConverter mConverter;
+    private final Range mRange;
     private TextView mFreqTextView;
 
-    public ChannelModeFragment(ChannelToFrequencyConverter mConverter) {
-        this.mConverter = mConverter;
+    public ChannelModeFragment(Range range) {
+        this.mRange = range;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_channel, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_channel_to_frequency, container, false);
         assert rootView != null;
         Spinner spinner = (Spinner) rootView.findViewById(R.id.channel_spinner);
         spinner.setAdapter(new ChannelSpinnerAdapter());
@@ -47,7 +44,7 @@ public class ChannelModeFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return mConverter.getChannelCount();
+            return mRange.getChannelCount();
         }
 
         @Override
@@ -65,7 +62,7 @@ public class ChannelModeFragment extends Fragment {
             TextView textView = (TextView) convertView;
             if (textView == null) {
                 textView = new TextView(getActivity());
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.content_item_text_size));
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.large_text_size));
             }
             textView.setText(" " + String.valueOf(postion + 1) + " ");
             return textView;
@@ -76,7 +73,7 @@ public class ChannelModeFragment extends Fragment {
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            mFreqTextView.setText(mConverter.getFrequency(position + 1).toString());
+            mFreqTextView.setText(mRange.getFrequency(position + 1).toString());
         }
 
         @Override
