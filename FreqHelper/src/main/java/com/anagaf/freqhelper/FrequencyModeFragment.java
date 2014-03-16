@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,9 +33,6 @@ public class FrequencyModeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_frequency_to_channel, container, false);
         assert rootView != null;
-
-        Spinner mhzSpinner = (Spinner) rootView.findViewById(R.id.frequency_mhz_spinner);
-        mhzSpinner.setAdapter(new FrequencyMhzSpinnerAdapter());
 
         return rootView;
     }

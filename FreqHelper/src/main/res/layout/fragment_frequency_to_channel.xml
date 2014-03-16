@@ -14,22 +14,10 @@
         android:text="@string/frequency"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Spinner
-            style="@style/ItemContent"
-            android:id="@+id/frequency_mhz_spinner"
-            />
-
-        <Spinner
-            style="@style/ItemContent"
-            android:id="@+id/frequency_khz_spinner"
-            />
-
-    </LinearLayout>
+    <com.anagaf.freqhelper.FrequencyView
+        style="@style/ItemContent"
+        android:id="@+id/frequency_view"
+        />
 
     <TextView
         style="@style/ItemTitle"
