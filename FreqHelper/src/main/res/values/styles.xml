@@ -12,15 +12,15 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <style name="ItemTitle" parent="ItemContent">
+    <style name="ItemTitle" parent="Item">
         <item name="android:textSize">@dimen/medium_text_size</item>
     </style>
 
-    <style name="ItemContent">
+    <style name="ItemContent" parent="Item">
         <item name="android:textSize">@dimen/large_text_size</item>
     </style>
 
-    <style name="ItemDetails">
+    <style name="ItemDetails" parent="Item">
         <item name="android:textSize">@dimen/small_text_size</item>
     </style>
 
