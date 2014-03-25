@@ -29,10 +29,18 @@ public class FrequencyModeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_frequency_to_channel, container, false);
         assert rootView != null;
+
+        FrequencyView frequencyView = (FrequencyView) rootView.findViewById(R.id.frequency_view);
+        frequencyView.setFrequency(Settings.getFrequency(getActivity()));
+        frequencyView.setOnFrequencyChangedListener(new FrequencyView.OnFrequencyChangedListener() {
+            @Override
+            public void onFrequencyChanged(Frequency frequency) {
+                Settings.setFrequency(getActivity(), frequency);
+            }
+        });
 
         return rootView;
     }

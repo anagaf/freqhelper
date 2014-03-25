@@ -4,21 +4,26 @@ import android.content.Context;
 import android.support.v7.widget.PopupMenu;
 import android.util.AttributeSet;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class FrequencyView extends LinearLayout {
 
-    private static final int MHZ_DIGIT_COUNT = 3;
-    private static final int HZ_DIGIT_COUNT = 6;
+    private static final int DIGIT_COUNT = 9;
+    private static final int DOT_POSITION = 3;
+
+    private final List<TextView> mDigitViews;
+    private OnFrequencyChangedListener mOnFrequencyChangedListener;
 
     public FrequencyView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
-    }
 
-    private void init(Context context, AttributeSet attrs) {
         View.OnClickListener onClickListener = new View.OnClickListener() {
 
             @Override
@@ -27,17 +32,46 @@ public class FrequencyView extends LinearLayout {
             }
         };
 
-        for (int i = 0; i < MHZ_DIGIT_COUNT; i++) {
-            addView(createDigitItem(attrs, onClickListener, 0));
+        List<TextView> digitViews = new ArrayList<TextView>(DIGIT_COUNT);
+        for (int i = 0; i < DIGIT_COUNT; i++) {
+            if (i == DOT_POSITION) {
+                addView(createDotItem(attrs));
+            }
+            TextView digitView = createDigitItem(context, attrs, onClickListener);
+            digitViews.add(digitView);
+            addView(digitView);
         }
-        addView(createDotItem(attrs));
-        for (int i = 0; i < HZ_DIGIT_COUNT; i++) {
-            addView(createDigitItem(attrs, onClickListener, 0));
+        mDigitViews = Collections.unmodifiableList(digitViews);
+    }
+
+    public void setOnFrequencyChangedListener(OnFrequencyChangedListener onFrequencyChangedListener) {
+        mOnFrequencyChangedListener = onFrequencyChangedListener;
+    }
+
+    public Frequency getFrequency() {
+        Integer hertz = 0;
+        int position = DIGIT_COUNT - 1;
+        for (TextView digitView : mDigitViews) {
+            final Integer digit = Integer.parseInt(digitView.getText().toString());
+            hertz += digit * 10 * position;
+            position--;
+        }
+        return new Frequency(hertz);
+    }
+
+    public void setFrequency(Frequency frequency) {
+        int position = DIGIT_COUNT - 1;
+        for (TextView digitView : mDigitViews) {
+            Integer digit = frequency.getHertz() % (10 * position);
+            digitView.setText(String.valueOf(digit));
+            position--;
         }
     }
 
     private void showPopupMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(getContext(), view);
+        TextView textView = (TextView) view;
+        popupMenu.setOnMenuItemClickListener(new OnPopupMenuItemClickListener(textView));
         for (int i = 0; i < 10; i++) {
             popupMenu.getMenu().add(Menu.NONE, i, Menu.NONE, String.valueOf(i));
         }
@@ -55,10 +89,10 @@ public class FrequencyView extends LinearLayout {
         return textView;
     }
 
-    private TextView createDigitItem(AttributeSet attrs, OnClickListener onClickListener, int digit) {
-        TextView textView = new TextView(getContext(), attrs);
+    private TextView createDigitItem(Context context, AttributeSet attrs, OnClickListener onClickListener) {
+        TextView textView = new TextView(context, attrs);
 
-        textView.setText(String.valueOf(digit));
+        textView.setText("0");
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         lp.leftMargin = getContext().getResources().getDimensionPixelSize(R.dimen.content_item_small_gap);
@@ -70,5 +104,29 @@ public class FrequencyView extends LinearLayout {
         }
 
         return textView;
+    }
+
+    /**
+     * ******* Inner Classes *********
+     */
+
+    public static interface OnFrequencyChangedListener {
+        public void onFrequencyChanged(Frequency frequency);
+    }
+
+    private class OnPopupMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+
+        private TextView mTextView;
+
+        private OnPopupMenuItemClickListener(TextView textView) {
+            mTextView = textView;
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            mTextView.setText(String.valueOf(menuItem.getItemId()));
+            mOnFrequencyChangedListener.onFrequencyChanged(getFrequency());
+            return true;
+        }
     }
 }
