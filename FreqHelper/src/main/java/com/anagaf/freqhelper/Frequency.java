@@ -18,12 +18,12 @@ public class Frequency implements Comparable<Frequency> {
         mHertz = hertz;
     }
 
-//    @Override
-//    public String toString() {
-//        final int mhz = mKilohertz / HERTZ_PER_MEGAHERTZ;
-//        final int khz = mKilohertz % HERTZ_PER_MEGAHERTZ;
-//        return String.format("%d.%03d", mhz, khz);
-//    }
+    @Override
+    public String toString() {
+        final int mhz = mHertz / HERTZ_PER_MEGAHERTZ;
+        final int khz = mHertz % HERTZ_PER_MEGAHERTZ;
+        return String.format("%d.%06d", mhz, khz);
+    }
 
     public Integer getHertz() {
         return mHertz;

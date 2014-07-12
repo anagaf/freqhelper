@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.anagaf.freqhelper.ranges.Lpd69;
+import com.anagaf.freqhelper.ranges.Lpd8;
+import com.anagaf.freqhelper.ranges.Pmr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.List;
 public enum Mode {
 
     ChannelToFrequencyLpd69(R.string.lpd_69_channels_title, new ChannelModeFragment(new Lpd69())),
+    ChannelToFrequencyLpd8(R.string.lpd_8channels_title, new ChannelModeFragment(new Lpd8())),
+    ChannelToFrequencyPmr(R.string.pmr_title, new ChannelModeFragment(new Pmr())),
     FrequencyToChannelLpd69(R.string.frequency, new FrequencyModeFragment());
 
     private final int mTitleStringId;
