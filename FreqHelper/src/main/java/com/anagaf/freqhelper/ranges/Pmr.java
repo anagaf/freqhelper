@@ -15,7 +15,7 @@ import com.anagaf.freqhelper.Frequency;
 
 public class Pmr extends FixedStepRange {
 
-    private static final Frequency BASE_FREQUENCY = new Frequency(446, 0);
+    private static final Frequency BASE_FREQUENCY = new Frequency(446006250);
 
     @Override
     public int getChannelCount() {
@@ -29,6 +29,6 @@ public class Pmr extends FixedStepRange {
 
     @Override
     protected int getStep() {
-        return 6250;
+        return 12500;
     }
 }
