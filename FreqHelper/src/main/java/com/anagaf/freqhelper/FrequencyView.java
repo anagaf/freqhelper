@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,14 +50,14 @@ public class FrequencyView extends LinearLayout {
     }
 
     public Frequency getFrequency() {
-        Integer hertz = 0;
+        BigInteger hertz = BigInteger.ZERO;
         int position = DIGIT_COUNT - 1;
         for (TextView digitView : mDigitViews) {
-            final Integer digit = Integer.parseInt(digitView.getText().toString());
-            hertz += digit * 10 * position;
+            final BigInteger digit = BigInteger.valueOf(Integer.parseInt(digitView.getText().toString()));
+            hertz = hertz.add(digit.multiply(BigInteger.valueOf(10).pow(position)));
             position--;
         }
-        return new Frequency(hertz);
+        return new Frequency(hertz.intValue());
     }
 
     public void setFrequency(Frequency frequency) {
