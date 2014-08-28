@@ -61,13 +61,16 @@ public class FrequencyView extends LinearLayout {
     }
 
     public void setFrequency(Frequency frequency) {
-        int hertz = frequency.getHertz();
-        int pos = DIGIT_COUNT - 1;
-        while (hertz > 0) {
-            assert (pos >= 0 && pos < mDigitViews.size());
-            mDigitViews.get(pos).setText(String.valueOf(hertz % 10));
-            hertz = hertz / 10;
-            --pos;
+        if (!frequency.equals(getFrequency())) {
+            int hertz = frequency.getHertz();
+            int pos = DIGIT_COUNT - 1;
+            while (hertz > 0) {
+                assert (pos >= 0 && pos < mDigitViews.size());
+                mDigitViews.get(pos).setText(String.valueOf(hertz % 10));
+                hertz = hertz / 10;
+                --pos;
+            }
+            mOnFrequencyChangedListener.onFrequencyChanged(frequency);
         }
     }
 

@@ -3,8 +3,8 @@ package com.anagaf.freqhelper.converters;
 import android.test.AndroidTestCase;
 
 import com.anagaf.freqhelper.Frequency;
-import com.anagaf.freqhelper.ranges.Lpd8;
-import com.anagaf.freqhelper.ranges.Range;
+import com.anagaf.freqhelper.model.Lpd8;
+import com.anagaf.freqhelper.model.Range;
 
 public class Ldp8Test extends AndroidTestCase {
 

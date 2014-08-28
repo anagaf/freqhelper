@@ -1,6 +1,7 @@
-package com.anagaf.freqhelper.ranges;
+package com.anagaf.freqhelper.model;
 
 import com.anagaf.freqhelper.Frequency;
+import com.anagaf.freqhelper.R;
 
 /*
 1	446.00625
@@ -16,6 +17,11 @@ import com.anagaf.freqhelper.Frequency;
 public class Pmr extends FixedStepRange {
 
     private static final Frequency BASE_FREQUENCY = new Frequency(446006250);
+
+    @Override
+    public Integer getNameStringId() {
+        return R.string.pmr_title;
+    }
 
     @Override
     public int getChannelCount() {

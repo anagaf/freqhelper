@@ -1,6 +1,7 @@
-package com.anagaf.freqhelper.ranges;
+package com.anagaf.freqhelper.model;
 
 import com.anagaf.freqhelper.Frequency;
+import com.anagaf.freqhelper.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,11 @@ public class Lpd8 extends AbstractRange {
         frequencies.add(new Frequency(433, 625));
         frequencies.add(new Frequency(433, 800));
         sFrequencies = Collections.unmodifiableList(frequencies);
+    }
+
+    @Override
+    public Integer getNameStringId() {
+        return R.string.lpd_8channels_title;
     }
 
     @Override

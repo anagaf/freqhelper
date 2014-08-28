@@ -1,10 +1,12 @@
-package com.anagaf.freqhelper.ranges;
+package com.anagaf.freqhelper.model;
 
 import com.anagaf.freqhelper.Frequency;
 
 public interface Range {
 
     public static final int INVALID_CHANNEL = 0;
+
+    Integer getNameStringId();
 
     int getChannelCount();
 

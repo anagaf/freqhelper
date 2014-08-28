@@ -1,6 +1,7 @@
-package com.anagaf.freqhelper.ranges;
+package com.anagaf.freqhelper.model;
 
 import com.anagaf.freqhelper.Frequency;
+import com.anagaf.freqhelper.R;
 
 /*
 1	433.075	24	433.650	47	434.225
@@ -31,6 +32,11 @@ import com.anagaf.freqhelper.Frequency;
 public class Lpd69 extends FixedStepRange {
 
     private static final Frequency BASE_FREQUENCY = new Frequency(433075000);
+
+    @Override
+    public Integer getNameStringId() {
+        return R.string.lpd_69_channels_title;
+    }
 
     @Override
     public int getChannelCount() {

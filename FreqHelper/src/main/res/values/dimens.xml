@@ -4,8 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="content_item_medium_gap">16dp</dimen>
     <dimen name="content_item_small_gap">6dp</dimen>
-    <dimen name="large_text_size">48px</dimen>
-    <dimen name="medium_text_size">32px</dimen>
-    <dimen name="small_text_size">16px</dimen>
+    <dimen name="large_text_size">72px</dimen>
+    <dimen name="medium_text_size">48px</dimen>
+    <dimen name="small_text_size">32px</dimen>
 
     </resources>

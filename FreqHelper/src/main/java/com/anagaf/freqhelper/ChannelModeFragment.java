@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.anagaf.freqhelper.ranges.Range;
+import com.anagaf.freqhelper.model.Range;
 
 public class ChannelModeFragment extends Fragment {
 

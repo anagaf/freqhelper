@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper.ranges;
+package com.anagaf.freqhelper.model;
 
 import com.anagaf.freqhelper.Frequency;
 

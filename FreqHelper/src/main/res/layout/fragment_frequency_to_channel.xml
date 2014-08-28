@@ -1,41 +1,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              tools:context="com.anagaf.freqhelper.MainActivity$PlaceholderFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.anagaf.freqhelper.MainActivity$PlaceholderFragment">
 
     <TextView
         style="@style/ItemTitle"
-        android:text="@string/frequency"
-        />
+        android:text="@string/frequency" />
 
     <com.anagaf.freqhelper.FrequencyView
-        style="@style/ItemContent"
         android:id="@+id/frequency_view"
-        />
+        style="@style/ItemContent" />
 
-    <TextView
-        style="@style/ItemTitle"
-        android:text="@string/channel"
-        android:paddingTop="@dimen/content_item_medium_gap"
-        />
+    <LinearLayout
+        android:id="@+id/ranges_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    </LinearLayout>
 
-    <TextView
-        style="@style/ItemContent"
-        android:id="@+id/exact_channel_text_view"
-        android:paddingTop="@dimen/content_item_small_gap"
-        tools:text="433.125 Mhz"
-        />
+    <!--<TextView-->
+    <!--style="@style/ItemTitle"-->
+    <!--android:text="@string/channel"-->
+    <!--android:paddingTop="@dimen/content_item_medium_gap"-->
+    <!--/>-->
 
-    <TextView
-        style="@style/ItemDetails"
-        android:id="@+id/proximate_channels_text_view"
-        tools:text="(proximate channels: 8 (433.075 Mhz), 9 (433.100 Mhz)"
-        />
+    <!--<TextView-->
+    <!--style="@style/ItemContent"-->
+    <!--android:id="@+id/exact_channel_text_view"-->
+    <!--android:paddingTop="@dimen/content_item_small_gap"-->
+    <!--tools:text="433.125 Mhz"-->
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--style="@style/ItemDetails"-->
+    <!--android:id="@+id/proximate_channels_text_view"-->
+    <!--tools:text="(proximate channels: 8 (433.075 Mhz), 9 (433.100 Mhz)"-->
+    <!--/>-->
 
 </LinearLayout>
