@@ -2,27 +2,21 @@ package com.anagaf.freqhelper;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.anagaf.freqhelper.model.Lpd69;
 import com.anagaf.freqhelper.model.Range;
 import com.anagaf.freqhelper.model.Ranges;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FrequencyModeFragment extends Fragment {
 
-    private final Map<Range, TextView> mRangeViews = new HashMap<Range, TextView>();
+    private final Map<Range, View> mRangeCells = new HashMap<Range, View>();
 
     private FrequencyView mFrequencyView;
 
@@ -39,17 +33,11 @@ public class FrequencyModeFragment extends Fragment {
             }
         });
 
-
         LinearLayout rangesLayout = (LinearLayout) rootView.findViewById(R.id.ranges_layout);
-        for(Range range : Ranges.availableRanges()) {
-            TextView titleTextView = new TextView(getActivity(), null, R.attr.ItemTitleStyleAttr);
-            titleTextView.setText(getActivity().getString(range.getNameStringId()));
-            rangesLayout.addView(titleTextView);
-
-            TextView valueTextView = new TextView(getActivity(), null, R.attr.ItemTitleStyleAttr);
-            rangesLayout.addView(valueTextView);
-
-            mRangeViews.put(range, valueTextView);
+        for (Range range : Ranges.availableRanges()) {
+            final String rangeName = getActivity().getString(range.getNameStringId());
+            View rangeCell = createRangeCell(rangeName, rangesLayout);
+            mRangeCells.put(range, rangeCell);
         }
 
         return rootView;
@@ -59,66 +47,78 @@ public class FrequencyModeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        final Frequency frequency = Settings.getFrequency(getActivity());
+        Frequency frequency = Settings.getFrequency(getActivity());
+        if (frequency.getHertz() == 0) {
+            frequency = Ranges.availableRanges().get(0).getFrequency(1);
+        }
         mFrequencyView.setFrequency(frequency);
+    }
+
+    private View createRangeCell(String name, LinearLayout layout) {
+        View cell = View.inflate(getActivity(), R.layout.frequency_range_cell, null);
+
+        TextView titleTextView = (TextView) cell.findViewById(R.id.frequency_range_title_text_view);
+        titleTextView.setText(name);
+
+        layout.addView(cell);
+
+        return cell;
+
+//        TextView titleTextView = new TextView(getActivity(), null, R.attr.FrequencyActivityItemTitleStyleAttr);
+//        titleTextView.setText(name);
+//        layout.addView(titleTextView);
+//
+//        RangeCell cell = new RangeCell();
+//
+//        cell.lowerChannelTextView = new TextView(getActivity(), null, R.attr.FrequencyActivityRangeItemChannelStyleAttr);
+//        layout.addView(cell.lowerChannelTextView);
+//
+//        cell.channelTextView = new TextView(getActivity(), null, R.attr.FrequencyActivityRangeItemChannelStyleAttr);
+//        layout.addView(cell.channelTextView);
+//
+//        cell.ceilingChannelTextView = new TextView(getActivity(), null, R.attr.FrequencyActivityRangeItemChannelStyleAttr);
+//        layout.addView(cell.ceilingChannelTextView);
+//
+//        return cell;
     }
 
     private void onFrequencyChanged(Frequency frequency) {
         Settings.setFrequency(getActivity(), frequency);
 
-        for (Range range : mRangeViews.keySet()) {
-            StringBuilder stringBuilder = new StringBuilder();
-            final int channel = range.getChannel(frequency);
-            if(channel == Range.INVALID_CHANNEL) {
-                final Range.Entry lowerEntry = range.getLowerEntry(frequency);
-                if (lowerEntry != null) {
-                    stringBuilder.append("Lower channel ");
-                    stringBuilder.append(lowerEntry.getChannel());
-                    stringBuilder.append("(" + lowerEntry.getFrequency() + ")");
-                }
-                final Range.Entry ceilingEntry = range.getCeilingEntry(frequency);
-                if (ceilingEntry != null) {
-                    stringBuilder.append(stringBuilder.length() > 0 ? ", ceiling channel " : "Ceiling channel ");
-                    stringBuilder.append(ceilingEntry.getChannel());
-                    stringBuilder.append("(" + ceilingEntry.getFrequency() + ")");
-                }
+        for (Range range : mRangeCells.keySet()) {
+            View cell = mRangeCells.get(range);
+
+            final Range.Entry lowerEntry = range.getLowerEntry(frequency);
+            TextView lowerChannelTextView = (TextView) cell.findViewById(R.id.frequency_range_lower_channel_text_view);
+            if (lowerEntry != null) {
+                lowerChannelTextView.setVisibility(View.VISIBLE);
+                lowerChannelTextView.setText(getEnclosingChannelString(R.string.lower_channel_format, lowerEntry));
             } else {
-                stringBuilder.append("Channel " + channel);
+                lowerChannelTextView.setVisibility(View.GONE);
             }
-            mRangeViews.get(range).setText(stringBuilder.toString());
+
+            final int channel = range.getChannel(frequency);
+            TextView channelTextView = (TextView) cell.findViewById(R.id.frequency_range_channel_text_view);
+            if (channel != Range.INVALID_CHANNEL) {
+                channelTextView.setVisibility(View.VISIBLE);
+                channelTextView.setText(getString(R.string.channel) + " " + channel);
+            } else {
+                channelTextView.setVisibility(View.GONE);
+            }
+
+            final Range.Entry ceilingEntry = range.getCeilingEntry(frequency);
+            TextView ceilingChannelTextView = (TextView) cell.findViewById(R.id.frequency_range_ceiling_channel_text_view);
+            if (ceilingEntry != null) {
+                ceilingChannelTextView.setVisibility(View.VISIBLE);
+                ceilingChannelTextView.setText(getEnclosingChannelString(R.string.ceiling_channel_format, ceilingEntry));
+            } else {
+                ceilingChannelTextView.setVisibility(View.GONE);
+            }
         }
     }
 
-    /**
-     * ******* Inner Classes *********
-     */
+    private String getEnclosingChannelString(int formatStringId, Range.Entry rangeEntry) {
+        return String.format(getString(formatStringId), rangeEntry.getChannel(), rangeEntry.getFrequency().toString());
 
-    private class FrequencyMhzSpinnerAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return 1;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int postion, View convertView, ViewGroup viewGroup) {
-            TextView textView = (TextView) convertView;
-            if (textView == null) {
-                textView = new TextView(getActivity());
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.large_text_size));
-            }
-            //textView.setText(" " + String.valueOf(mRange.getBaseFrequencyMhz()) + " ");
-            return textView;
-        }
     }
 }

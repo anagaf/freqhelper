@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <TextView
+        style="@style/FrequencyRangeTitle"
+        android:id="@+id/frequency_range_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="LPD69"
+        />
+
+    <TextView
+        style="@style/FrequencyRangeChannel"
+        android:id="@+id/frequency_range_channel_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Channel 2"
+        />
+
+    <TextView
+        style="@style/FrequencyRangeEnclosingChannel"
+        android:id="@+id/frequency_range_lower_channel_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Lower channel 1 (433.125Mhz)"
+        />
+
+    <TextView
+        style="@style/FrequencyRangeEnclosingChannel"
+        android:id="@+id/frequency_range_ceiling_channel_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Ceiling channel 3 (435.125Mhz)"
+        />
+
+</LinearLayout>

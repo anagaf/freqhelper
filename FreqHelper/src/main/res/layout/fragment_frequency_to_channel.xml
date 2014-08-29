@@ -21,26 +21,7 @@
         android:id="@+id/ranges_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-    </LinearLayout>
-
-    <!--<TextView-->
-    <!--style="@style/ItemTitle"-->
-    <!--android:text="@string/channel"-->
-    <!--android:paddingTop="@dimen/content_item_medium_gap"-->
-    <!--/>-->
-
-    <!--<TextView-->
-    <!--style="@style/ItemContent"-->
-    <!--android:id="@+id/exact_channel_text_view"-->
-    <!--android:paddingTop="@dimen/content_item_small_gap"-->
-    <!--tools:text="433.125 Mhz"-->
-    <!--/>-->
-
-    <!--<TextView-->
-    <!--style="@style/ItemDetails"-->
-    <!--android:id="@+id/proximate_channels_text_view"-->
-    <!--tools:text="(proximate channels: 8 (433.075 Mhz), 9 (433.100 Mhz)"-->
-    <!--/>-->
+        android:orientation="vertical"></LinearLayout>
 
 </LinearLayout>
+

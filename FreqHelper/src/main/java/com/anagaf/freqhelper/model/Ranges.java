@@ -7,17 +7,17 @@ import java.util.List;
 
 public class Ranges {
 
-    private static Collection<Range> sAvailableRanges;
+    private static List<Range> sAvailableRanges;
 
     static {
         List<Range> availableRanges = new ArrayList<Range>();
         availableRanges.add(new Lpd8());
         availableRanges.add(new Lpd69());
         availableRanges.add(new Pmr());
-        sAvailableRanges = Collections.unmodifiableCollection(availableRanges);
+        sAvailableRanges = Collections.unmodifiableList(availableRanges);
     }
 
-    public static Collection<Range> availableRanges() {
+    public static List<Range> availableRanges() {
         return sAvailableRanges;
     }
 }

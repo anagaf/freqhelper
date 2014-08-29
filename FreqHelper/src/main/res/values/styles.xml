@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="@attr/ItemTitleStyleAttr">@style/ItemTitle</item>
     </style>
 
     <style name="Item">
@@ -17,10 +16,24 @@
     </style>
 
     <style name="ItemContent" parent="Item">
-        <item name="android:textSize">@dimen/large_text_size</item>
+        <item name="android:textSize">@dimen/xlarge_text_size</item>
     </style>
 
     <style name="ItemDetails" parent="Item">
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+
+    <!-- Frequency to Channel -->
+
+    <style name="FrequencyRangeTitle" parent="ItemTitle">
+        <item name="android:paddingTop">@dimen/content_item_large_gap</item>
+    </style>
+
+    <style name="FrequencyRangeChannel" parent="Item">
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
+    <style name="FrequencyRangeEnclosingChannel" parent="Item">
         <item name="android:textSize">@dimen/small_text_size</item>
     </style>
 
