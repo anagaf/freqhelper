@@ -2,9 +2,14 @@ package com.anagaf.freqhelper;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,20 +23,18 @@ public class FrequencyModeFragment extends Fragment {
 
     private final Map<Range, View> mRangeCells = new HashMap<Range, View>();
 
-    private FrequencyView mFrequencyView;
+    private EditText mFrequencyMhzEdit;
+    private EditText mFrequencyKhzEdit;
+    private EditText mFrequencyHzEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_frequency_to_channel, container, false);
         assert rootView != null;
 
-        mFrequencyView = (FrequencyView) rootView.findViewById(R.id.frequency_view);
-        mFrequencyView.setOnFrequencyChangedListener(new FrequencyView.OnFrequencyChangedListener() {
-            @Override
-            public void onFrequencyChanged(Frequency frequency) {
-                FrequencyModeFragment.this.onFrequencyChanged(frequency);
-            }
-        });
+        mFrequencyMhzEdit = createFrequencyComponentEdit(rootView, R.id.frequency_mhz_edit);
+        mFrequencyKhzEdit = createFrequencyComponentEdit(rootView, R.id.frequency_khz_edit);
+        mFrequencyHzEdit = createFrequencyComponentEdit(rootView, R.id.frequency_hz_edit);
 
         LinearLayout rangesLayout = (LinearLayout) rootView.findViewById(R.id.ranges_layout);
         for (Range range : Ranges.availableRanges()) {
@@ -43,6 +46,34 @@ public class FrequencyModeFragment extends Fragment {
         return rootView;
     }
 
+    private EditText createFrequencyComponentEdit(View rootView, int viewId) {
+        EditText edit = (EditText) rootView.findViewById(viewId);
+        edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                onFrequencyChanged(getFrequency());
+            }
+        });
+        edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    final Integer value = frequencyComponentStringToInteger(textView.getText().toString());
+                    textView.setText(String.format("%03d", value));
+                }
+                return false;
+            }
+        });
+        return edit;
+    }
 
     @Override
     public void onStart() {
@@ -51,7 +82,7 @@ public class FrequencyModeFragment extends Fragment {
         if (frequency.getHertz() == 0) {
             frequency = Ranges.availableRanges().get(0).getFrequency(1);
         }
-        mFrequencyView.setFrequency(frequency);
+        setFrequency(frequency);
     }
 
     private View createRangeCell(String name, LinearLayout layout) {
@@ -63,23 +94,6 @@ public class FrequencyModeFragment extends Fragment {
         layout.addView(cell);
 
         return cell;
-
-//        TextView titleTextView = new TextView(getActivity(), null, R.attr.FrequencyActivityItemTitleStyleAttr);
-//        titleTextView.setText(name);
-//        layout.addView(titleTextView);
-//
-//        RangeCell cell = new RangeCell();
-//
-//        cell.lowerChannelTextView = new TextView(getActivity(), null, R.attr.FrequencyActivityRangeItemChannelStyleAttr);
-//        layout.addView(cell.lowerChannelTextView);
-//
-//        cell.channelTextView = new TextView(getActivity(), null, R.attr.FrequencyActivityRangeItemChannelStyleAttr);
-//        layout.addView(cell.channelTextView);
-//
-//        cell.ceilingChannelTextView = new TextView(getActivity(), null, R.attr.FrequencyActivityRangeItemChannelStyleAttr);
-//        layout.addView(cell.ceilingChannelTextView);
-//
-//        return cell;
     }
 
     private void onFrequencyChanged(Frequency frequency) {
@@ -119,6 +133,26 @@ public class FrequencyModeFragment extends Fragment {
 
     private String getEnclosingChannelString(int formatStringId, Range.Entry rangeEntry) {
         return String.format(getString(formatStringId), rangeEntry.getChannel(), rangeEntry.getFrequency().toString());
+    }
 
+    private void setFrequency(Frequency frequency) {
+        mFrequencyMhzEdit.setText(frequencyComponentIntegerToString(frequency.getMegahertzComponent()));
+        mFrequencyKhzEdit.setText(frequencyComponentIntegerToString(frequency.getKilohertzComponent()));
+        mFrequencyHzEdit.setText(frequencyComponentIntegerToString(frequency.getHertzComponent()));
+    }
+
+    private Frequency getFrequency() {
+        final Integer mhz = frequencyComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
+        final Integer khz = frequencyComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
+        final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
+        return new Frequency(mhz, khz, hz);
+    }
+
+    private Integer frequencyComponentStringToInteger(String string) {
+        return string.isEmpty() ? 0 : Integer.valueOf(string);
+    }
+
+    private String frequencyComponentIntegerToString(Integer value) {
+        return String.format("%03d", value);
     }
 }

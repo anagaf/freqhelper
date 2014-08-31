@@ -13,9 +13,34 @@
         style="@style/ItemTitle"
         android:text="@string/frequency" />
 
-    <com.anagaf.freqhelper.FrequencyView
-        android:id="@+id/frequency_view"
-        style="@style/ItemContent" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <EditText
+            style="@style/FrequencyComponent"
+            android:id="@+id/frequency_mhz_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="433" />
+
+        <EditText
+            style="@style/FrequencyComponent"
+            android:id="@+id/frequency_khz_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="075" />
+
+        <EditText
+            style="@style/FrequencyComponent"
+            android:id="@+id/frequency_hz_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="000" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ranges_layout"

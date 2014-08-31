@@ -29,6 +29,18 @@ public class Frequency implements Comparable<Frequency> {
         return mHertz;
     }
 
+    public Integer getMegahertzComponent() {
+        return getHertz() / HERTZ_PER_MEGAHERTZ;
+    }
+
+    public Integer getKilohertzComponent() {
+        return getHertz() % HERTZ_PER_MEGAHERTZ / HERTZ_PER_KILOHERTZ;
+    }
+
+    public Integer getHertzComponent() {
+        return getHertz() % HERTZ_PER_KILOHERTZ;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
