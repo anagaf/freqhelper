@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 public class Settings {
     private static final String FREQUENCY_KEY = "Frequency";
+    private static final String MODE_INDEX_KEY = "ModeIndex";
 
     public static void setFrequency(Context context, Frequency frequency) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -16,5 +17,15 @@ public class Settings {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         final Integer hertz = prefs.getInt(FREQUENCY_KEY, 0);
         return new Frequency(hertz);
+    }
+
+    public static void setModeIndex(Context context, int modeIndex) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putInt(MODE_INDEX_KEY, modeIndex).commit();
+    }
+
+    public static int getModeIndex(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getInt(MODE_INDEX_KEY, 0);
     }
 }

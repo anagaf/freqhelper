@@ -11,8 +11,8 @@ public class Ranges {
 
     static {
         List<Range> availableRanges = new ArrayList<Range>();
-        availableRanges.add(new Lpd8());
         availableRanges.add(new Lpd69());
+        availableRanges.add(new Lpd8());
         availableRanges.add(new Pmr());
         sAvailableRanges = Collections.unmodifiableList(availableRanges);
     }
