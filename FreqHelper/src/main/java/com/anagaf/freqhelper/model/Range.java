@@ -16,7 +16,7 @@ public interface Range {
 
     Entry getLowerEntry(Frequency frequency);
 
-    Entry getCeilingEntry(Frequency frequency);
+    Entry getHigherEntry(Frequency frequency);
 
     /********** Inner Classes **********/
 

@@ -120,11 +120,11 @@ public class FrequencyModeFragment extends Fragment {
                 channelTextView.setVisibility(View.GONE);
             }
 
-            final Range.Entry ceilingEntry = range.getCeilingEntry(frequency);
+            final Range.Entry ceilingEntry = range.getHigherEntry(frequency);
             TextView ceilingChannelTextView = (TextView) cell.findViewById(R.id.frequency_range_ceiling_channel_text_view);
             if (ceilingEntry != null) {
                 ceilingChannelTextView.setVisibility(View.VISIBLE);
-                ceilingChannelTextView.setText(getEnclosingChannelString(R.string.ceiling_channel_format, ceilingEntry));
+                ceilingChannelTextView.setText(getEnclosingChannelString(R.string.higher_channel_format, ceilingEntry));
             } else {
                 ceilingChannelTextView.setVisibility(View.GONE);
             }
