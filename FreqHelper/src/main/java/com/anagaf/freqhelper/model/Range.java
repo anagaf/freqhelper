@@ -36,5 +36,19 @@ public interface Range {
         public int getChannel() {
             return mChannel;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Entry entry = (Entry) o;
+
+            if (mChannel != entry.mChannel) return false;
+            if (mFrequency != null ? !mFrequency.equals(entry.mFrequency) : entry.mFrequency != null)
+                return false;
+
+            return true;
+        }
     }
 }

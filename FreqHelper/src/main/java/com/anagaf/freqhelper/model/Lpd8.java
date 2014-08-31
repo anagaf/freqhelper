@@ -7,6 +7,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/*
+1	433.075
+2	433.100
+3	433.200
+4	433.300
+5	433.350
+6	433.475
+7	433.625
+8	433.800
+*/
 public class Lpd8 extends AbstractRange {
 
     static final List<Frequency> sFrequencies;

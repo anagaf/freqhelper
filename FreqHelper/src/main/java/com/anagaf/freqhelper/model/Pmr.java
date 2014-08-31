@@ -13,7 +13,6 @@ import com.anagaf.freqhelper.R;
 7	446.08125
 8	446.09375
 */
-
 public class Pmr extends FixedStepRange {
 
     private static final Frequency BASE_FREQUENCY = new Frequency(446006250);

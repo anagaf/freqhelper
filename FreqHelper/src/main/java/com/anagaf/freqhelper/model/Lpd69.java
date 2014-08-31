@@ -28,7 +28,6 @@ import com.anagaf.freqhelper.R;
 22	433.600	45	434.175	68	434.750
 23	433.625	46	434.200	69	434.775
 */
-
 public class Lpd69 extends FixedStepRange {
 
     private static final Frequency BASE_FREQUENCY = new Frequency(433075000);
