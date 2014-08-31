@@ -2,6 +2,11 @@ package com.anagaf.freqhelper;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +20,16 @@ public class ChannelModeFragment extends Fragment {
 
     private final Range mRange;
     private TextView mFreqTextView;
+    private ClickableSpan mFrequencyClickableSpan;
 
     public ChannelModeFragment(Range range) {
         this.mRange = range;
+        mFrequencyClickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                Log.d("FreqHelper", "Clicked");
+            }
+        };
     }
 
     @Override
@@ -30,6 +42,7 @@ public class ChannelModeFragment extends Fragment {
         spinner.setOnItemSelectedListener(new OnChannelSelectedListener());
 
         mFreqTextView = (TextView) rootView.findViewById(R.id.freq_textview);
+        mFreqTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         return rootView;
     }
@@ -38,7 +51,9 @@ public class ChannelModeFragment extends Fragment {
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            mFreqTextView.setText(mRange.getFrequency(position + 1).toString());
+            SpannableString text = new SpannableString(mRange.getFrequency(position + 1).toString());
+            text.setSpan(mFrequencyClickableSpan, 0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mFreqTextView.setText(text);
         }
 
         @Override
