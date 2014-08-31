@@ -43,7 +43,6 @@ public class NumberSpinnerAdapter extends BaseAdapter {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.large_text_size));
         }
         textView.setText(String.valueOf(postion + mMinNumber));
-        textView.setBackgroundColor(Color.GREEN);
         return textView;
     }
 }

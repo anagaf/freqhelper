@@ -26,6 +26,13 @@
             android:layout_height="wrap_content"
             tools:text="433" />
 
+        <TextView
+            style="@style/ItemContent"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="bottom"
+            android:text="." />
+
         <EditText
             style="@style/FrequencyComponent"
             android:id="@+id/frequency_khz_edit"
