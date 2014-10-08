@@ -27,7 +27,10 @@ public class ChannelModeFragment extends Fragment {
         mFrequencyClickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View view) {
-                Log.d("FreqHelper", "Clicked");
+                
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, Mode.FrequencyToChannelLpd69.getFragment())
+                        .commit();
             }
         };
     }
