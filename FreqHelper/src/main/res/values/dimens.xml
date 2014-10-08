@@ -3,13 +3,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="xlarge_text_size">72px</dimen>
-    <dimen name="large_text_size">58px</dimen>
-    <dimen name="medium_text_size">48px</dimen>
-    <dimen name="small_text_size">32px</dimen>
+    <dimen name="xlarge_text_size">36sp</dimen>
+    <dimen name="large_text_size">28sp</dimen>
+    <dimen name="medium_text_size">24sp</dimen>
+    <dimen name="small_text_size">16sp</dimen>
 
-    <dimen name="content_item_large_gap">32dp</dimen>
-    <dimen name="content_item_medium_gap">16dp</dimen>
+    <dimen name="content_item_large_gap">24dp</dimen>
+    <dimen name="content_item_medium_gap">12dp</dimen>
     <dimen name="content_item_small_gap">6dp</dimen>
 
     </resources>
