@@ -62,9 +62,11 @@ public class Settings {
             } else {
                 channelsJson = new JSONObject(channelsString);
             }
-            channelsJson.put(modeKey, channel);
-            channelsString = channelsJson.toString();
-            prefs.edit().putString(CHANNELS_KEY, channelsString);
+            if (channelsJson.has(modeKey) && channelsJson.getInt(modeKey) != channel) {
+                channelsJson.put(modeKey, channel);
+                channelsString = channelsJson.toString();
+                prefs.edit().putString(CHANNELS_KEY, channelsString).commit();
+            }
         } catch (JSONException e) {
             Log.e("FreqHelper", "JSON error: " + e.getLocalizedMessage());
         }

@@ -24,6 +24,7 @@ public class ChannelModeFragment extends Fragment {
     private Spinner mSpinner;
     private ClickableSpan mFrequencyClickableSpan;
     private String mModeSettingsKey;
+    private boolean mStarted;
 
     public ChannelModeFragment(Range range, String modeSettingsKey) {
         mRange = range;
@@ -56,8 +57,16 @@ public class ChannelModeFragment extends Fragment {
         super.onStart();
         final int channel = Settings.getModeChannel(getActivity(), mModeSettingsKey);
         if (channel != Range.INVALID_CHANNEL) {
-            setChannel(channel);
+            mSpinner.setSelection(channel - 1);
+            refreshFrequency();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mStarted = false;
+        mSpinner.setOnItemSelectedListener(null);
     }
 
     private void switchToFrequencyMode() {
@@ -71,8 +80,9 @@ public class ChannelModeFragment extends Fragment {
         return mRange.getFrequency(mSpinner.getSelectedItemPosition() + 1);
     }
 
-    private void setChannel(int channel) {
-        SpannableString text = new SpannableString(mRange.getFrequency(channel + 1).toString());
+    private void refreshFrequency() {
+        final int channel = mSpinner.getSelectedItemPosition() + 1;
+        SpannableString text = new SpannableString(mRange.getFrequency(channel).toString());
         text.setSpan(mFrequencyClickableSpan, 0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         mFreqTextView.setText(text);
     }
@@ -83,8 +93,8 @@ public class ChannelModeFragment extends Fragment {
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            setChannel(position);
-            Settings.setModeChannel(getActivity(), mModeSettingsKey, position);
+            Settings.setModeChannel(getActivity(), mModeSettingsKey, position + 1);
+            refreshFrequency();
         }
 
         @Override
