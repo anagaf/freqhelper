@@ -21,13 +21,16 @@ import java.util.Map;
 
 public class FrequencyModeFragment extends Fragment {
 
-    public static final String FrequencyKey = "Frequency";
-
     private final Map<Range, View> mRangeCells = new HashMap<Range, View>();
 
     private EditText mFrequencyMhzEdit;
     private EditText mFrequencyKhzEdit;
     private EditText mFrequencyHzEdit;
+    private boolean started;
+
+    public FrequencyModeFragment() {
+        started = false;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,17 +83,18 @@ public class FrequencyModeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Frequency frequency = null;
-        final Bundle arguments = getArguments();
-        if (arguments != null && arguments.containsKey(FrequencyKey)) {
-            frequency = new Frequency(arguments.getInt(FrequencyKey));
-        } else {
-            frequency = Settings.getFrequency(getActivity());
-        }
+        Frequency frequency = Settings.getFrequency(getActivity());
         if (frequency.getHertz() == 0) {
             frequency = Ranges.availableRanges().get(0).getFrequency(1);
         }
         setFrequency(frequency);
+        started = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        started = false;
     }
 
     private View createRangeCell(String name, LinearLayout layout) {
@@ -105,7 +109,9 @@ public class FrequencyModeFragment extends Fragment {
     }
 
     private void onFrequencyChanged(Frequency frequency) {
-        Settings.setFrequency(getActivity(), frequency);
+        if (started) {
+            Settings.setFrequency(getActivity(), frequency);
+        }
 
         for (Range range : mRangeCells.keySet()) {
             View cell = mRangeCells.get(range);

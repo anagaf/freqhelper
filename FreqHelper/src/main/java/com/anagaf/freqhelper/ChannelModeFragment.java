@@ -1,12 +1,13 @@
 package com.anagaf.freqhelper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +29,7 @@ public class ChannelModeFragment extends Fragment {
         mFrequencyClickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = Mode.FrequencyToChannelLpd69.getFragment();
-                Bundle arguments = new Bundle();
-                arguments.putInt(FrequencyModeFragment.FrequencyKey, getCurrentFrequency().getHertz());
-                fragment.setArguments(arguments);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, fragment)
-                        .commit();
+                switchToFrequencyMode();
             }
         };
     }
@@ -52,6 +47,13 @@ public class ChannelModeFragment extends Fragment {
         mFreqTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         return rootView;
+    }
+
+    private void switchToFrequencyMode() {
+        Settings.setFrequency(getActivity(), getCurrentFrequency());
+        Intent intent = new Intent(MainActivity.SWITCH_MODE_ACTION);
+        intent.putExtra(MainActivity.MODE_INDEX, Mode.FrequencyToChannelLpd69.ordinal());
+        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
     }
 
     private Frequency getCurrentFrequency() {
