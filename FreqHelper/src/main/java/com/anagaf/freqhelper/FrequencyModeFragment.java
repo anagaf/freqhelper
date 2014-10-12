@@ -21,6 +21,8 @@ import java.util.Map;
 
 public class FrequencyModeFragment extends Fragment {
 
+    public static final String FrequencyKey = "Frequency";
+
     private final Map<Range, View> mRangeCells = new HashMap<Range, View>();
 
     private EditText mFrequencyMhzEdit;
@@ -78,7 +80,13 @@ public class FrequencyModeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Frequency frequency = Settings.getFrequency(getActivity());
+        Frequency frequency = null;
+        final Bundle arguments = getArguments();
+        if (arguments != null && arguments.containsKey(FrequencyKey)) {
+            frequency = new Frequency(arguments.getInt(FrequencyKey));
+        } else {
+            frequency = Settings.getFrequency(getActivity());
+        }
         if (frequency.getHertz() == 0) {
             frequency = Ranges.availableRanges().get(0).getFrequency(1);
         }

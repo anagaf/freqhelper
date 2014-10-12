@@ -20,16 +20,20 @@ public class ChannelModeFragment extends Fragment {
 
     private final Range mRange;
     private TextView mFreqTextView;
+    private Spinner mSpinner;
     private ClickableSpan mFrequencyClickableSpan;
 
     public ChannelModeFragment(Range range) {
-        this.mRange = range;
+        mRange = range;
         mFrequencyClickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View view) {
-                
+                Fragment fragment = Mode.FrequencyToChannelLpd69.getFragment();
+                Bundle arguments = new Bundle();
+                arguments.putInt(FrequencyModeFragment.FrequencyKey, getCurrentFrequency().getHertz());
+                fragment.setArguments(arguments);
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, Mode.FrequencyToChannelLpd69.getFragment())
+                        .replace(R.id.container, fragment)
                         .commit();
             }
         };
@@ -40,15 +44,21 @@ public class ChannelModeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_channel_to_frequency, container, false);
         assert rootView != null;
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.channel_spinner);
-        spinner.setAdapter(new NumberSpinnerAdapter(getActivity(), 1, mRange.getChannelCount()));
-        spinner.setOnItemSelectedListener(new OnChannelSelectedListener());
+        mSpinner = (Spinner) rootView.findViewById(R.id.channel_spinner);
+        mSpinner.setAdapter(new NumberSpinnerAdapter(getActivity(), 1, mRange.getChannelCount()));
+        mSpinner.setOnItemSelectedListener(new OnChannelSelectedListener());
 
         mFreqTextView = (TextView) rootView.findViewById(R.id.freq_textview);
         mFreqTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         return rootView;
     }
+
+    private Frequency getCurrentFrequency() {
+        return mRange.getFrequency(mSpinner.getSelectedItemPosition() + 1);
+    }
+
+    /********** Inner Classes **********/
 
     private class OnChannelSelectedListener implements AdapterView.OnItemSelectedListener {
 
