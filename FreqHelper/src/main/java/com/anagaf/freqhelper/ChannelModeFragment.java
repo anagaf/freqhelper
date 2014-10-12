@@ -23,8 +23,9 @@ public class ChannelModeFragment extends Fragment {
     private TextView mFreqTextView;
     private Spinner mSpinner;
     private ClickableSpan mFrequencyClickableSpan;
+    private String mModeSettingsKey;
 
-    public ChannelModeFragment(Range range) {
+    public ChannelModeFragment(Range range, String modeSettingsKey) {
         mRange = range;
         mFrequencyClickableSpan = new ClickableSpan() {
             @Override
@@ -32,6 +33,7 @@ public class ChannelModeFragment extends Fragment {
                 switchToFrequencyMode();
             }
         };
+        mModeSettingsKey = modeSettingsKey;
     }
 
     @Override
@@ -49,6 +51,15 @@ public class ChannelModeFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        final int channel = Settings.getModeChannel(getActivity(), mModeSettingsKey);
+        if (channel != Range.INVALID_CHANNEL) {
+            setChannel(channel);
+        }
+    }
+
     private void switchToFrequencyMode() {
         Settings.setFrequency(getActivity(), getCurrentFrequency());
         Intent intent = new Intent(MainActivity.SWITCH_MODE_ACTION);
@@ -60,15 +71,20 @@ public class ChannelModeFragment extends Fragment {
         return mRange.getFrequency(mSpinner.getSelectedItemPosition() + 1);
     }
 
+    private void setChannel(int channel) {
+        SpannableString text = new SpannableString(mRange.getFrequency(channel + 1).toString());
+        text.setSpan(mFrequencyClickableSpan, 0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mFreqTextView.setText(text);
+    }
+
     /********** Inner Classes **********/
 
     private class OnChannelSelectedListener implements AdapterView.OnItemSelectedListener {
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-            SpannableString text = new SpannableString(mRange.getFrequency(position + 1).toString());
-            text.setSpan(mFrequencyClickableSpan, 0, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            mFreqTextView.setText(text);
+            setChannel(position);
+            Settings.setModeChannel(getActivity(), mModeSettingsKey, position);
         }
 
         @Override

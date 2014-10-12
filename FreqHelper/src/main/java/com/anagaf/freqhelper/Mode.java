@@ -12,9 +12,9 @@ import java.util.List;
 
 public enum Mode {
 
-    Lpd69(R.string.lpd_69_channels_title, new ChannelModeFragment(new Lpd69())),
-    Lpd8(R.string.lpd_8channels_title, new ChannelModeFragment(new Lpd8())),
-    Pmr(R.string.pmr_title, new ChannelModeFragment(new Pmr())),
+    Lpd69(R.string.lpd_69_channels_title, new ChannelModeFragment(new Lpd69(), "Lpd69")),
+    Lpd8(R.string.lpd_8channels_title, new ChannelModeFragment(new Lpd8(), "Lpd8")),
+    Pmr(R.string.pmr_title, new ChannelModeFragment(new Pmr(), "Pmr")),
     Frequency(R.string.frequency, new FrequencyModeFragment());
 
     private final int mTitleStringId;
