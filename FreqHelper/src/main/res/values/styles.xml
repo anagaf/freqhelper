@@ -44,4 +44,64 @@
         <item name="android:textSize">@dimen/small_text_size</item>
     </style>
 
+    <!-- New -->
+
+    <style name="FreqItem">
+        <item name="android:background">#0000FF</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">@dimen/xlarge_text_size</item>
+    </style>
+
+    <style name="FreqTitle" parent="FreqItem">
+        <item name="android:background">#0000FF</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="FreqEdit" parent="FreqItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RangeItem">
+        <item name="android:background">#00FF00</item>
+    </style>
+
+    <style name="RangeTitle" parent="RangeItem">
+        <item name="android:padding">@dimen/content_item_small_gap</item>
+        <item name="android:textSize">@dimen/xlarge_text_size</item>
+        <item name="android:layout_marginRight">@dimen/content_item_small_gap</item>
+        <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
+    </style>
+
+    <style name="ChannelButton" parent="RangeItem">
+        <item name="android:textSize">@dimen/xlarge_text_size</item>
+        <item name="android:padding">@dimen/content_item_small_gap</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
+    </style>
+
+    <style name="ChannelButtonPrev" parent="ChannelButton">
+        <item name="android:layout_marginRight">@dimen/content_item_small_gap</item>
+        <item name="android:text">&lt;</item>
+    </style>
+
+    <style name="ChannelButtonNext" parent="ChannelButton">
+        <item name="android:text">&gt;</item>
+    </style>
+
+    <style name="ChannelEdit" parent="RangeItem">
+        <item name="android:textSize">@dimen/xlarge_text_size</item>
+        <item name="android:padding">@dimen/content_item_small_gap</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">@dimen/content_item_small_gap</item>
+        <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
+    </style>
+
 </resources>

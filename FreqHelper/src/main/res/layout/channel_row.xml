@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableRow xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="match_parent"
+    a:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        a:id="@+id/title"
+        style="@style/RangeTitle"
+        a:text="LPD69"
+        a:layout_marginBottom="@dimen/content_item_small_gap"
+        />
+
+    <Button
+        style="@style/ChannelButtonPrev"/>
+
+    <EditText
+        style="@style/ChannelEdit"
+        tools:text="5"/>
+
+    <Button
+        style="@style/ChannelButtonNext"/>
+
+</TableRow>

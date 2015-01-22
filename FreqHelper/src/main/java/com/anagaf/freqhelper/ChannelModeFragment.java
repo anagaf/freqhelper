@@ -70,10 +70,10 @@ public class ChannelModeFragment extends Fragment {
     }
 
     private void switchToFrequencyMode() {
-        Settings.setFrequency(getActivity(), getCurrentFrequency());
-        Intent intent = new Intent(MainActivity.SWITCH_MODE_ACTION);
-        intent.putExtra(MainActivity.MODE_INDEX, Mode.Frequency.ordinal());
-        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+//        Settings.setFrequency(getActivity(), getCurrentFrequency());
+//        Intent intent = new Intent(MainActivity.SWITCH_MODE_ACTION);
+//        intent.putExtra(MainActivity.MODE_INDEX, Mode.Frequency.ordinal());
+//        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
     }
 
     private Frequency getCurrentFrequency() {

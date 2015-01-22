@@ -1,0 +1,45 @@
+<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    a:layout_width="match_parent"
+    a:layout_height="wrap_content"
+    a:layout_gravity="center"
+    a:layout_margin="@dimen/content_item_small_gap"
+    a:orientation="vertical"
+    tools:context="com.anagaf.freqhelper.MainActivity">
+
+    <TextView
+        style="@style/FreqTitle"
+        a:text="@string/frequency" />
+
+    <LinearLayout
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="@dimen/content_item_small_gap"
+        a:orientation="horizontal">
+
+        <EditText
+            a:id="@+id/frequency_mhz_edit"
+            style="@style/FreqEdit"
+            a:layout_marginRight="@dimen/content_item_small_gap"
+            tools:text="433" />
+
+        <EditText
+            a:id="@+id/frequency_khz_edit"
+            style="@style/FreqEdit"
+            a:layout_marginRight="@dimen/content_item_small_gap"
+            tools:text="075" />
+
+        <EditText
+            a:id="@+id/frequency_hz_edit"
+            style="@style/FreqEdit"
+            tools:text="000" />
+
+    </LinearLayout>
+
+    <TableLayout
+        a:id="@+id/ranges_layout"
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content" />
+
+</LinearLayout>
+

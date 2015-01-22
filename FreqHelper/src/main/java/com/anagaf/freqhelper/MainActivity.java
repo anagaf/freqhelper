@@ -1,89 +1,40 @@
 package com.anagaf.freqhelper;
 
-import android.content.BroadcastReceiver;
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.ArrayAdapter;
+import android.view.LayoutInflater;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity implements ActionBar.OnNavigationListener {
+import com.anagaf.freqhelper.model.Lpd69;
+import com.anagaf.freqhelper.model.Lpd8;
+import com.anagaf.freqhelper.model.Pmr;
+import com.anagaf.freqhelper.model.Range;
 
-    public static final String MODE_INDEX = "mode_index";
-    public static final String SWITCH_MODE_ACTION = "switch_mode";
+import java.util.zip.Inflater;
+
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main);
 
-        // Set up the action bar to show a dropdown list.
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-        // Set up the dropdown list navigation in the action bar.
-        actionBar.setListNavigationCallbacks(
-                // Specify a SpinnerAdapter to populate the dropdown list.
-                new ArrayAdapter<String>(
-                        actionBar.getThemedContext(),
-                        android.R.layout.simple_list_item_1,
-                        android.R.id.text1,
-                        Mode.getTitles(this)),
-                this);
-
-        BroadcastReceiver switchModeBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                final int modeIndex = intent.getIntExtra(MODE_INDEX, 0);
-                actionBar.setSelectedNavigationItem(modeIndex);
-            }
-        };
-        IntentFilter switchModeBroadcastIntentFilter = new IntentFilter(SWITCH_MODE_ACTION);
-        LocalBroadcastManager.getInstance(this).registerReceiver(switchModeBroadcastReceiver,
-                switchModeBroadcastIntentFilter);
+        LayoutInflater inflater = (LayoutInflater)getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+        addRangeRow(inflater, new Lpd69());
+        addRangeRow(inflater, new Lpd8());
+        addRangeRow(inflater, new Pmr());
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        final int modeIndex = Settings.getModeIndex(this);
-        if (modeIndex >= 0 && modeIndex < getSupportActionBar().getNavigationItemCount()) {
-            getSupportActionBar().setSelectedNavigationItem(modeIndex);
-        }
-    }
+    private void addRangeRow(LayoutInflater inflater, Range range) {
+        TableLayout layout = (TableLayout) findViewById(R.id.ranges_layout);
+        TableRow row = (TableRow) inflater.inflate(R.layout.channel_row, null, false);
 
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        // Restore the previously serialized current dropdown position.
-        if (savedInstanceState.containsKey(MODE_INDEX)) {
-            getSupportActionBar().setSelectedNavigationItem(
-                    savedInstanceState.getInt(MODE_INDEX));
-        }
-    }
+        TextView title = (TextView) row.findViewById(R.id.title);
+        title.setText(range.getNameStringId());
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        // Serialize the current dropdown position.
-        outState.putInt(MODE_INDEX,
-                getSupportActionBar().getSelectedNavigationIndex());
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(int position, long id) {
-        switchMode(position);
-        return true;
-    }
-
-    private void switchMode(int index) {
-        Settings.setModeIndex(this, index);
-        Fragment fragment = Mode.values()[index].getFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
+        layout.addView(row);
     }
 }
