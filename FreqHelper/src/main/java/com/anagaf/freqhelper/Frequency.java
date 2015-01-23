@@ -60,4 +60,8 @@ public class Frequency implements Comparable<Frequency> {
     public int compareTo(Frequency frequency) {
         return mHertz.compareTo(frequency.mHertz);
     }
+
+    public boolean isValid() {
+        return (getHertz() != INVALID_HERTZ_VALUE);
+    }
 }

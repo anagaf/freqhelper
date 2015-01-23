@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.anagaf.freqhelper.model.Lpd8;
+import com.anagaf.freqhelper.model.Pmr;
 import com.anagaf.freqhelper.model.Range;
 
 import org.json.JSONArray;
@@ -23,8 +25,15 @@ public class Settings {
 
     public static Frequency getFrequency(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        final Integer hertz = prefs.getInt(FREQUENCY_KEY, 0);
-        return new Frequency(hertz);
+        Frequency frequency;
+        if (prefs.contains(FREQUENCY_KEY)) {
+            frequency = new Frequency(prefs.getInt(FREQUENCY_KEY, 0));
+        } else {
+            Range lpd8 = new Lpd8();
+            frequency = lpd8.getFrequency(1);
+            setFrequency(context, frequency);
+        }
+        return frequency;
     }
 
     public static void setModeIndex(Context context, int modeIndex) {
