@@ -3,7 +3,10 @@ package com.anagaf.freqhelper;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -18,17 +21,38 @@ public class MainActivity extends Activity {
     private EditText mFrequencyMhzEdit;
     private EditText mFrequencyKhzEdit;
     private EditText mFrequencyHzEdit;
+    private boolean mStarted;
+
+    private TextWatcher mFrequencyChangeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            onFrequencyChanged();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        mFrequencyMhzEdit = (EditText) findViewById(R.id.frequency_mhz_edit);
-        mFrequencyKhzEdit = (EditText) findViewById(R.id.frequency_khz_edit);
-        mFrequencyHzEdit = (EditText) findViewById(R.id.frequency_hz_edit);
+        mStarted = false;
 
-        LayoutInflater inflater = (LayoutInflater)getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+        mFrequencyMhzEdit = (EditText) findViewById(R.id.frequency_mhz_edit);
+        mFrequencyMhzEdit.addTextChangedListener(mFrequencyChangeListener);
+        mFrequencyKhzEdit = (EditText) findViewById(R.id.frequency_khz_edit);
+        mFrequencyKhzEdit.addTextChangedListener(mFrequencyChangeListener);
+        mFrequencyHzEdit = (EditText) findViewById(R.id.frequency_hz_edit);
+        mFrequencyHzEdit.addTextChangedListener(mFrequencyChangeListener);
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         addRangeRow(inflater, new Lpd69());
         addRangeRow(inflater, new Lpd8());
         addRangeRow(inflater, new Pmr());
@@ -36,11 +60,9 @@ public class MainActivity extends Activity {
 
     private void addRangeRow(LayoutInflater inflater, Range range) {
         TableLayout layout = (TableLayout) findViewById(R.id.ranges_layout);
-        TableRow row = (TableRow) inflater.inflate(R.layout.channel_row, null, false);
-
-        TextView title = (TextView) row.findViewById(R.id.title);
-        title.setText(range.getNameStringId());
-
+        View view = inflater.inflate(R.layout.channel_row, null, false);
+        RangeTableRow row = (RangeTableRow) view;
+        row.setRange(range);
         layout.addView(row);
     }
 
@@ -48,15 +70,68 @@ public class MainActivity extends Activity {
     protected void onStart() {
         super.onStart();
         refreshFrequency(Settings.getFrequency(this));
+        mStarted = true;
     }
 
     private void refreshFrequency(Frequency frequency) {
-        refreshFrequencyComponent(mFrequencyMhzEdit, frequency.getMegahertzComponent());
-        refreshFrequencyComponent(mFrequencyKhzEdit, frequency.getKilohertzComponent());
-        refreshFrequencyComponent(mFrequencyHzEdit, frequency.getHertzComponent());
+        mFrequencyMhzEdit.setText(frequencyComponentIntegerToString(frequency.getMegahertzComponent()));
+        mFrequencyKhzEdit.setText(frequencyComponentIntegerToString(frequency.getKilohertzComponent()));
+        mFrequencyHzEdit.setText(frequencyComponentIntegerToString(frequency.getHertzComponent()));
     }
 
-    private void refreshFrequencyComponent(EditText editText, int frequencyComponent) {
-        editText.setText(String.format("%03d", frequencyComponent));
+    private void onFrequencyChanged() {
+        final Frequency frequency = getFrequency();
+
+        if (mStarted) {
+            Settings.setFrequency(this, frequency);
+        }
+
+//
+//        for (Range range : mRangeCells.keySet()) {
+//            View cell = mRangeCells.get(range);
+//
+//            final Range.Entry lowerEntry = range.getLowerEntry(frequency);
+//            TextView lowerChannelTextView = (TextView) cell.findViewById(R.id.frequency_range_lower_channel_text_view);
+//            if (lowerEntry != null) {
+//                lowerChannelTextView.setVisibility(View.VISIBLE);
+//                lowerChannelTextView.setText(getEnclosingChannelString(R.string.lower_channel_format, lowerEntry));
+//            } else {
+//                lowerChannelTextView.setVisibility(View.GONE);
+//            }
+//
+//            final int channel = range.getChannel(frequency);
+//            TextView channelTextView = (TextView) cell.findViewById(R.id.frequency_range_channel_text_view);
+//            if (channel != Range.INVALID_CHANNEL) {
+//                channelTextView.setVisibility(View.VISIBLE);
+//                channelTextView.setText(getString(R.string.channel) + " " + channel);
+//            } else {
+//                channelTextView.setVisibility(View.GONE);
+//            }
+//
+//            final Range.Entry ceilingEntry = range.getHigherEntry(frequency);
+//            TextView ceilingChannelTextView = (TextView) cell.findViewById(R.id.frequency_range_ceiling_channel_text_view);
+//            if (ceilingEntry != null) {
+//                ceilingChannelTextView.setVisibility(View.VISIBLE);
+//                ceilingChannelTextView.setText(getEnclosingChannelString(R.string.higher_channel_format, ceilingEntry));
+//            } else {
+//                ceilingChannelTextView.setVisibility(View.GONE);
+//            }
+//        }
     }
+
+    private Frequency getFrequency() {
+        final Integer mhz = frequencyComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
+        final Integer khz = frequencyComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
+        final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
+        return new Frequency(mhz, khz, hz);
+    }
+
+    private static Integer frequencyComponentStringToInteger(String string) {
+        return string.isEmpty() ? 0 : Integer.valueOf(string);
+    }
+
+    private static String frequencyComponentIntegerToString(Integer value) {
+        return String.format("%03d", value);
+    }
+
 }
