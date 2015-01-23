@@ -46,14 +46,16 @@
 
     <!-- New -->
 
-    <style name="FreqItem">
-        <item name="android:background">#0000FF</item>
+    <style name="BaseItem">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">@dimen/xlarge_text_size</item>
     </style>
 
+    <style name="FreqItem" parent="BaseItem">
+        <item name="android:background">#3399FF</item>
+    </style>
+
     <style name="FreqTitle" parent="FreqItem">
-        <item name="android:background">#0000FF</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
@@ -65,15 +67,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
+        <item name="android:maxLength">3</item>
+        <item name="android:inputType">number</item>
     </style>
 
-    <style name="RangeItem">
-        <item name="android:background">#00FF00</item>
+    <style name="RangeItem" parent="BaseItem">
+        <item name="android:background">#00994C</item>
     </style>
 
     <style name="RangeTitle" parent="RangeItem">
         <item name="android:padding">@dimen/content_item_small_gap</item>
-        <item name="android:textSize">@dimen/xlarge_text_size</item>
         <item name="android:layout_marginRight">@dimen/content_item_small_gap</item>
         <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
     </style>
@@ -95,7 +98,6 @@
     </style>
 
     <style name="ChannelEdit" parent="RangeItem">
-        <item name="android:textSize">@dimen/xlarge_text_size</item>
         <item name="android:padding">@dimen/content_item_small_gap</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">match_parent</item>
