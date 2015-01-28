@@ -36,7 +36,7 @@
 
     </LinearLayout>
 
-    <GridLayout
+    <TableLayout
         a:id="@+id/ranges_layout"
         a:layout_width="match_parent"
         a:layout_height="wrap_content" />
