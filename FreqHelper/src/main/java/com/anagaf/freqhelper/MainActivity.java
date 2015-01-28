@@ -18,6 +18,7 @@ import com.anagaf.freqhelper.model.Pmr;
 import com.anagaf.freqhelper.model.Range;
 
 public class MainActivity extends Activity {
+    private TableLayout mRangesLayout;
     private EditText mFrequencyMhzEdit;
     private EditText mFrequencyKhzEdit;
     private EditText mFrequencyHzEdit;
@@ -45,6 +46,8 @@ public class MainActivity extends Activity {
 
         mStarted = false;
 
+        mRangesLayout = (TableLayout) findViewById(R.id.ranges_layout);
+
         mFrequencyMhzEdit = (EditText) findViewById(R.id.frequency_mhz_edit);
         mFrequencyMhzEdit.addTextChangedListener(mFrequencyChangeListener);
         mFrequencyKhzEdit = (EditText) findViewById(R.id.frequency_khz_edit);
@@ -59,11 +62,10 @@ public class MainActivity extends Activity {
     }
 
     private void addRangeRow(LayoutInflater inflater, Range range) {
-        TableLayout layout = (TableLayout) findViewById(R.id.ranges_layout);
         View view = inflater.inflate(R.layout.channel_row, null, false);
         RangeTableRow row = (RangeTableRow) view;
         row.setRange(range);
-        layout.addView(row);
+        mRangesLayout.addView(row);
     }
 
     @Override
@@ -84,6 +86,11 @@ public class MainActivity extends Activity {
 
         if (mStarted) {
             Settings.setFrequency(this, frequency);
+        }
+
+        for (int i = 0; i < mRangesLayout.getChildCount(); i++) {
+            RangeTableRow row = (RangeTableRow) mRangesLayout.getChildAt(i);
+            row.setChannel(i);
         }
 
 //

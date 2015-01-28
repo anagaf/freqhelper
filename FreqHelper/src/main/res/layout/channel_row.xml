@@ -16,6 +16,7 @@
         style="@style/ChannelButtonPrev"/>
 
     <EditText
+        a:id="@+id/channel"
         style="@style/ChannelEdit"
         tools:text="5"/>
 
