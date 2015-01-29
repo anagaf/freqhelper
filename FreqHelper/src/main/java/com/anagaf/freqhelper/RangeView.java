@@ -10,17 +10,17 @@ import android.widget.TextView;
 
 import com.anagaf.freqhelper.model.Range;
 
-public class RangeTableRow extends TableRow {
+public class RangeView extends TableRow {
 
     private int mChannel;
     private Range mRange;
     private Listener mListener;
 
-    public RangeTableRow(Context context) {
+    public RangeView(Context context) {
         super(context);
     }
 
-    public RangeTableRow(Context context, AttributeSet attrs) {
+    public RangeView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

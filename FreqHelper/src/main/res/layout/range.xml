@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.anagaf.freqhelper.RangeTableRow
+<com.anagaf.freqhelper.RangeView
     xmlns:a="http://schemas.android.com/apk/res/android"
     a:layout_width="match_parent"
-    a:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    a:layout_height="match_parent">
 
     <TextView
         a:id="@+id/title"
         style="@style/RangeTitle"
-        a:text="LPD69"
         a:layout_marginBottom="@dimen/gap"
         />
 
@@ -18,11 +16,10 @@
 
     <EditText
         a:id="@+id/channel"
-        style="@style/ChannelEdit"
-        tools:text="5"/>
+        style="@style/ChannelEdit"/>
 
     <Button
         a:id="@+id/next_channel_button"
         style="@style/ChannelButtonNext"/>
 
-</com.anagaf.freqhelper.RangeTableRow>
+</com.anagaf.freqhelper.RangeView>
