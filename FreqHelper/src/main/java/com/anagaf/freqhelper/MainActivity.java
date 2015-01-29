@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.anagaf.freqhelper.model.Lpd69;
 import com.anagaf.freqhelper.model.Lpd8;
@@ -36,6 +34,13 @@ public class MainActivity extends Activity {
         @Override
         public void afterTextChanged(Editable editable) {
             onFrequencyChanged();
+        }
+    };
+
+    private RangeTableRow.Listener mRangeViewListener = new RangeTableRow.Listener() {
+        @Override
+        public void onChannelChanged() {
+            refreshFrequency(Settings.getFrequency(MainActivity.this));
         }
     };
 
@@ -65,6 +70,7 @@ public class MainActivity extends Activity {
         View view = inflater.inflate(R.layout.channel_row, null, false);
         RangeTableRow row = (RangeTableRow) view;
         row.setRange(range);
+        row.setListener(mRangeViewListener);
         mRangesLayout.addView(row);
     }
 
@@ -90,8 +96,7 @@ public class MainActivity extends Activity {
 
         for (int i = 0; i < mRangesLayout.getChildCount(); i++) {
             final RangeTableRow row = (RangeTableRow) mRangesLayout.getChildAt(i);
-            final int channel = row.getRange().getChannel(frequency);
-            row.setChannel(channel);
+            row.setFrequency(frequency);
         }
 
 //

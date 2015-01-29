@@ -14,6 +14,7 @@ public class RangeTableRow extends TableRow {
 
     private int mChannel;
     private Range mRange;
+    private Listener mListener;
 
     public RangeTableRow(Context context) {
         super(context);
@@ -30,7 +31,7 @@ public class RangeTableRow extends TableRow {
         prevChannelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToPrevChannel();
+                moveToPrevChannel();
             }
         });
 
@@ -38,23 +39,9 @@ public class RangeTableRow extends TableRow {
         nextChannelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToNextChannel();
+                moveToNextChannel();
             }
         });
-    }
-
-    private void switchToPrevChannel() {
-        final int prevChannel = mRange.getPrevChannel(mChannel);
-        if (prevChannel != Range.INVALID_CHANNEL) {
-            setChannel(prevChannel);
-        }
-    }
-
-    private void switchToNextChannel() {
-        final int nextChannel = mRange.getNextChannel(mChannel);
-        if (nextChannel != Range.INVALID_CHANNEL) {
-            setChannel(nextChannel);
-        }
     }
 
     public void setRange(Range range) {
@@ -64,20 +51,48 @@ public class RangeTableRow extends TableRow {
         title.setText(range.getNameStringId());
     }
 
-    public void setChannel(int channel) {
-        mChannel = channel;
-
+    public void setFrequency(Frequency frequency) {
+        mChannel = mRange.getChannel(frequency);
         final EditText channelEdit = (EditText) findViewById(R.id.channel);
         final String channelString;
-        if (channel == Range.INVALID_CHANNEL) {
+        if (mChannel == Range.INVALID_CHANNEL) {
             channelString = "--";
         } else {
-            channelString = String.valueOf(channel);
+            channelString = String.valueOf(mChannel);
         }
         channelEdit.setText(channelString);
     }
 
-    public Range getRange() {
-        return mRange;
+    public void setListener(Listener listener) {
+        mListener = listener;
+    }
+
+    private void moveToPrevChannel() {
+        final int prevChannel = mRange.getPrevChannel(mChannel);
+        if (prevChannel != Range.INVALID_CHANNEL) {
+            moveToChannel(prevChannel);
+            mListener.onChannelChanged();
+        }
+    }
+
+    private void moveToNextChannel() {
+        final int nextChannel = mRange.getNextChannel(mChannel);
+        if (nextChannel != Range.INVALID_CHANNEL) {
+            moveToChannel(nextChannel);
+        }
+    }
+
+    private void moveToChannel(int channel) {
+        final Frequency frequency = mRange.getFrequency(channel);
+        Settings.setFrequency(getContext(), frequency);
+        mListener.onChannelChanged();
+    }
+
+    /**
+     * ******* Inner Classes *********
+     */
+
+    public interface Listener {
+        public void onChannelChanged();
     }
 }
