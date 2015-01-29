@@ -3,7 +3,7 @@
     a:layout_width="match_parent"
     a:layout_height="wrap_content"
     a:layout_gravity="center"
-    a:layout_margin="@dimen/content_item_small_gap"
+    a:layout_margin="@dimen/gap"
     a:orientation="vertical"
     tools:context="com.anagaf.freqhelper.MainActivity">
 
@@ -14,19 +14,19 @@
     <LinearLayout
         a:layout_width="match_parent"
         a:layout_height="wrap_content"
-        a:layout_marginBottom="@dimen/content_item_small_gap"
+        a:layout_marginBottom="@dimen/gap"
         a:orientation="horizontal">
 
         <EditText
             a:id="@+id/frequency_mhz_edit"
             style="@style/FreqEdit"
-            a:layout_marginRight="@dimen/content_item_small_gap"
+            a:layout_marginRight="@dimen/gap"
             tools:text="433" />
 
         <EditText
             a:id="@+id/frequency_khz_edit"
             style="@style/FreqEdit"
-            a:layout_marginRight="@dimen/content_item_small_gap"
+            a:layout_marginRight="@dimen/gap"
             tools:text="075" />
 
         <EditText

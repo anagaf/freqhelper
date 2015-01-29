@@ -9,7 +9,7 @@
         a:id="@+id/title"
         style="@style/RangeTitle"
         a:text="LPD69"
-        a:layout_marginBottom="@dimen/content_item_small_gap"
+        a:layout_marginBottom="@dimen/gap"
         />
 
     <Button

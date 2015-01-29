@@ -34,7 +34,7 @@ public class Lpd69 extends FixedStepRange {
 
     @Override
     public Integer getNameStringId() {
-        return R.string.lpd_69_channels_title;
+        return R.string.lpd69;
     }
 
     @Override

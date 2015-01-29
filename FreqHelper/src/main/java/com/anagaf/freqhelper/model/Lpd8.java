@@ -21,7 +21,7 @@ public class Lpd8 extends AbstractRange {
 
     static final List<Frequency> sFrequencies;
     static {
-        List<Frequency> frequencies = new ArrayList<Frequency>();
+        List<Frequency> frequencies = new ArrayList<>();
         frequencies.add(new Frequency(433, 75));
         frequencies.add(new Frequency(433, 100));
         frequencies.add(new Frequency(433, 200));
@@ -35,7 +35,7 @@ public class Lpd8 extends AbstractRange {
 
     @Override
     public Integer getNameStringId() {
-        return R.string.lpd_8channels_title;
+        return R.string.lpd8;
     }
 
     @Override

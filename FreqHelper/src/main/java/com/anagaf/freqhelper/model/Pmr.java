@@ -19,7 +19,7 @@ public class Pmr extends FixedStepRange {
 
     @Override
     public Integer getNameStringId() {
-        return R.string.pmr_title;
+        return R.string.pmr;
     }
 
     @Override

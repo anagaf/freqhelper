@@ -4,51 +4,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     </style>
 
-    <style name="Item">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-    </style>
-
-    <style name="ItemTitle" parent="Item">
-        <item name="android:textSize">@dimen/medium_text_size</item>
-    </style>
-
-    <style name="ItemContent" parent="Item">
-        <item name="android:textSize">@dimen/xlarge_text_size</item>
-    </style>
-
-    <style name="ItemDetails" parent="Item">
-        <item name="android:textSize">@dimen/small_text_size</item>
-    </style>
-
-    <!-- Frequency to Channel -->
-
-    <style name="FrequencyComponent">
-        <item name="android:textSize">@dimen/xlarge_text_size</item>
-        <item name="android:maxLength">3</item>
-        <item name="android:inputType">number</item>
-        <item name="android:selectAllOnFocus">true</item>
-    </style>
-
-    <style name="FrequencyRangeTitle" parent="ItemTitle">
-        <item name="android:paddingTop">@dimen/content_item_large_gap</item>
-    </style>
-
-    <style name="FrequencyRangeChannel" parent="Item">
-        <item name="android:textSize">@dimen/large_text_size</item>
-    </style>
-
-    <style name="FrequencyRangeEnclosingChannel" parent="Item">
-        <item name="android:textSize">@dimen/small_text_size</item>
-    </style>
-
-    <!-- New -->
-
     <style name="BaseItem">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">@dimen/xlarge_text_size</item>
+        <item name="android:textSize">@dimen/text_size</item>
     </style>
 
     <style name="FreqItem" parent="BaseItem">
@@ -58,7 +16,7 @@
     <style name="FreqTitle" parent="FreqItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
+        <item name="android:layout_marginBottom">@dimen/gap</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -76,20 +34,20 @@
     </style>
 
     <style name="RangeTitle" parent="RangeItem">
-        <item name="android:padding">@dimen/content_item_small_gap</item>
-        <item name="android:layout_marginRight">@dimen/content_item_small_gap</item>
-        <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
+        <item name="android:padding">@dimen/gap</item>
+        <item name="android:layout_marginRight">@dimen/gap</item>
+        <item name="android:layout_marginBottom">@dimen/gap</item>
     </style>
 
     <style name="ChannelButton" parent="RangeItem">
-        <item name="android:textSize">@dimen/xlarge_text_size</item>
-        <item name="android:padding">@dimen/content_item_small_gap</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:padding">@dimen/gap</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
+        <item name="android:layout_marginBottom">@dimen/gap</item>
     </style>
 
     <style name="ChannelButtonPrev" parent="ChannelButton">
-        <item name="android:layout_marginRight">@dimen/content_item_small_gap</item>
+        <item name="android:layout_marginRight">@dimen/gap</item>
         <item name="android:text">&lt;</item>
     </style>
 
@@ -98,12 +56,12 @@
     </style>
 
     <style name="ChannelEdit" parent="RangeItem">
-        <item name="android:padding">@dimen/content_item_small_gap</item>
+        <item name="android:padding">@dimen/gap</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginRight">@dimen/content_item_small_gap</item>
-        <item name="android:layout_marginBottom">@dimen/content_item_small_gap</item>
+        <item name="android:layout_marginRight">@dimen/gap</item>
+        <item name="android:layout_marginBottom">@dimen/gap</item>
     </style>
 
 </resources>
