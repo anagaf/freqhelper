@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.anagaf.freqhelper.model.Range;
 
 public class RangeView extends TableRow {
-
+    private EditText mChannelEdit;
     private int mChannel;
     private Range mRange;
     private Listener mListener;
@@ -42,6 +42,9 @@ public class RangeView extends TableRow {
                 moveToNextChannel();
             }
         });
+
+        mChannelEdit = (EditText) findViewById(R.id.channel);
+        mChannelEdit.setOnEditorActionListener(new KeyboardHider(getContext(), mChannelEdit));
     }
 
     public void setRange(Range range) {
@@ -53,14 +56,13 @@ public class RangeView extends TableRow {
 
     public void setFrequency(Frequency frequency) {
         mChannel = mRange.getChannel(frequency);
-        final EditText channelEdit = (EditText) findViewById(R.id.channel);
         final String channelString;
         if (mChannel == Range.INVALID_CHANNEL) {
             channelString = "--";
         } else {
             channelString = String.valueOf(mChannel);
         }
-        channelEdit.setText(channelString);
+        mChannelEdit.setText(channelString);
     }
 
     public void setListener(Listener listener) {

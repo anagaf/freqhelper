@@ -55,10 +55,15 @@ public class MainActivity extends Activity {
 
         mFrequencyMhzEdit = (EditText) findViewById(R.id.frequency_mhz_edit);
         mFrequencyMhzEdit.addTextChangedListener(mFrequencyChangeListener);
+        mFrequencyMhzEdit.setOnEditorActionListener(new KeyboardHider(this, mFrequencyMhzEdit));
+
         mFrequencyKhzEdit = (EditText) findViewById(R.id.frequency_khz_edit);
         mFrequencyKhzEdit.addTextChangedListener(mFrequencyChangeListener);
+        mFrequencyKhzEdit.setOnEditorActionListener(new KeyboardHider(this, mFrequencyKhzEdit));
+
         mFrequencyHzEdit = (EditText) findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.addTextChangedListener(mFrequencyChangeListener);
+        mFrequencyHzEdit.setOnEditorActionListener(new KeyboardHider(this, mFrequencyHzEdit));
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         addRangeRow(inflater, new Lpd69());
