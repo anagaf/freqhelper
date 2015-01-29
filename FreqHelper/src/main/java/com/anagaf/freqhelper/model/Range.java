@@ -18,6 +18,10 @@ public interface Range {
 
     Entry getHigherEntry(Frequency frequency);
 
+    int getPrevChannel(int channel);
+
+    int getNextChannel(int channel);
+
     /********** Inner Classes **********/
 
     public class Entry {

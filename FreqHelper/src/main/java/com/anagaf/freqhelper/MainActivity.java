@@ -89,8 +89,9 @@ public class MainActivity extends Activity {
         }
 
         for (int i = 0; i < mRangesLayout.getChildCount(); i++) {
-            RangeTableRow row = (RangeTableRow) mRangesLayout.getChildAt(i);
-            row.setChannel(i);
+            final RangeTableRow row = (RangeTableRow) mRangesLayout.getChildAt(i);
+            final int channel = row.getRange().getChannel(frequency);
+            row.setChannel(channel);
         }
 
 //

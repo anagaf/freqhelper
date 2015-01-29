@@ -36,6 +36,20 @@ public abstract class AbstractRange implements Range {
     }
 
     @Override
+    public int getPrevChannel(int channel) {
+        final Frequency frequency = getFrequency(channel);
+        final TreeMap.Entry<Frequency, Integer> entry = mFrequencyChannelMap.lowerEntry(frequency);
+        return (entry != null ? entry.getValue() : INVALID_CHANNEL);
+    }
+
+    @Override
+    public int getNextChannel(int channel) {
+        final Frequency frequency = getFrequency(channel);
+        final TreeMap.Entry<Frequency, Integer> entry = mFrequencyChannelMap.higherEntry(frequency);
+        return (entry != null ? entry.getValue() : INVALID_CHANNEL);
+    }
+
+    @Override
     public Range.Entry getHigherEntry(Frequency frequency) {
         Range.Entry entry = null;
         TreeMap.Entry<Frequency, Integer> mapEntry = mFrequencyChannelMap.higherEntry(frequency);

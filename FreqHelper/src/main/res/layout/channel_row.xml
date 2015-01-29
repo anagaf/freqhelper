@@ -13,6 +13,7 @@
         />
 
     <Button
+        a:id="@+id/prev_channel_button"
         style="@style/ChannelButtonPrev"/>
 
     <EditText
@@ -21,6 +22,7 @@
         tools:text="5"/>
 
     <Button
+        a:id="@+id/next_channel_button"
         style="@style/ChannelButtonNext"/>
 
 </com.anagaf.freqhelper.RangeTableRow>
