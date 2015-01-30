@@ -7,6 +7,13 @@
     a:orientation="vertical"
     tools:context="com.anagaf.freqhelper.MainActivity">
 
+    <!-- Focus keeper -->
+    <View
+        a:layout_width="1dp"
+        a:layout_height="1dp"
+        a:focusable="true"
+        a:focusableInTouchMode="true" />
+
     <TextView
         style="@style/FreqTitle"
         a:text="@string/frequency" />
@@ -17,19 +24,19 @@
         a:layout_marginBottom="@dimen/gap"
         a:orientation="horizontal">
 
-        <EditText
+        <com.anagaf.freqhelper.FrequencyComponentEdit
             a:id="@+id/frequency_mhz_edit"
             style="@style/FreqEdit"
             a:layout_marginRight="@dimen/gap"
             tools:text="433" />
 
-        <EditText
+        <com.anagaf.freqhelper.FrequencyComponentEdit
             a:id="@+id/frequency_khz_edit"
             style="@style/FreqEdit"
             a:layout_marginRight="@dimen/gap"
             tools:text="075" />
 
-        <EditText
+        <com.anagaf.freqhelper.FrequencyComponentEdit
             a:id="@+id/frequency_hz_edit"
             style="@style/FreqEdit"
             tools:text="000" />

@@ -3,11 +3,8 @@ package com.anagaf.freqhelper;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TableLayout;
 
 import com.anagaf.freqhelper.model.Lpd69;
@@ -17,25 +14,10 @@ import com.anagaf.freqhelper.model.Range;
 
 public class MainActivity extends Activity {
     private TableLayout mRangesLayout;
-    private EditText mFrequencyMhzEdit;
-    private EditText mFrequencyKhzEdit;
-    private EditText mFrequencyHzEdit;
+    private FrequencyComponentEdit mFrequencyMhzEdit;
+    private FrequencyComponentEdit mFrequencyKhzEdit;
+    private FrequencyComponentEdit mFrequencyHzEdit;
     private boolean mStarted;
-
-    private TextWatcher mFrequencyChangeListener = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            onFrequencyChanged();
-        }
-    };
 
     private RangeView.Listener mRangeViewListener = new RangeView.Listener() {
         @Override
@@ -53,17 +35,23 @@ public class MainActivity extends Activity {
 
         mRangesLayout = (TableLayout) findViewById(R.id.ranges_layout);
 
-        mFrequencyMhzEdit = (EditText) findViewById(R.id.frequency_mhz_edit);
-        mFrequencyMhzEdit.addTextChangedListener(mFrequencyChangeListener);
-        mFrequencyMhzEdit.setOnEditorActionListener(new KeyboardHider(this, mFrequencyMhzEdit));
+        final FrequencyComponentEdit.Listener frequencyComponentChangeListener = new FrequencyComponentEdit.Listener() {
+            @Override
+            public void onChanged() {
+                final Frequency frequency = getFrequency();
+                Settings.setFrequency(MainActivity.this, frequency);
+                onFrequencyChanged();
+            }
+        };
 
-        mFrequencyKhzEdit = (EditText) findViewById(R.id.frequency_khz_edit);
-        mFrequencyKhzEdit.addTextChangedListener(mFrequencyChangeListener);
-        mFrequencyKhzEdit.setOnEditorActionListener(new KeyboardHider(this, mFrequencyKhzEdit));
+        mFrequencyMhzEdit = (FrequencyComponentEdit) findViewById(R.id.frequency_mhz_edit);
+        mFrequencyMhzEdit.setListener(frequencyComponentChangeListener);
 
-        mFrequencyHzEdit = (EditText) findViewById(R.id.frequency_hz_edit);
-        mFrequencyHzEdit.addTextChangedListener(mFrequencyChangeListener);
-        mFrequencyHzEdit.setOnEditorActionListener(new KeyboardHider(this, mFrequencyHzEdit));
+        mFrequencyKhzEdit = (FrequencyComponentEdit) findViewById(R.id.frequency_khz_edit);
+        mFrequencyKhzEdit.setListener(frequencyComponentChangeListener);
+
+        mFrequencyHzEdit = (FrequencyComponentEdit) findViewById(R.id.frequency_hz_edit);
+        mFrequencyHzEdit.setListener(frequencyComponentChangeListener);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         addRangeRow(inflater, new Lpd69());
