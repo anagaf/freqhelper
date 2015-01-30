@@ -75,9 +75,9 @@ public class MainActivity extends Activity {
     }
 
     private void refreshFrequency(Frequency frequency) {
-        mFrequencyMhzEdit.setText(frequencyComponentIntegerToString(frequency.getMegahertzComponent()));
-        mFrequencyKhzEdit.setText(frequencyComponentIntegerToString(frequency.getKilohertzComponent()));
-        mFrequencyHzEdit.setText(frequencyComponentIntegerToString(frequency.getHertzComponent()));
+        mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
+        mFrequencyKhzEdit.setValue(frequency.getKilohertzComponent());
+        mFrequencyHzEdit.setValue(frequency.getHertzComponent());
     }
 
     private void onFrequencyChanged() {
@@ -102,10 +102,6 @@ public class MainActivity extends Activity {
 
     private static Integer frequencyComponentStringToInteger(String string) {
         return string.isEmpty() ? 0 : Integer.valueOf(string);
-    }
-
-    private static String frequencyComponentIntegerToString(Integer value) {
-        return String.format("%03d", value);
     }
 
 }

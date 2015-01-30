@@ -32,6 +32,10 @@ public class FrequencyComponentEdit extends EditText {
         mListener = listener;
     }
 
+    public void setValue(int value) {
+        setText(frequencyComponentIntegerToString(value));
+    }
+
     private void init() {
         setOnFocusChangeListener(new OnFocusChangeListener() {
 
@@ -49,6 +53,9 @@ public class FrequencyComponentEdit extends EditText {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    final String text = getText().toString();
+                    setValue(text.isEmpty() ? 0 : Integer.valueOf(text));
+
                     mBackupText = null;
 
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -63,6 +70,10 @@ public class FrequencyComponentEdit extends EditText {
                 return false;
             }
         });
+    }
+
+    private static String frequencyComponentIntegerToString(Integer value) {
+        return String.format("%03d", value);
     }
 
     /**
