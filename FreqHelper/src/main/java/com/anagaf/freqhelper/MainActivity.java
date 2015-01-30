@@ -17,30 +17,19 @@ public class MainActivity extends Activity {
     private FrequencyComponentEdit mFrequencyMhzEdit;
     private FrequencyComponentEdit mFrequencyKhzEdit;
     private FrequencyComponentEdit mFrequencyHzEdit;
-    private boolean mStarted;
-
-    private RangeView.Listener mRangeViewListener = new RangeView.Listener() {
-        @Override
-        public void onChannelChanged() {
-            refreshFrequency(Settings.getFrequency(MainActivity.this));
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        mStarted = false;
-
         mRangesLayout = (TableLayout) findViewById(R.id.ranges_layout);
 
         final FrequencyComponentEdit.Listener frequencyComponentChangeListener = new FrequencyComponentEdit.Listener() {
             @Override
-            public void onChanged() {
-                final Frequency frequency = getFrequency();
-                Settings.setFrequency(MainActivity.this, frequency);
-                onFrequencyChanged();
+            public void onValueChanged() {
+                saveFrequency();
+                updateRanges();
             }
         };
 
@@ -53,40 +42,45 @@ public class MainActivity extends Activity {
         mFrequencyHzEdit = (FrequencyComponentEdit) findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(frequencyComponentChangeListener);
 
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        addRangeRow(inflater, new Lpd69());
-        addRangeRow(inflater, new Lpd8());
-        addRangeRow(inflater, new Pmr());
+        final LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        final RangeView.Listener rangeViewListener = new RangeView.Listener() {
+            @Override
+            public void onFrequencyChanged() {
+                loadFrequency();
+            }
+        };
+
+        addRangeRow(inflater, rangeViewListener, new Lpd69());
+        addRangeRow(inflater, rangeViewListener, new Lpd8());
+        addRangeRow(inflater, rangeViewListener, new Pmr());
+
+        loadFrequency();
     }
 
-    private void addRangeRow(LayoutInflater inflater, Range range) {
+    private void addRangeRow(LayoutInflater inflater, RangeView.Listener listener, Range range) {
         View view = inflater.inflate(R.layout.range, null, false);
         RangeView row = (RangeView) view;
         row.setRange(range);
-        row.setListener(mRangeViewListener);
+        row.setListener(listener);
         mRangesLayout.addView(row);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        refreshFrequency(Settings.getFrequency(this));
-        mStarted = true;
-    }
-
-    private void refreshFrequency(Frequency frequency) {
+    private void loadFrequency() {
+        final Frequency frequency = Settings.getFrequency(this);
         mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
         mFrequencyKhzEdit.setValue(frequency.getKilohertzComponent());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
+        updateRanges();
     }
 
-    private void onFrequencyChanged() {
+    private void saveFrequency() {
         final Frequency frequency = getFrequency();
+        Settings.setFrequency(this, frequency);
+    }
 
-        if (mStarted) {
-            Settings.setFrequency(this, frequency);
-        }
-
+    private void updateRanges() {
+        final Frequency frequency = getFrequency();
         for (int i = 0; i < mRangesLayout.getChildCount(); i++) {
             final RangeView row = (RangeView) mRangesLayout.getChildAt(i);
             row.setFrequency(frequency);
@@ -103,5 +97,4 @@ public class MainActivity extends Activity {
     private static Integer frequencyComponentStringToInteger(String string) {
         return string.isEmpty() ? 0 : Integer.valueOf(string);
     }
-
 }

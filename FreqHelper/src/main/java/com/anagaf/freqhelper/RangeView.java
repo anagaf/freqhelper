@@ -73,7 +73,7 @@ public class RangeView extends TableRow {
         final int prevChannel = mRange.getPrevChannel(mChannel);
         if (prevChannel != Range.INVALID_CHANNEL) {
             moveToChannel(prevChannel);
-            mListener.onChannelChanged();
+            mListener.onFrequencyChanged();
         }
     }
 
@@ -87,7 +87,7 @@ public class RangeView extends TableRow {
     private void moveToChannel(int channel) {
         final Frequency frequency = mRange.getFrequency(channel);
         Settings.setFrequency(getContext(), frequency);
-        mListener.onChannelChanged();
+        mListener.onFrequencyChanged();
     }
 
     /**
@@ -95,6 +95,6 @@ public class RangeView extends TableRow {
      */
 
     public interface Listener {
-        public void onChannelChanged();
+        public void onFrequencyChanged();
     }
 }

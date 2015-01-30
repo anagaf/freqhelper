@@ -61,7 +61,7 @@ public class FrequencyComponentEdit extends EditText {
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getWindowToken(), 0);
 
-                    mListener.onChanged();
+                    mListener.onValueChanged();
 
                     clearFocus();
 
@@ -81,6 +81,6 @@ public class FrequencyComponentEdit extends EditText {
      */
 
     public interface Listener {
-        public void onChanged();
+        public void onValueChanged();
     }
 }
