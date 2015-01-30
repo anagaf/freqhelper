@@ -52,8 +52,8 @@ public class MainActivity extends Activity {
         };
 
         addRangeRow(inflater, rangeViewListener, new Lpd69());
-        addRangeRow(inflater, rangeViewListener, new Lpd8());
-        addRangeRow(inflater, rangeViewListener, new Pmr());
+//        addRangeRow(inflater, rangeViewListener, new Lpd8());
+//        addRangeRow(inflater, rangeViewListener, new Pmr());
 
         loadFrequency();
     }

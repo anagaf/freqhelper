@@ -12,7 +12,12 @@ import com.anagaf.freqhelper.model.Range;
 
 public class RangeView extends TableRow {
     private EditText mChannelEdit;
-    private int mChannel;
+    private Button mPrevChannelButton;
+    private Button mNextChannelButton;
+
+    private int mPrevChannel;
+    private int mNextChannel;
+
     private Range mRange;
     private Listener mListener;
 
@@ -27,19 +32,20 @@ public class RangeView extends TableRow {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        final Button prevChannelButton = (Button) findViewById(R.id.prev_channel_button);
-        prevChannelButton.setOnClickListener(new OnClickListener() {
+
+        mPrevChannelButton = (Button) findViewById(R.id.prev_channel_button);
+        mPrevChannelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                moveToPrevChannel();
+                moveToChannel(mPrevChannel);
             }
         });
 
-        final Button nextChannelButton = (Button) findViewById(R.id.next_channel_button);
-        nextChannelButton.setOnClickListener(new OnClickListener() {
+        mNextChannelButton = (Button) findViewById(R.id.next_channel_button);
+        mNextChannelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                moveToNextChannel();
+                moveToChannel(mNextChannel);
             }
         });
 
@@ -55,33 +61,23 @@ public class RangeView extends TableRow {
     }
 
     public void setFrequency(Frequency frequency) {
-        mChannel = mRange.getChannel(frequency);
+        final int channel = mRange.getChannel(frequency);
         final String channelString;
-        if (mChannel == Range.INVALID_CHANNEL) {
+        if (channel == Range.INVALID_CHANNEL) {
             channelString = "--";
         } else {
-            channelString = String.valueOf(mChannel);
+            channelString = String.valueOf(channel);
         }
         mChannelEdit.setText(channelString);
+
+        mPrevChannel = mRange.getPrevChannel(frequency);
+        mPrevChannelButton.setVisibility(mPrevChannel == Range.INVALID_CHANNEL ? View.INVISIBLE : View.VISIBLE);
+        mNextChannel = mRange.getNextChannel(frequency);
+        mPrevChannelButton.setEnabled(mNextChannel != Range.INVALID_CHANNEL);
     }
 
     public void setListener(Listener listener) {
         mListener = listener;
-    }
-
-    private void moveToPrevChannel() {
-        final int prevChannel = mRange.getPrevChannel(mChannel);
-        if (prevChannel != Range.INVALID_CHANNEL) {
-            moveToChannel(prevChannel);
-            mListener.onFrequencyChanged();
-        }
-    }
-
-    private void moveToNextChannel() {
-        final int nextChannel = mRange.getNextChannel(mChannel);
-        if (nextChannel != Range.INVALID_CHANNEL) {
-            moveToChannel(nextChannel);
-        }
     }
 
     private void moveToChannel(int channel) {

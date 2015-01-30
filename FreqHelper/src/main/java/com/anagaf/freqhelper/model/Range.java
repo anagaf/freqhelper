@@ -18,9 +18,9 @@ public interface Range {
 
     Entry getHigherEntry(Frequency frequency);
 
-    int getPrevChannel(int channel);
+    int getPrevChannel(Frequency frequency);
 
-    int getNextChannel(int channel);
+    int getNextChannel(Frequency frequency);
 
     /********** Inner Classes **********/
 
