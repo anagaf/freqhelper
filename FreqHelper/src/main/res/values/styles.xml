@@ -9,40 +9,37 @@
         <item name="android:textSize">@dimen/text_size</item>
     </style>
 
-    <style name="FreqItem" parent="BaseItem">
-        <item name="android:background">@color/frequency_item_background</item>
+    <style name="BaseEdit" parent="BaseItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:inputType">number</item>
     </style>
 
-    <style name="FreqTitle" parent="FreqItem">
+    <style name="FreqTitle" parent="BaseItem">
+        <item name="android:background">@color/frequency_item_background</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/gap</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="FreqEdit" parent="FreqItem">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
+    <style name="FreqEdit" parent="BaseEdit">
+        <item name="android:background">@color/frequency_item_background</item>
         <item name="android:maxLength">3</item>
-        <item name="android:imeOptions">actionDone</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:inputType">number</item>
     </style>
 
-    <style name="RangeItem" parent="BaseItem">
-        <item name="android:background">#00994C</item>
-    </style>
-
-    <style name="RangeTitle" parent="RangeItem">
+    <style name="RangeTitle" parent="BaseItem">
+        <item name="android:background">@color/range_item_background</item>
         <item name="android:padding">@dimen/gap</item>
         <item name="android:layout_marginRight">@dimen/gap</item>
         <item name="android:layout_marginBottom">@dimen/gap</item>
     </style>
 
-    <style name="ChannelButton" parent="RangeItem">
-        <item name="android:textSize">@dimen/text_size</item>
+    <style name="ChannelButton" parent="BaseItem">
         <item name="android:padding">@dimen/gap</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">@dimen/gap</item>
@@ -58,17 +55,12 @@
         <item name="android:text">&gt;</item>
     </style>
 
-    <style name="ChannelEdit" parent="RangeItem">
+    <style name="ChannelEdit" parent="BaseEdit">
+        <item name="android:background">@color/range_item_background</item>
         <item name="android:padding">@dimen/gap</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:gravity">center</item>
         <item name="android:layout_marginRight">@dimen/gap</item>
         <item name="android:layout_marginBottom">@dimen/gap</item>
-        <item name="android:imeOptions">actionDone</item>
-        <item name="android:inputType">number</item>
-        <item name="android:hint">HNT</item>
+        <item name="android:maxLength">2</item>
     </style>
 
 </resources>
