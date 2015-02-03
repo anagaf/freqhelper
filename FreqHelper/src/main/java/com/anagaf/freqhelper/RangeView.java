@@ -4,14 +4,13 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.anagaf.freqhelper.model.Range;
 
 public class RangeView extends TableRow {
-    private EditText mChannelEdit;
+    private RangeChannelEdit mChannelEdit;
     private Button mPrevChannelButton;
     private Button mNextChannelButton;
 
@@ -49,7 +48,7 @@ public class RangeView extends TableRow {
             }
         });
 
-        mChannelEdit = (EditText) findViewById(R.id.channel);
+        mChannelEdit = (RangeChannelEdit) findViewById(R.id.channel);
         mChannelEdit.setOnEditorActionListener(new KeyboardHider(getContext(), mChannelEdit));
     }
 
@@ -58,20 +57,14 @@ public class RangeView extends TableRow {
 
         final TextView title = (TextView) findViewById(R.id.title);
         title.setText(range.getNameStringId());
+
+        mChannelEdit.setMaxChannel(mRange.getChannelCount());
     }
 
     public void setFrequency(Frequency frequency) {
-        final int channel = mRange.getChannel(frequency);
-        final String channelString;
-        if (channel == Range.INVALID_CHANNEL) {
-            channelString = "--";
-        } else {
-            channelString = String.valueOf(channel);
-        }
-        mChannelEdit.setText(channelString);
+        mChannelEdit.setValue(mRange.getChannel(frequency));
 
         mPrevChannel = mRange.getPrevChannel(frequency);
-        //mPrevChannelButton.setVisibility(mPrevChannel == Range.INVALID_CHANNEL ? View.INVISIBLE : View.VISIBLE);
         mPrevChannelButton.setEnabled(mPrevChannel != Range.INVALID_CHANNEL);
         mNextChannel = mRange.getNextChannel(frequency);
         mNextChannelButton.setEnabled(mNextChannel != Range.INVALID_CHANNEL);
