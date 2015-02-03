@@ -49,7 +49,14 @@ public class RangeView extends TableRow {
         });
 
         mChannelEdit = (RangeChannelEdit) findViewById(R.id.channel);
-        mChannelEdit.setOnEditorActionListener(new KeyboardHider(getContext(), mChannelEdit));
+        mChannelEdit.setListener(new BaseEdit.Listener() {
+            @Override
+            public void onValueChanged(int value) {
+                if (value != Range.INVALID_CHANNEL) {
+                    moveToChannel(value);
+                }
+            }
+        });
     }
 
     public void setRange(Range range) {

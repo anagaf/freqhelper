@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 
         final FrequencyComponentEdit.Listener frequencyComponentChangeListener = new FrequencyComponentEdit.Listener() {
             @Override
-            public void onValueChanged() {
+            public void onValueChanged(int value) {
                 saveFrequency();
                 updateRanges();
             }

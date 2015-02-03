@@ -48,14 +48,15 @@ public abstract class BaseEdit extends EditText {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     final String text = getText().toString();
-                    setValue(text.isEmpty() ? 0 : Integer.valueOf(text));
+                    final int value = text.isEmpty() ? 0 : Integer.valueOf(text);
+                    setValue(value);
 
                     mBackupText = null;
 
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getWindowToken(), 0);
 
-                    mListener.onValueChanged();
+                    mListener.onValueChanged(value);
 
                     clearFocus();
 
@@ -75,6 +76,6 @@ public abstract class BaseEdit extends EditText {
      */
 
     public interface Listener {
-        public void onValueChanged();
+        public void onValueChanged(int value);
     }
 }
