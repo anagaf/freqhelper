@@ -71,9 +71,10 @@ public class RangeView extends TableRow {
         mChannelEdit.setText(channelString);
 
         mPrevChannel = mRange.getPrevChannel(frequency);
-        mPrevChannelButton.setVisibility(mPrevChannel == Range.INVALID_CHANNEL ? View.INVISIBLE : View.VISIBLE);
+        //mPrevChannelButton.setVisibility(mPrevChannel == Range.INVALID_CHANNEL ? View.INVISIBLE : View.VISIBLE);
+        mPrevChannelButton.setEnabled(mPrevChannel != Range.INVALID_CHANNEL);
         mNextChannel = mRange.getNextChannel(frequency);
-        mPrevChannelButton.setEnabled(mNextChannel != Range.INVALID_CHANNEL);
+        mNextChannelButton.setEnabled(mNextChannel != Range.INVALID_CHANNEL);
     }
 
     public void setListener(Listener listener) {

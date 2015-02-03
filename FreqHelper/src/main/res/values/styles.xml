@@ -5,12 +5,12 @@
     </style>
 
     <style name="BaseItem">
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">@dimen/text_size</item>
     </style>
 
     <style name="FreqItem" parent="BaseItem">
-        <item name="android:background">#3399FF</item>
+        <item name="android:background">@color/frequency_item_background</item>
     </style>
 
     <style name="FreqTitle" parent="FreqItem">
@@ -46,6 +46,7 @@
         <item name="android:padding">@dimen/gap</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">@dimen/gap</item>
+        <item name="android:background">@drawable/range_item_background</item>
     </style>
 
     <style name="ChannelButtonPrev" parent="ChannelButton">
