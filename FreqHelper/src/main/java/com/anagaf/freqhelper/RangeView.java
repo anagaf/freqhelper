@@ -82,9 +82,11 @@ public class RangeView extends TableRow {
     }
 
     private void moveToChannel(int channel) {
-        final Frequency frequency = mRange.getFrequency(channel);
-        Settings.setFrequency(getContext(), frequency);
-        mListener.onFrequencyChanged();
+        if (channel >= 1 && channel <= mRange.getChannelCount()) {
+            final Frequency frequency = mRange.getFrequency(channel);
+            Settings.setFrequency(getContext(), frequency);
+            mListener.onFrequencyChanged();
+        }
     }
 
     /**

@@ -48,7 +48,12 @@ public abstract class BaseEdit extends EditText {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     final String text = getText().toString();
-                    final int value = text.isEmpty() ? 0 : Integer.valueOf(text);
+                    int value = 0;
+                    try {
+                        value = Integer.valueOf(text);
+                    } catch (NumberFormatException ex) {
+                        value = 0;
+                    }
                     setValue(value);
 
                     mBackupText = null;
