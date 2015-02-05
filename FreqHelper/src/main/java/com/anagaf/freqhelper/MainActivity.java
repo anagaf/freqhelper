@@ -75,6 +75,7 @@ public class MainActivity extends Activity {
     }
 
     private void saveFrequency() {
+        BackStack.getsInstance().push(Settings.getFrequency(this));
         final Frequency frequency = getFrequency();
         Settings.setFrequency(this, frequency);
     }
@@ -96,5 +97,16 @@ public class MainActivity extends Activity {
 
     private static Integer frequencyComponentStringToInteger(String string) {
         return string.isEmpty() ? 0 : Integer.valueOf(string);
+    }
+
+    @Override
+    public void onBackPressed() {
+        final Frequency frequency = BackStack.getsInstance().pop();
+        if (frequency == null) {
+            super.onBackPressed();
+        } else {
+            Settings.setFrequency(this, frequency);
+            loadFrequency();
+        }
     }
 }
