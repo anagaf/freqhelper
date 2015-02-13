@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import com.anagaf.freqhelper.model.Range;
 
 public class RangeChannelEdit extends BaseEdit {
-    private final String EMPTY_CHANNEL_NUMBER = "--";
+    private static final String EMPTY_CHANNEL_NUMBER = "--";
 
     public RangeChannelEdit(Context context) {
         super(context);
@@ -42,7 +42,7 @@ public class RangeChannelEdit extends BaseEdit {
      * ******* Inner Classes *********
      */
 
-    private class MinMaxFilter implements InputFilter {
+    private static class MinMaxFilter implements InputFilter {
         private static final int MIN = 1;
         private final int mMax;
 

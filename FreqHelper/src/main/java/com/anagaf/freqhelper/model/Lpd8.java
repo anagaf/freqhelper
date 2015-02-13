@@ -20,7 +20,7 @@ import java.util.List;
 */
 public class Lpd8 extends AbstractRange {
 
-    static final List<Frequency> sFrequencies;
+    private static final List<Frequency> sFrequencies;
     static {
         List<Frequency> frequencies = new ArrayList<>();
         frequencies.add(new Frequency(433, 75));

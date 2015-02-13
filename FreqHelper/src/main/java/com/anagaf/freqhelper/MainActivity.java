@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
     }
 
     private static Integer frequencyComponentStringToInteger(String string) {
-        return string.isEmpty() ? 0 : Integer.valueOf(string);
+        return string.isEmpty() ? 0 : Integer.parseInt(string);
     }
 
     @Override

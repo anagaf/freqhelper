@@ -47,5 +47,12 @@ public interface Range {
             return mChannel == entry.mChannel && !(mFrequency != null ? !mFrequency.equals(entry.mFrequency) : entry.mFrequency != null);
 
         }
+
+        @Override
+        public int hashCode() {
+            int result = mFrequency != null ? mFrequency.hashCode() : 0;
+            result = 31 * result + mChannel;
+            return result;
+        }
     }
 }

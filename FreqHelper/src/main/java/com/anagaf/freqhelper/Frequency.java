@@ -51,6 +51,11 @@ public class Frequency implements Comparable<Frequency> {
 
     }
 
+    @Override
+    public int hashCode() {
+        return mHertz != null ? mHertz.hashCode() : 0;
+    }
+
     public Frequency append(int hertz) {
         return new Frequency(mHertz + hertz);
     }

@@ -50,7 +50,7 @@ public abstract class BaseEdit extends EditText {
                     final String text = getText().toString();
                     int value;
                     try {
-                        value = Integer.valueOf(text);
+                        value = Integer.parseInt(text);
                     } catch (NumberFormatException ex) {
                         value = 0;
                     }
