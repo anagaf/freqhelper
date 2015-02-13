@@ -1,9 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'freqhelper'
+            storeFile file('/Users/anagaf/Google Drive/Projects/Freqhelper/keystore/freqhelper.keystore')
+            def console = System.console()
+            if (console != null) {
+                keyPassword System.console().readLine("\nKey password: ")
+                storePassword System.console().readLine("\nKeystore password: ")
+            }
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
-
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 21
@@ -14,6 +24,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.config
         }
     }
 }
