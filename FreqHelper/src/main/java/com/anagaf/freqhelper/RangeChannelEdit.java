@@ -34,7 +34,7 @@ public class RangeChannelEdit extends BaseEdit {
     }
 
     public void setMaxChannel(int maxChannel) {
-        final InputFilter channelInputFilter = new MinMaxFilter(1, maxChannel);
+        final InputFilter channelInputFilter = new MinMaxFilter(maxChannel);
         setFilters(new InputFilter[]{channelInputFilter});
     }
 
@@ -43,25 +43,24 @@ public class RangeChannelEdit extends BaseEdit {
      */
 
     private class MinMaxFilter implements InputFilter {
-        private int mMin;
-        private int mMax;
+        private static final int MIN = 1;
+        private final int mMax;
 
-        private MinMaxFilter(int min, int max) {
-            mMin = min;
+        private MinMaxFilter(int max) {
             mMax = max;
         }
 
         @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int destStart, int destEnd) {
             final String replacement = source.subSequence(start, end).toString();
-            String newValueString = dest.subSequence(0, dstart).toString() + replacement + dest.subSequence(dend, dest.length()).toString();
+            String newValueString = dest.subSequence(0, destStart).toString() + replacement + dest.subSequence(destEnd, dest.length()).toString();
             CharSequence result = "";
             if (newValueString.equals(EMPTY_CHANNEL_NUMBER)) {
                 result = null;
             } else {
                 try {
                     int newValue = Integer.parseInt(newValueString);
-                    if (newValue >= mMin && newValue <= mMax) {
+                    if (newValue >= MIN && newValue <= mMax) {
                         result = null;
                     }
                 } catch (NumberFormatException ex) {

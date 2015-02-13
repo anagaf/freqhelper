@@ -37,10 +37,6 @@ public interface Range {
             return mFrequency;
         }
 
-        public int getChannel() {
-            return mChannel;
-        }
-
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -48,11 +44,8 @@ public interface Range {
 
             Entry entry = (Entry) o;
 
-            if (mChannel != entry.mChannel) return false;
-            if (mFrequency != null ? !mFrequency.equals(entry.mFrequency) : entry.mFrequency != null)
-                return false;
+            return mChannel == entry.mChannel && !(mFrequency != null ? !mFrequency.equals(entry.mFrequency) : entry.mFrequency != null);
 
-            return true;
         }
     }
 }

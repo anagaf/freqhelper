@@ -1,7 +1,6 @@
 package com.anagaf.freqhelper;
 
 public class Frequency implements Comparable<Frequency> {
-    public static final int INVALID_HERTZ_VALUE = -1;
     private static final int HERTZ_PER_MEGAHERTZ = 1000000;
     private static final int HERTZ_PER_KILOHERTZ = 1000;
     private final Integer mHertz;
@@ -61,7 +60,4 @@ public class Frequency implements Comparable<Frequency> {
         return mHertz.compareTo(frequency.mHertz);
     }
 
-    public boolean isValid() {
-        return (getHertz() != INVALID_HERTZ_VALUE);
-    }
 }

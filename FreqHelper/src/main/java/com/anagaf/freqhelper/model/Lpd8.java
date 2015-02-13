@@ -1,5 +1,6 @@
 package com.anagaf.freqhelper.model;
 
+import com.anagaf.freqhelper.BuildConfig;
 import com.anagaf.freqhelper.Frequency;
 import com.anagaf.freqhelper.R;
 
@@ -45,7 +46,9 @@ public class Lpd8 extends AbstractRange {
 
     @Override
     public Frequency getFrequency(int channel) {
-        assert (channel > 0 && channel <= getChannelCount());
+        if (BuildConfig.DEBUG && (channel < 1 || channel > getChannelCount())) {
+            throw new IllegalArgumentException();
+        }
         return sFrequencies.get(channel - 1);
     }
 }

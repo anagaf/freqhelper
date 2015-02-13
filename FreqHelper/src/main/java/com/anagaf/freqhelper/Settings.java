@@ -3,22 +3,16 @@ package com.anagaf.freqhelper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.anagaf.freqhelper.model.Lpd8;
-import com.anagaf.freqhelper.model.Pmr;
 import com.anagaf.freqhelper.model.Range;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class Settings {
+class Settings {
     private static final String FREQUENCY_KEY = "Frequency";
 
     public static void setFrequency(Context context, Frequency frequency) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putInt(FREQUENCY_KEY, frequency.getHertz()).commit();
+        prefs.edit().putInt(FREQUENCY_KEY, frequency.getHertz()).apply();
     }
 
     public static Frequency getFrequency(Context context) {

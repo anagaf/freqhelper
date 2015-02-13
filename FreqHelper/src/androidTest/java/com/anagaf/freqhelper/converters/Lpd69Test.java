@@ -8,7 +8,7 @@ import com.anagaf.freqhelper.model.Range;
 
 public class Lpd69Test extends AndroidTestCase {
 
-    private Range mLpd69 = new Lpd69();
+    private final Range mLpd69 = new Lpd69();
 
     public void testGetFrequency() {
         assertTrue(mLpd69.getFrequency(1).equals(new Frequency(433, 75)));
@@ -32,12 +32,12 @@ public class Lpd69Test extends AndroidTestCase {
         testGetHigherEntry(new Frequency(434, 800), null);
     }
 
-    public void testGetLowerEntry(Frequency frequency, Range.Entry expectedEntry) {
+    private void testGetLowerEntry(Frequency frequency, Range.Entry expectedEntry) {
         Range.Entry entry = mLpd69.getLowerEntry(frequency);
         assertEquals(expectedEntry, entry);
     }
 
-    public void testGetHigherEntry(Frequency frequency, Range.Entry expectedEntry) {
+    private void testGetHigherEntry(Frequency frequency, Range.Entry expectedEntry) {
         Range.Entry entry = mLpd69.getHigherEntry(frequency);
         assertEquals(expectedEntry, entry);
     }

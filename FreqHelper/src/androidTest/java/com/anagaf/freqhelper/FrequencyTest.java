@@ -2,8 +2,6 @@ package com.anagaf.freqhelper;
 
 import android.test.AndroidTestCase;
 
-import com.anagaf.freqhelper.Frequency;
-
 public class FrequencyTest extends AndroidTestCase {
 
     public void testComponents() {
@@ -21,6 +19,6 @@ public class FrequencyTest extends AndroidTestCase {
     }
 
     public void testToString() {
-        assertEquals(new Frequency(446, 006, 250).toString(), "446.006250");
+        assertEquals(new Frequency(446, 6, 250).toString(), "446.006250");
     }
 }

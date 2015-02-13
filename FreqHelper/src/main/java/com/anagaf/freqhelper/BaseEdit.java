@@ -28,7 +28,7 @@ public abstract class BaseEdit extends EditText {
         init();
     }
 
-    public abstract void setValue(int value);
+    protected abstract void setValue(int value);
 
     private void init() {
         setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -48,7 +48,7 @@ public abstract class BaseEdit extends EditText {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     final String text = getText().toString();
-                    int value = 0;
+                    int value;
                     try {
                         value = Integer.valueOf(text);
                     } catch (NumberFormatException ex) {

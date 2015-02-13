@@ -9,8 +9,8 @@ public abstract class AbstractRange implements Range {
 
     private final NavigableMap<Frequency, Integer> mFrequencyChannelMap;
 
-    protected AbstractRange() {
-        mFrequencyChannelMap = new TreeMap<Frequency, Integer>();
+    AbstractRange() {
+        mFrequencyChannelMap = new TreeMap<>();
         for (int i = 1; i <= getChannelCount(); i++) {
             mFrequencyChannelMap.put(getFrequency(i), i);
         }

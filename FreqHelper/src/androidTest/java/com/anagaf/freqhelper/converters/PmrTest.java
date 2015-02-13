@@ -8,7 +8,7 @@ import com.anagaf.freqhelper.model.Range;
 
 public class PmrTest extends AndroidTestCase {
 
-    private Range mPmr = new Pmr();
+    private final Range mPmr = new Pmr();
 
     public void testGetFrequency() {
         assertTrue(mPmr.getFrequency(1).equals(new Frequency(446006250)));
@@ -34,12 +34,12 @@ public class PmrTest extends AndroidTestCase {
         testGetHigherEntry(new Frequency(446093755), null);
     }
 
-    public void testGetLowerEntry(Frequency frequency, Range.Entry expectedEntry) {
+    private void testGetLowerEntry(Frequency frequency, Range.Entry expectedEntry) {
         Range.Entry entry = mPmr.getLowerEntry(frequency);
         assertEquals(expectedEntry, entry);
     }
 
-    public void testGetHigherEntry(Frequency frequency, Range.Entry expectedEntry) {
+    private void testGetHigherEntry(Frequency frequency, Range.Entry expectedEntry) {
         Range.Entry entry = mPmr.getHigherEntry(frequency);
         assertEquals(expectedEntry, entry);
     }

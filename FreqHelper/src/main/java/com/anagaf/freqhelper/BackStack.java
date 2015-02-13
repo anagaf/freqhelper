@@ -6,7 +6,7 @@ import java.util.Stack;
 public class BackStack {
     private final static BackStack sInstance = new BackStack();
 
-    private Stack<Frequency> mStack = new Stack<>();
+    private final Stack<Frequency> mStack = new Stack<>();
 
     public static BackStack getsInstance() {
         return sInstance;
