@@ -14,45 +14,7 @@ public interface Range {
 
     int getChannel(Frequency frequency);
 
-    Entry getLowerEntry(Frequency frequency);
-
-    Entry getHigherEntry(Frequency frequency);
-
     int getPrevChannel(Frequency frequency);
 
     int getNextChannel(Frequency frequency);
-
-    /********** Inner Classes **********/
-
-    public class Entry {
-        private final Frequency mFrequency;
-        private final int mChannel;
-
-        public Entry(Frequency frequency, int channel) {
-            mFrequency = frequency;
-            mChannel = channel;
-        }
-
-        public Frequency getFrequency() {
-            return mFrequency;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            Entry entry = (Entry) o;
-
-            return mChannel == entry.mChannel && !(mFrequency != null ? !mFrequency.equals(entry.mFrequency) : entry.mFrequency != null);
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = mFrequency != null ? mFrequency.hashCode() : 0;
-            result = 31 * result + mChannel;
-            return result;
-        }
-    }
 }

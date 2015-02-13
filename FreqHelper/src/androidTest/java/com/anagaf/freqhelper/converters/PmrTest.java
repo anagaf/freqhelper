@@ -22,25 +22,23 @@ public class PmrTest extends AndroidTestCase {
         assertTrue(mPmr.getChannel(new Frequency(446093750)) == 8);
     }
 
-    public void testGetLowerEntry() {
-        testGetLowerEntry(new Frequency(446006250), null);
-        testGetLowerEntry(new Frequency(446056250), new Range.Entry(new Frequency(446043750), 4));
-        testGetLowerEntry(new Frequency(446093755), new Range.Entry(new Frequency(446093750), 8));
+    public void testGetPrevChannel() {
+        testGetPrevChannel(new Frequency(446006250), Range.INVALID_CHANNEL);
+        testGetPrevChannel(new Frequency(446056250), 4);
+        testGetPrevChannel(new Frequency(446093755), 8);
     }
 
-    public void testGetHigherEntry() {
-        testGetHigherEntry(new Frequency(446006245), new Range.Entry(new Frequency(446006250), 1));
-        testGetHigherEntry(new Frequency(446056250), new Range.Entry(new Frequency(446068750), 6));
-        testGetHigherEntry(new Frequency(446093755), null);
+    public void testGetNextChannel() {
+        testGetNextChannel(new Frequency(446006245), 1);
+        testGetNextChannel(new Frequency(446056250), 6);
+        testGetNextChannel(new Frequency(446093755), Range.INVALID_CHANNEL);
     }
 
-    private void testGetLowerEntry(Frequency frequency, Range.Entry expectedEntry) {
-        Range.Entry entry = mPmr.getLowerEntry(frequency);
-        assertEquals(expectedEntry, entry);
+    private void testGetPrevChannel(Frequency frequency, int expectedChannel) {
+        assertEquals(expectedChannel, mPmr.getPrevChannel(frequency));
     }
 
-    private void testGetHigherEntry(Frequency frequency, Range.Entry expectedEntry) {
-        Range.Entry entry = mPmr.getHigherEntry(frequency);
-        assertEquals(expectedEntry, entry);
+    private void testGetNextChannel(Frequency frequency, int expectedChannel) {
+        assertEquals(expectedChannel, mPmr.getNextChannel(frequency));
     }
 }
