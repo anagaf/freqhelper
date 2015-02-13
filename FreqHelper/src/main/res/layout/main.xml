@@ -1,52 +1,65 @@
 <LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    a:layout_width="match_parent"
-    a:layout_height="wrap_content"
-    a:layout_gravity="center"
-    a:layout_margin="@dimen/gap"
-    a:orientation="vertical"
-    tools:context="com.anagaf.freqhelper.MainActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              a:layout_width="match_parent"
+              a:layout_height="match_parent"
+              a:orientation="vertical"
+              tools:context="com.anagaf.freqhelper.MainActivity">
 
-    <!-- Focus keeper -->
+    <!-- Focus thief -->
     <View
         a:layout_width="1dp"
         a:layout_height="1dp"
         a:focusable="true"
-        a:focusableInTouchMode="true" />
+        a:focusableInTouchMode="true"/>
 
-    <TextView
-        style="@style/FreqTitle"
-        a:text="@string/frequency" />
-
-    <LinearLayout
+    <!-- Content -->
+    <ScrollView
         a:layout_width="match_parent"
-        a:layout_height="wrap_content"
-        a:layout_marginBottom="@dimen/gap"
-        a:orientation="horizontal">
+        a:layout_height="match_parent">
 
-        <com.anagaf.freqhelper.FrequencyComponentEdit
-            a:id="@+id/frequency_mhz_edit"
-            style="@style/FreqEdit"
-            a:layout_marginRight="@dimen/gap"
-            tools:text="433" />
+        <LinearLayout
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:orientation="vertical"
+            a:layout_gravity="center"
+            a:layout_margin="@dimen/gap"
+            >
 
-        <com.anagaf.freqhelper.FrequencyComponentEdit
-            a:id="@+id/frequency_khz_edit"
-            style="@style/FreqEdit"
-            a:layout_marginRight="@dimen/gap"
-            tools:text="075" />
+            <TextView
+                style="@style/FreqTitle"
+                a:text="@string/frequency"/>
 
-        <com.anagaf.freqhelper.FrequencyComponentEdit
-            a:id="@+id/frequency_hz_edit"
-            style="@style/FreqEdit"
-            tools:text="000" />
+            <LinearLayout
+                a:layout_width="match_parent"
+                a:layout_height="wrap_content"
+                a:layout_marginBottom="@dimen/gap"
+                a:orientation="horizontal">
 
-    </LinearLayout>
+                <com.anagaf.freqhelper.FrequencyComponentEdit
+                    a:id="@+id/frequency_mhz_edit"
+                    style="@style/FreqEdit"
+                    a:layout_marginRight="@dimen/gap"
+                    tools:text="433"/>
 
-    <TableLayout
-        a:id="@+id/ranges_layout"
-        a:layout_width="match_parent"
-        a:layout_height="wrap_content" />
+                <com.anagaf.freqhelper.FrequencyComponentEdit
+                    a:id="@+id/frequency_khz_edit"
+                    style="@style/FreqEdit"
+                    a:layout_marginRight="@dimen/gap"
+                    tools:text="075"/>
+
+                <com.anagaf.freqhelper.FrequencyComponentEdit
+                    a:id="@+id/frequency_hz_edit"
+                    style="@style/FreqEdit"
+                    tools:text="000"/>
+
+            </LinearLayout>
+
+            <TableLayout
+                a:id="@+id/ranges_layout"
+                a:layout_width="match_parent"
+                a:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
 
