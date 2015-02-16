@@ -1,15 +1,19 @@
 apply plugin: 'com.android.application'
 
+gradle.taskGraph.whenReady { taskGraph ->
+    if(taskGraph.hasTask(':FreqHelper:assembleRelease')) {
+        def keyPassword = System.console().readPassword("\nKey password: ")
+        signingConfigs.config.keyPassword = new String(keyPassword)
+        def storePassword = System.console().readPassword("\nStore password: ")
+        signingConfigs.config.storePassword = new String(storePassword)
+    }
+}
+
 android {
     signingConfigs {
         config {
             keyAlias 'freqhelper'
             storeFile file('/Users/anagaf/Google Drive/Projects/Freqhelper/keystore/freqhelper.keystore')
-            def console = System.console()
-            if (console != null) {
-                keyPassword System.console().readLine("\nKey password: ")
-                storePassword System.console().readLine("\nKeystore password: ")
-            }
         }
     }
     compileSdkVersion 21
