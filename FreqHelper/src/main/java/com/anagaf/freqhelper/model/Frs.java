@@ -27,22 +27,23 @@ import java.util.List;
 public class Frs extends AbstractRange {
 
     private static final List<Frequency> sFrequencies;
+
     static {
-        List<Frequency> frequencies = new ArrayList<>();
-        frequencies.add(new Frequency(462, 562, 500));
-        frequencies.add(new Frequency(462, 587, 500));
-        frequencies.add(new Frequency(462, 612, 500));
-        frequencies.add(new Frequency(462, 637, 500));
-        frequencies.add(new Frequency(462, 662, 500));
-        frequencies.add(new Frequency(462, 687, 500));
-        frequencies.add(new Frequency(462, 712, 500));
-        frequencies.add(new Frequency(467, 562, 500));
-        frequencies.add(new Frequency(467, 587, 500));
-        frequencies.add(new Frequency(467, 612, 500));
-        frequencies.add(new Frequency(467, 637, 500));
-        frequencies.add(new Frequency(467, 662, 500));
-        frequencies.add(new Frequency(467, 712, 500));
+        final int SEGMENT_CAPACITY = 7;
+        final Frequency LOW_SEGMENT_BASE_FREQUENCY = new Frequency(462, 562, 500);
+        final Frequency HIGH_SEGMENT_BASE_FREQUENCY = new Frequency(467, 562, 500);
+        final int STEP = 2500;
+
+        final List<Frequency> frequencies = new ArrayList<>();
+        fillFrequencies(frequencies, LOW_SEGMENT_BASE_FREQUENCY, SEGMENT_CAPACITY, STEP);
+        fillFrequencies(frequencies, HIGH_SEGMENT_BASE_FREQUENCY, SEGMENT_CAPACITY, STEP);
         sFrequencies = Collections.unmodifiableList(frequencies);
+    }
+
+    private static void fillFrequencies(List<Frequency> frequencies, Frequency baseFrequency, int count, int step) {
+        for (int i = 0; i <= count; i++) {
+            frequencies.add(baseFrequency.append(step * i));
+        }
     }
 
     @Override
@@ -57,7 +58,7 @@ public class Frs extends AbstractRange {
 
     @Override
     public int getChannelCount() {
-        return 22;
+        return sFrequencies.size();
     }
 
 }
