@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
 
+import com.anagaf.freqhelper.model.Frs;
 import com.anagaf.freqhelper.model.Lpd69;
 import com.anagaf.freqhelper.model.Lpd8;
 import com.anagaf.freqhelper.model.Pmr;
@@ -54,6 +55,7 @@ public class MainActivity extends Activity {
         addRangeRow(inflater, rangeViewListener, new Lpd69());
         addRangeRow(inflater, rangeViewListener, new Lpd8());
         addRangeRow(inflater, rangeViewListener, new Pmr());
+        addRangeRow(inflater, rangeViewListener, new Frs());
 
         loadFrequency();
     }
