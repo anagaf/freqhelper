@@ -1,5 +1,8 @@
 package com.anagaf.freqhelper.model;
 
+import android.util.Log;
+
+import com.anagaf.freqhelper.BuildConfig;
 import com.anagaf.freqhelper.Frequency;
 import com.anagaf.freqhelper.R;
 
@@ -32,7 +35,7 @@ public class Frs extends AbstractRange {
         final int SEGMENT_CAPACITY = 7;
         final Frequency LOW_SEGMENT_BASE_FREQUENCY = new Frequency(462, 562, 500);
         final Frequency HIGH_SEGMENT_BASE_FREQUENCY = new Frequency(467, 562, 500);
-        final int STEP = 2500;
+        final int STEP = 25000;
 
         final List<Frequency> frequencies = new ArrayList<>();
         fillFrequencies(frequencies, LOW_SEGMENT_BASE_FREQUENCY, SEGMENT_CAPACITY, STEP);
@@ -41,14 +44,19 @@ public class Frs extends AbstractRange {
     }
 
     private static void fillFrequencies(List<Frequency> frequencies, Frequency baseFrequency, int count, int step) {
-        for (int i = 0; i <= count; i++) {
-            frequencies.add(baseFrequency.append(step * i));
+        for (int i = 0; i < count; i++) {
+            final Frequency frequency = baseFrequency.append(step * i);
+            frequencies.add(frequency);
+            Log.d("FreqHelper", "FRS channel " + frequencies.size() + " frequency " + frequency);
         }
     }
 
     @Override
     public Frequency getFrequency(int channel) {
-        return sFrequencies.get(channel);
+        if (BuildConfig.DEBUG && (channel < 1 || channel > getChannelCount())) {
+            throw new IllegalArgumentException();
+        }
+        return sFrequencies.get(channel - 1);
     }
 
     @Override
