@@ -19,6 +19,7 @@ public class MainActivity extends FragmentActivity {
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(1); // channels
     }
 
     /**
@@ -51,6 +52,7 @@ public class MainActivity extends FragmentActivity {
             super(fm);
 
             mPages = new ArrayList<>();
+            mPages.add(new PageInfo(new ChannelsFragment(), R.string.dcs));
             mPages.add(new PageInfo(new ChannelsFragment(), R.string.channels));
             mPages.add(new PageInfo(new ChannelsFragment(), R.string.ctcss));
         }

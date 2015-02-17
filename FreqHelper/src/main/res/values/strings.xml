@@ -8,4 +8,5 @@
     <string name="frs">FRS</string>
     <string name="channels">Channels</string>
     <string name="ctcss">CTCSS</string>
+    <string name="dcs">DCS</string>
 </resources>
