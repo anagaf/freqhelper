@@ -17,13 +17,13 @@ public class Ldp8Test extends AndroidTestCase {
     }
 
     public void testGetChannel() {
-        assertTrue(mLpd8.getChannel(new Frequency(433, 75)) == 1);
-        assertTrue(mLpd8.getChannel(new Frequency(433, 300)) == 4);
-        assertTrue(mLpd8.getChannel(new Frequency(433, 800)) == 8);
+        assertTrue(mLpd8.find(new Frequency(433, 75)) == 1);
+        assertTrue(mLpd8.find(new Frequency(433, 300)) == 4);
+        assertTrue(mLpd8.find(new Frequency(433, 800)) == 8);
     }
 
     public void testGetPrevChannel() {
-        testGetPrevChannel(new Frequency(433, 75), Range.INVALID_CHANNEL);
+        testGetPrevChannel(new Frequency(433, 75), Range.INVALID_INDEX);
         testGetPrevChannel(new Frequency(433, 300), 3);
         testGetPrevChannel(new Frequency(433, 900), 8);
     }
@@ -31,14 +31,14 @@ public class Ldp8Test extends AndroidTestCase {
     public void testGetNextChannel() {
         testGetNextChannel(new Frequency(433, 0), 1);
         testGetNextChannel(new Frequency(433, 300), 5);
-        testGetNextChannel(new Frequency(433, 800), Range.INVALID_CHANNEL);
+        testGetNextChannel(new Frequency(433, 800), Range.INVALID_INDEX);
     }
 
     private void testGetPrevChannel(Frequency frequency, int expectedChannel) {
-        assertEquals(expectedChannel, mLpd8.getPrevChannel(frequency));
+        assertEquals(expectedChannel, mLpd8.findPrev(frequency));
     }
 
     private  void testGetNextChannel(Frequency frequency, int expectedChannel) {
-        assertEquals(expectedChannel, mLpd8.getNextChannel(frequency));
+        assertEquals(expectedChannel, mLpd8.findNext(frequency));
     }
 }

@@ -17,13 +17,13 @@ public class PmrTest extends AndroidTestCase {
     }
 
     public void testGetChannel() {
-        assertTrue(mPmr.getChannel(new Frequency(446006250)) == 1);
-        assertTrue(mPmr.getChannel(new Frequency(446043750)) == 4);
-        assertTrue(mPmr.getChannel(new Frequency(446093750)) == 8);
+        assertTrue(mPmr.find(new Frequency(446006250)) == 1);
+        assertTrue(mPmr.find(new Frequency(446043750)) == 4);
+        assertTrue(mPmr.find(new Frequency(446093750)) == 8);
     }
 
     public void testGetPrevChannel() {
-        testGetPrevChannel(new Frequency(446006250), Range.INVALID_CHANNEL);
+        testGetPrevChannel(new Frequency(446006250), Range.INVALID_INDEX);
         testGetPrevChannel(new Frequency(446056250), 4);
         testGetPrevChannel(new Frequency(446093755), 8);
     }
@@ -31,14 +31,14 @@ public class PmrTest extends AndroidTestCase {
     public void testGetNextChannel() {
         testGetNextChannel(new Frequency(446006245), 1);
         testGetNextChannel(new Frequency(446056250), 6);
-        testGetNextChannel(new Frequency(446093755), Range.INVALID_CHANNEL);
+        testGetNextChannel(new Frequency(446093755), Range.INVALID_INDEX);
     }
 
     private void testGetPrevChannel(Frequency frequency, int expectedChannel) {
-        assertEquals(expectedChannel, mPmr.getPrevChannel(frequency));
+        assertEquals(expectedChannel, mPmr.findPrev(frequency));
     }
 
     private void testGetNextChannel(Frequency frequency, int expectedChannel) {
-        assertEquals(expectedChannel, mPmr.getNextChannel(frequency));
+        assertEquals(expectedChannel, mPmr.findNext(frequency));
     }
 }

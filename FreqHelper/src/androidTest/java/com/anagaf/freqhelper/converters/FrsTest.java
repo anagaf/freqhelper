@@ -22,14 +22,14 @@ public class FrsTest extends AndroidTestCase {
     }
 
     public void testGetChannel() {
-        assertEquals(mFrs.getChannel(new Frequency(462, 562, 400)), Range.INVALID_CHANNEL);
-        assertEquals(mFrs.getChannel(new Frequency(462, 562, 500)), 1);
-        assertEquals(mFrs.getChannel(new Frequency(462, 587, 500)), 2);
-        assertEquals(mFrs.getChannel(new Frequency(462, 637, 500)), 4);
-        assertEquals(mFrs.getChannel(new Frequency(462, 712, 500)), 7);
-        assertEquals(mFrs.getChannel(new Frequency(467, 562, 500)), 8);
-        assertEquals(mFrs.getChannel(new Frequency(467, 612, 500)), 10);
-        assertEquals(mFrs.getChannel(new Frequency(467, 662, 500)), 12);
-        assertEquals(mFrs.getChannel(new Frequency(467, 712, 500)), 14);
+        assertEquals(mFrs.find(new Frequency(462, 562, 400)), Range.INVALID_INDEX);
+        assertEquals(mFrs.find(new Frequency(462, 562, 500)), 1);
+        assertEquals(mFrs.find(new Frequency(462, 587, 500)), 2);
+        assertEquals(mFrs.find(new Frequency(462, 637, 500)), 4);
+        assertEquals(mFrs.find(new Frequency(462, 712, 500)), 7);
+        assertEquals(mFrs.find(new Frequency(467, 562, 500)), 8);
+        assertEquals(mFrs.find(new Frequency(467, 612, 500)), 10);
+        assertEquals(mFrs.find(new Frequency(467, 662, 500)), 12);
+        assertEquals(mFrs.find(new Frequency(467, 712, 500)), 14);
     }
 }

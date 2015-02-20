@@ -6,12 +6,12 @@ import com.anagaf.freqhelper.Frequency;
 public abstract class FixedStepRange extends AbstractRange {
 
     @Override
-    public Frequency getFrequency(int channel) {
-        if (BuildConfig.DEBUG && (channel < 1 || channel > getChannelCount())) {
+    public Frequency getFrequency(int index) {
+        if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
             throw new IllegalArgumentException();
         }
         Frequency baseFreq = getBaseFrequency();
-        return baseFreq.append((channel - 1) * getStep());
+        return baseFreq.append((index - 1) * getStep());
     }
 
     protected abstract Frequency getBaseFrequency();

@@ -38,7 +38,7 @@ public class Lpd69 extends FixedStepRange {
     }
 
     @Override
-    public int getChannelCount() {
+    public int getCount() {
         return 69;
     }
 

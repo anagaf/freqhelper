@@ -4,17 +4,17 @@ import com.anagaf.freqhelper.Frequency;
 
 public interface Range {
 
-    public static final int INVALID_CHANNEL = 0;
+    public static final int INVALID_INDEX = 0;
 
     Integer getNameStringId();
 
-    int getChannelCount();
+    int getCount();
 
-    Frequency getFrequency(int channel);
+    Frequency getFrequency(int index);
 
-    int getChannel(Frequency frequency);
+    int find(Frequency frequency);
 
-    int getPrevChannel(Frequency frequency);
+    int findPrev(Frequency frequency);
 
-    int getNextChannel(Frequency frequency);
+    int findNext(Frequency frequency);
 }

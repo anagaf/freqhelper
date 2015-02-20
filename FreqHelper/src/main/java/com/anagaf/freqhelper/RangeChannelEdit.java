@@ -25,7 +25,7 @@ public class RangeChannelEdit extends BaseEdit {
     @Override
     public void setValue(int value) {
         final String channelString;
-        if (value == Range.INVALID_CHANNEL) {
+        if (value == Range.INVALID_INDEX) {
             channelString = EMPTY_CHANNEL_NUMBER;
         } else {
             channelString = String.valueOf(value);

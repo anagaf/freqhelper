@@ -47,16 +47,15 @@ public class Frs extends AbstractRange {
         for (int i = 0; i < count; i++) {
             final Frequency frequency = baseFrequency.append(step * i);
             frequencies.add(frequency);
-            Log.d("FreqHelper", "FRS channel " + frequencies.size() + " frequency " + frequency);
         }
     }
 
     @Override
-    public Frequency getFrequency(int channel) {
-        if (BuildConfig.DEBUG && (channel < 1 || channel > getChannelCount())) {
+    public Frequency getFrequency(int index) {
+        if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
             throw new IllegalArgumentException();
         }
-        return sFrequencies.get(channel - 1);
+        return sFrequencies.get(index - 1);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class Frs extends AbstractRange {
     }
 
     @Override
-    public int getChannelCount() {
+    public int getCount() {
         return sFrequencies.size();
     }
 

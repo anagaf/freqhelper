@@ -23,7 +23,7 @@ public class Pmr extends FixedStepRange {
     }
 
     @Override
-    public int getChannelCount() {
+    public int getCount() {
         return 8;
     }
 

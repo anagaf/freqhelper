@@ -52,7 +52,7 @@ public class RangeView extends TableRow {
         mChannelEdit.setListener(new BaseEdit.Listener() {
             @Override
             public void onValueChanged(int value) {
-                if (value != Range.INVALID_CHANNEL) {
+                if (value != Range.INVALID_INDEX) {
                     moveToChannel(value);
                 }
             }
@@ -65,16 +65,16 @@ public class RangeView extends TableRow {
         final TextView title = (TextView) findViewById(R.id.title);
         title.setText(range.getNameStringId());
 
-        mChannelEdit.setMaxChannel(mRange.getChannelCount());
+        mChannelEdit.setMaxChannel(mRange.getCount());
     }
 
     public void setFrequency(Frequency frequency) {
-        mChannelEdit.setValue(mRange.getChannel(frequency));
+        mChannelEdit.setValue(mRange.find(frequency));
 
-        mPrevChannel = mRange.getPrevChannel(frequency);
-        mPrevChannelButton.setEnabled(mPrevChannel != Range.INVALID_CHANNEL);
-        mNextChannel = mRange.getNextChannel(frequency);
-        mNextChannelButton.setEnabled(mNextChannel != Range.INVALID_CHANNEL);
+        mPrevChannel = mRange.findPrev(frequency);
+        mPrevChannelButton.setEnabled(mPrevChannel != Range.INVALID_INDEX);
+        mNextChannel = mRange.findNext(frequency);
+        mNextChannelButton.setEnabled(mNextChannel != Range.INVALID_INDEX);
     }
 
     public void setListener(Listener listener) {
@@ -82,7 +82,7 @@ public class RangeView extends TableRow {
     }
 
     private void moveToChannel(int channel) {
-        if (channel >= 1 && channel <= mRange.getChannelCount()) {
+        if (channel >= 1 && channel <= mRange.getCount()) {
             BackStack.getsInstance().push(Settings.getFrequency(getContext()));
             final Frequency frequency = mRange.getFrequency(channel);
             Settings.setFrequency(getContext(), frequency);

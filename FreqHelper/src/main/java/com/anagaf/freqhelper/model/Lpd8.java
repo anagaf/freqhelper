@@ -40,15 +40,15 @@ public class Lpd8 extends AbstractRange {
     }
 
     @Override
-    public int getChannelCount() {
+    public int getCount() {
         return sFrequencies.size();
     }
 
     @Override
-    public Frequency getFrequency(int channel) {
-        if (BuildConfig.DEBUG && (channel < 1 || channel > getChannelCount())) {
+    public Frequency getFrequency(int index) {
+        if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
             throw new IllegalArgumentException();
         }
-        return sFrequencies.get(channel - 1);
+        return sFrequencies.get(index - 1);
     }
 }

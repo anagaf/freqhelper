@@ -11,30 +11,30 @@ public abstract class AbstractRange implements Range {
 
     AbstractRange() {
         mFrequencyChannelMap = new TreeMap<>();
-        for (int i = 1; i <= getChannelCount(); i++) {
+        for (int i = 1; i <= getCount(); i++) {
             mFrequencyChannelMap.put(getFrequency(i), i);
         }
     }
 
     @Override
-    public int getChannel(Frequency frequency) {
+    public int find(Frequency frequency) {
         if (mFrequencyChannelMap.containsKey(frequency)) {
             return mFrequencyChannelMap.get(frequency);
         } else {
-            return INVALID_CHANNEL;
+            return INVALID_INDEX;
         }
     }
 
     @Override
-    public int getPrevChannel(Frequency frequency) {
+    public int findPrev(Frequency frequency) {
         final TreeMap.Entry<Frequency, Integer> entry = mFrequencyChannelMap.lowerEntry(frequency);
-        return (entry != null ? entry.getValue() : INVALID_CHANNEL);
+        return (entry != null ? entry.getValue() : INVALID_INDEX);
     }
 
     @Override
-    public int getNextChannel(Frequency frequency) {
+    public int findNext(Frequency frequency) {
         final TreeMap.Entry<Frequency, Integer> entry = mFrequencyChannelMap.higherEntry(frequency);
-        return (entry != null ? entry.getValue() : INVALID_CHANNEL);
+        return (entry != null ? entry.getValue() : INVALID_INDEX);
     }
 
 }
