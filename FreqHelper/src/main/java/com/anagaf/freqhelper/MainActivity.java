@@ -54,7 +54,7 @@ public class MainActivity extends FragmentActivity {
             mPages = new ArrayList<>();
             mPages.add(new PageInfo(new ChannelsFragment(), R.string.dcs));
             mPages.add(new PageInfo(new ChannelsFragment(), R.string.channels));
-            mPages.add(new PageInfo(new ChannelsFragment(), R.string.ctcss));
+            mPages.add(new PageInfo(new CtcssFragment(), R.string.ctcss));
         }
 
         @Override
