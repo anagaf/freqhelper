@@ -96,7 +96,7 @@ public class ChannelsFragment extends Fragment {
         final Integer mhz = frequencyComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
         final Integer khz = frequencyComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
-        return new Frequency(mhz, khz, hz);
+        return Frequency.newChannelFrequency(mhz, khz, hz);
     }
 
     private static Integer frequencyComponentStringToInteger(String string) {

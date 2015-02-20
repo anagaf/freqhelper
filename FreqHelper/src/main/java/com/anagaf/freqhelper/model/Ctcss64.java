@@ -27,11 +27,26 @@ import java.util.List;
 16	69.4	32	118.8	48	179.9	64	254.1
 */
 
-public class Ctcss64 extends AbstractRange {
+public class Ctcss64 extends AbstractStaticRange {
     private static final List<Frequency> sFrequencies;
     static {
         List<Frequency> frequencies = new ArrayList<>();
-
+        frequencies.add(Frequency.newCtcssFrequency(33, 0));
+        frequencies.add(Frequency.newCtcssFrequency(35, 4));
+        frequencies.add(Frequency.newCtcssFrequency(36, 6));
+        frequencies.add(Frequency.newCtcssFrequency(37, 9));
+        frequencies.add(Frequency.newCtcssFrequency(39, 6));
+        frequencies.add(Frequency.newCtcssFrequency(44, 4));
+        frequencies.add(Frequency.newCtcssFrequency(47, 5));
+        frequencies.add(Frequency.newCtcssFrequency(49, 2));
+        frequencies.add(Frequency.newCtcssFrequency(51, 2));
+        frequencies.add(Frequency.newCtcssFrequency(53, 0));
+        frequencies.add(Frequency.newCtcssFrequency(54, 9));
+        frequencies.add(Frequency.newCtcssFrequency(56, 8));
+        frequencies.add(Frequency.newCtcssFrequency(58, 8));
+        frequencies.add(Frequency.newCtcssFrequency(63, 0));
+        frequencies.add(Frequency.newCtcssFrequency(67, 0));
+        frequencies.add(Frequency.newCtcssFrequency(69, 4));
         sFrequencies = Collections.unmodifiableList(frequencies);
     }
 
@@ -41,15 +56,7 @@ public class Ctcss64 extends AbstractRange {
     }
 
     @Override
-    public int getCount() {
-        return sFrequencies.size();
-    }
-
-    @Override
-    public Frequency getFrequency(int index) {
-        if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
-            throw new IllegalArgumentException();
-        }
-        return sFrequencies.get(index - 1);
+    protected List<Frequency> getFrequencies() {
+        return sFrequencies;
     }
 }

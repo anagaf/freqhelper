@@ -23,14 +23,14 @@ public class Lpd8 extends AbstractRange {
     private static final List<Frequency> sFrequencies;
     static {
         List<Frequency> frequencies = new ArrayList<>();
-        frequencies.add(new Frequency(433, 75));
-        frequencies.add(new Frequency(433, 100));
-        frequencies.add(new Frequency(433, 200));
-        frequencies.add(new Frequency(433, 300));
-        frequencies.add(new Frequency(433, 350));
-        frequencies.add(new Frequency(433, 475));
-        frequencies.add(new Frequency(433, 625));
-        frequencies.add(new Frequency(433, 800));
+        frequencies.add(Frequency.newChannelFrequency(433, 75, 0));
+        frequencies.add(Frequency.newChannelFrequency(433, 100, 0));
+        frequencies.add(Frequency.newChannelFrequency(433, 200, 0));
+        frequencies.add(Frequency.newChannelFrequency(433, 300, 0));
+        frequencies.add(Frequency.newChannelFrequency(433, 350, 0));
+        frequencies.add(Frequency.newChannelFrequency(433, 475, 0));
+        frequencies.add(Frequency.newChannelFrequency(433, 625, 0));
+        frequencies.add(Frequency.newChannelFrequency(433, 800, 0));
         sFrequencies = Collections.unmodifiableList(frequencies);
     }
 

@@ -1,7 +1,5 @@
 package com.anagaf.freqhelper.model;
 
-import android.util.Log;
-
 import com.anagaf.freqhelper.BuildConfig;
 import com.anagaf.freqhelper.Frequency;
 import com.anagaf.freqhelper.R;
@@ -33,8 +31,8 @@ public class Frs extends AbstractRange {
 
     static {
         final int SEGMENT_CAPACITY = 7;
-        final Frequency LOW_SEGMENT_BASE_FREQUENCY = new Frequency(462, 562, 500);
-        final Frequency HIGH_SEGMENT_BASE_FREQUENCY = new Frequency(467, 562, 500);
+        final Frequency LOW_SEGMENT_BASE_FREQUENCY = Frequency.newChannelFrequency(462, 562, 500);
+        final Frequency HIGH_SEGMENT_BASE_FREQUENCY = Frequency.newChannelFrequency(467, 562, 500);
         final int STEP = 25000;
 
         final List<Frequency> frequencies = new ArrayList<>();

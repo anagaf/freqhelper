@@ -19,7 +19,7 @@ class Settings {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Frequency frequency;
         if (prefs.contains(FREQUENCY_KEY)) {
-            frequency = new Frequency(prefs.getInt(FREQUENCY_KEY, 0));
+            frequency = Frequency.newChannelFrequency(prefs.getInt(FREQUENCY_KEY, 0));
         } else {
             Range lpd8 = new Lpd8();
             frequency = lpd8.getFrequency(1);

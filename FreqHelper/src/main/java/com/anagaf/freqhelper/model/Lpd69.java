@@ -30,7 +30,7 @@ import com.anagaf.freqhelper.R;
 */
 public class Lpd69 extends FixedStepRange {
 
-    private static final Frequency BASE_FREQUENCY = new Frequency(433075000);
+    private static final Frequency BASE_FREQUENCY = Frequency.newChannelFrequency(433, 075, 000);
 
     @Override
     public Integer getNameStringId() {
