@@ -5,8 +5,8 @@ import android.test.AndroidTestCase;
 public class BackStackTest extends AndroidTestCase {
     public void test() {
         final BackStack backStack = BackStack.getsInstance();
-        final Frequency frequency1 = new Frequency(475, 133);
-        final Frequency frequency2 = new Frequency(446, 6, 250);
+        final Frequency frequency1 = Frequency.newChannelFrequency(475, 133, 0);
+        final Frequency frequency2 = Frequency.newChannelFrequency(446, 6, 250);
         assertNull(backStack.pop());
         backStack.push(frequency1);
         backStack.push(frequency2);

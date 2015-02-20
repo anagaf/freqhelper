@@ -12,13 +12,22 @@ public class FrequencyTest extends AndroidTestCase {
     }
 
     private void testComponents(Integer mhz, Integer khz, Integer hz) {
-        Frequency frequency = new Frequency(mhz, khz, hz);
+        Frequency frequency = Frequency.newChannelFrequency(mhz, khz, hz);
         assertEquals(mhz, frequency.getMegahertzComponent());
         assertEquals(khz, frequency.getKilohertzComponent());
         assertEquals(hz, frequency.getHertzComponent());
     }
 
     public void testToString() {
-        assertEquals(new Frequency(446, 6, 250).toString(), "446.006250");
+        assertEquals(Frequency.newChannelFrequency(446, 6, 250).toString(), "446.006.250.0");
+        assertEquals(Frequency.newCtcssFrequency(31, 5).toString(), "0.000.031.5");
+    }
+
+    public void testAppend() {
+        Frequency channelFrequency = Frequency.newChannelFrequency(433, 175, 250);
+        assertEquals(channelFrequency.append(2500), Frequency.newChannelFrequency(433, 177, 750));
+
+        Frequency ctcssFrequency = Frequency.newCtcssFrequency(31, 5);
+        assertEquals(ctcssFrequency.append(3), Frequency.newCtcssFrequency(34, 5));
     }
 }

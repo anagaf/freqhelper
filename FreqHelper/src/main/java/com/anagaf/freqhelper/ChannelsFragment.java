@@ -14,9 +14,8 @@ import com.anagaf.freqhelper.model.Lpd8;
 import com.anagaf.freqhelper.model.Pmr;
 import com.anagaf.freqhelper.model.Range;
 
-public class ChannelsFragment extends Fragment {
+public class ChannelsFragment extends BaseMainActivityFragment {
 
-    private TableLayout mRangesLayout;
     private FrequencyComponentEdit mFrequencyMhzEdit;
     private FrequencyComponentEdit mFrequencyKhzEdit;
     private FrequencyComponentEdit mFrequencyHzEdit;
@@ -26,7 +25,7 @@ public class ChannelsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.channels, null);
 
-        mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
+        setRangesLayout((TableLayout) view.findViewById(R.id.ranges_layout));
 
         final FrequencyComponentEdit.Listener frequencyComponentChangeListener = new FrequencyComponentEdit.Listener() {
             @Override
@@ -47,7 +46,8 @@ public class ChannelsFragment extends Fragment {
 
         final RangeView.Listener rangeViewListener = new RangeView.Listener() {
             @Override
-            public void onFrequencyChanged() {
+            public void onFrequencyChanged(Frequency frequency) {
+                Settings.setFrequency(getActivity(), frequency);
                 loadFrequency();
             }
         };
@@ -60,14 +60,6 @@ public class ChannelsFragment extends Fragment {
         loadFrequency();
 
         return view;
-    }
-
-    private void addRangeRow(LayoutInflater inflater, RangeView.Listener listener, Range range) {
-        View view = inflater.inflate(R.layout.range, null, false);
-        RangeView row = (RangeView) view;
-        row.setRange(range);
-        row.setListener(listener);
-        mRangesLayout.addView(row);
     }
 
     private void loadFrequency() {
@@ -84,25 +76,15 @@ public class ChannelsFragment extends Fragment {
         Settings.setFrequency(getActivity(), frequency);
     }
 
-    private void updateRanges() {
-        final Frequency frequency = getFrequency();
-        for (int i = 0; i < mRangesLayout.getChildCount(); i++) {
-            final RangeView row = (RangeView) mRangesLayout.getChildAt(i);
-            row.setFrequency(frequency);
-        }
-    }
-
-    private Frequency getFrequency() {
+    @Override
+    protected Frequency getFrequency() {
         final Integer mhz = frequencyComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
         final Integer khz = frequencyComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
         return Frequency.newChannelFrequency(mhz, khz, hz);
     }
 
-    private static Integer frequencyComponentStringToInteger(String string) {
-        return string.isEmpty() ? 0 : Integer.parseInt(string);
-    }
-
+// TODO
 //    @Override
 //    public void onBackPressed() {
 //        final Frequency frequency = BackStack.getsInstance().pop();

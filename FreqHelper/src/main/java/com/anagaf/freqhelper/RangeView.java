@@ -85,8 +85,7 @@ public class RangeView extends TableRow {
         if (channel >= 1 && channel <= mRange.getCount()) {
             BackStack.getsInstance().push(Settings.getFrequency(getContext()));
             final Frequency frequency = mRange.getFrequency(channel);
-            Settings.setFrequency(getContext(), frequency);
-            mListener.onFrequencyChanged();
+            mListener.onFrequencyChanged(frequency);
         }
     }
 
@@ -95,6 +94,6 @@ public class RangeView extends TableRow {
      */
 
     public interface Listener {
-        public void onFrequencyChanged();
+        public void onFrequencyChanged(Frequency frequency);
     }
 }

@@ -33,9 +33,7 @@ public class Frequency implements Comparable<Frequency> {
 
     @Override
     public String toString() {
-        final int mhz = mHertz / HERTZ_PER_MEGAHERTZ;
-        final int khz = mHertz % HERTZ_PER_MEGAHERTZ;
-        return String.format("%d.%06d", mhz, khz);
+        return String.format("%d.%03d.%03d.%d", getMegahertzComponent(), getKilohertzComponent(), getHertzComponent(), mHertzFraction);
     }
 
     public Integer getHertz() {
@@ -54,6 +52,10 @@ public class Frequency implements Comparable<Frequency> {
         return getHertz() % HERTZ_PER_KILOHERTZ;
     }
 
+    public int getHertzFractionComponent() {
+        return mHertzFraction;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,13 +63,19 @@ public class Frequency implements Comparable<Frequency> {
 
         Frequency frequency = (Frequency) o;
 
-        return (mHertz.equals(frequency.mHertz));
+        if (mHertz != null ? !mHertz.equals(frequency.mHertz) : frequency.mHertz != null)
+            return false;
+        if (mHertzFraction != null ? !mHertzFraction.equals(frequency.mHertzFraction) : frequency.mHertzFraction != null)
+            return false;
 
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return mHertz != null ? mHertz.hashCode() : 0;
+        int result = mHertz != null ? mHertz.hashCode() : 0;
+        result = 31 * result + (mHertzFraction != null ? mHertzFraction.hashCode() : 0);
+        return result;
     }
 
     public Frequency append(int hertz) {
@@ -78,5 +86,4 @@ public class Frequency implements Comparable<Frequency> {
     public int compareTo(Frequency frequency) {
         return mHertz.compareTo(frequency.mHertz);
     }
-
 }

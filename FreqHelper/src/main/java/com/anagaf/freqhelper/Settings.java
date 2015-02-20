@@ -4,27 +4,53 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.anagaf.freqhelper.model.Ctcss64;
 import com.anagaf.freqhelper.model.Lpd8;
 import com.anagaf.freqhelper.model.Range;
 
 class Settings {
-    private static final String FREQUENCY_KEY = "Frequency";
+    private static final String CHANNEL_FREQUENCY_HERTZ_KEY = "FrequencyHertz";
+    private static final String CTCSS_FREQUENCY_HERTZ_KEY = "CtcssFrequencyHertz";
+    private static final String CTCSS_FREQUENCY_HERTZ_FRACTION_KEY = "CtcssFrequencyHertzFraction";
 
     public static void setFrequency(Context context, Frequency frequency) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putInt(FREQUENCY_KEY, frequency.getHertz()).apply();
+        prefs.edit().putInt(CHANNEL_FREQUENCY_HERTZ_KEY, frequency.getHertz()).apply();
     }
 
     public static Frequency getFrequency(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Frequency frequency;
-        if (prefs.contains(FREQUENCY_KEY)) {
-            frequency = Frequency.newChannelFrequency(prefs.getInt(FREQUENCY_KEY, 0));
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final Frequency frequency;
+        if (prefs.contains(CHANNEL_FREQUENCY_HERTZ_KEY)) {
+            frequency = Frequency.newChannelFrequency(prefs.getInt(CHANNEL_FREQUENCY_HERTZ_KEY, 0));
         } else {
             Range lpd8 = new Lpd8();
             frequency = lpd8.getFrequency(1);
             setFrequency(context, frequency);
         }
         return frequency;
+    }
+
+    public static Frequency getCtcssFrequency(Context context) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final Frequency frequency;
+        if (prefs.contains(CTCSS_FREQUENCY_HERTZ_KEY) && prefs.contains(CTCSS_FREQUENCY_HERTZ_FRACTION_KEY)) {
+            final int hertz = prefs.getInt(CHANNEL_FREQUENCY_HERTZ_KEY, 0);
+            final int hertzFraction = prefs.getInt(CTCSS_FREQUENCY_HERTZ_FRACTION_KEY, 0);
+            frequency = Frequency.newCtcssFrequency(hertz, hertzFraction);
+        } else {
+            Range ctcss64 = new Ctcss64();
+            frequency = ctcss64.getFrequency(1);
+            setFrequency(context, frequency);
+        }
+        return frequency;
+    }
+
+    public static void setCtcssFrequency(Context context, Frequency frequency) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putInt(CTCSS_FREQUENCY_HERTZ_KEY, frequency.getHertz())
+                .putInt(CTCSS_FREQUENCY_HERTZ_FRACTION_KEY, frequency.getHertzFractionComponent())
+                .apply();
+
     }
 }

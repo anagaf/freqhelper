@@ -11,27 +11,27 @@ public class Ldp8Test extends AndroidTestCase {
     private final Range mLpd8 = new Lpd8();
 
     public void testGetFrequency() {
-        assertTrue(mLpd8.getFrequency(1).equals(new Frequency(433, 75)));
-        assertTrue(mLpd8.getFrequency(4).equals(new Frequency(433, 300)));
-        assertTrue(mLpd8.getFrequency(8).equals(new Frequency(433, 800)));
+        assertTrue(mLpd8.getFrequency(1).equals(Frequency.newChannelFrequency(433, 75, 0)));
+        assertTrue(mLpd8.getFrequency(4).equals(Frequency.newChannelFrequency(433, 300, 0)));
+        assertTrue(mLpd8.getFrequency(8).equals(Frequency.newChannelFrequency(433, 800, 0)));
     }
 
     public void testGetChannel() {
-        assertTrue(mLpd8.find(new Frequency(433, 75)) == 1);
-        assertTrue(mLpd8.find(new Frequency(433, 300)) == 4);
-        assertTrue(mLpd8.find(new Frequency(433, 800)) == 8);
+        assertTrue(mLpd8.find(Frequency.newChannelFrequency(433, 75, 0)) == 1);
+        assertTrue(mLpd8.find(Frequency.newChannelFrequency(433, 300, 0)) == 4);
+        assertTrue(mLpd8.find(Frequency.newChannelFrequency(433, 800, 0)) == 8);
     }
 
     public void testGetPrevChannel() {
-        testGetPrevChannel(new Frequency(433, 75), Range.INVALID_INDEX);
-        testGetPrevChannel(new Frequency(433, 300), 3);
-        testGetPrevChannel(new Frequency(433, 900), 8);
+        testGetPrevChannel(Frequency.newChannelFrequency(433, 75, 0), Range.INVALID_INDEX);
+        testGetPrevChannel(Frequency.newChannelFrequency(433, 300, 0), 3);
+        testGetPrevChannel(Frequency.newChannelFrequency(433, 900, 0), 8);
     }
 
     public void testGetNextChannel() {
-        testGetNextChannel(new Frequency(433, 0), 1);
-        testGetNextChannel(new Frequency(433, 300), 5);
-        testGetNextChannel(new Frequency(433, 800), Range.INVALID_INDEX);
+        testGetNextChannel(Frequency.newChannelFrequency(433, 0, 0), 1);
+        testGetNextChannel(Frequency.newChannelFrequency(433, 300, 0), 5);
+        testGetNextChannel(Frequency.newChannelFrequency(433, 800, 0), Range.INVALID_INDEX);
     }
 
     private void testGetPrevChannel(Frequency frequency, int expectedChannel) {
