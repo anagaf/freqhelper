@@ -41,9 +41,9 @@
                     a:layout_marginRight="@dimen/gap"
                     tools:text="433"/>
 
-                <com.anagaf.freqhelper.FrequencyComponentEdit
+                <com.anagaf.freqhelper.FrequencyDeciHertzComponentEdit
                     a:id="@+id/frequency_deci_hz_edit"
-                    style="@style/FreqDeciHertzEdit"
+                    style="@style/FreqEdit"
                     tools:text="000"/>
 
             </LinearLayout>

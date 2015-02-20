@@ -29,11 +29,6 @@
 
     <style name="FreqEdit" parent="BaseEdit">
         <item name="android:background">@color/frequency_item_background</item>
-        <item name="android:maxLength">3</item>
-    </style>
-
-    <style name="FreqDeciHertzEdit" parent="FreqEdit">
-        <item name="android:maxLength">1</item>
     </style>
 
     <style name="RangeTitle" parent="BaseItem">

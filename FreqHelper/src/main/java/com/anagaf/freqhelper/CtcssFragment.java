@@ -12,7 +12,7 @@ import com.anagaf.freqhelper.model.Ctcss64;
 public class CtcssFragment extends BaseMainActivityFragment {
 
     private FrequencyComponentEdit mFrequencyHzEdit;
-    private FrequencyComponentEdit mFrequencyHzFractionEdit;
+    private FrequencyDeciHertzComponentEdit mFrequencyHzFractionEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class CtcssFragment extends BaseMainActivityFragment {
         mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(frequencyComponentChangeListener);
 
-        mFrequencyHzFractionEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
+        mFrequencyHzFractionEdit = (FrequencyDeciHertzComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
         mFrequencyHzFractionEdit.setListener(frequencyComponentChangeListener);
 
         final RangeView.Listener rangeViewListener = new RangeView.Listener() {
