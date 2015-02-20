@@ -35,7 +35,7 @@ class Settings {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         final Frequency frequency;
         if (prefs.contains(CTCSS_FREQUENCY_HERTZ_KEY) && prefs.contains(CTCSS_FREQUENCY_HERTZ_FRACTION_KEY)) {
-            final int hertz = prefs.getInt(CHANNEL_FREQUENCY_HERTZ_KEY, 0);
+            final int hertz = prefs.getInt(CTCSS_FREQUENCY_HERTZ_KEY, 0);
             final int hertzFraction = prefs.getInt(CTCSS_FREQUENCY_HERTZ_FRACTION_KEY, 0);
             frequency = Frequency.newCtcssFrequency(hertz, hertzFraction);
         } else {

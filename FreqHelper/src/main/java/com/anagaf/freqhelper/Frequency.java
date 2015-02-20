@@ -84,6 +84,10 @@ public class Frequency implements Comparable<Frequency> {
 
     @Override
     public int compareTo(Frequency frequency) {
-        return mHertz.compareTo(frequency.mHertz);
+        return getDeciHertz().compareTo(frequency.getDeciHertz());
+    }
+
+    private Long getDeciHertz() {
+        return mHertz * 10L + mHertzFraction;
     }
 }

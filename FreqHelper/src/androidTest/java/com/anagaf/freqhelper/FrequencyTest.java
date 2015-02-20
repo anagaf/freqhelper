@@ -30,4 +30,16 @@ public class FrequencyTest extends AndroidTestCase {
         Frequency ctcssFrequency = Frequency.newCtcssFrequency(31, 5);
         assertEquals(ctcssFrequency.append(3), Frequency.newCtcssFrequency(34, 5));
     }
+
+    public void testComparison() {
+        assertTrue(Frequency.newChannelFrequency(433, 175, 250).compareTo(Frequency.newChannelFrequency(433, 175, 250)) == 0);
+        assertTrue(Frequency.newChannelFrequency(433, 175, 150).compareTo(Frequency.newChannelFrequency(433, 175, 250)) < 0);
+        assertTrue(Frequency.newChannelFrequency(433, 175, 350).compareTo(Frequency.newChannelFrequency(433, 175, 250)) > 0);
+
+        assertTrue(Frequency.newCtcssFrequency(31, 5).compareTo(Frequency.newCtcssFrequency(31, 5)) == 0);
+        assertTrue(Frequency.newCtcssFrequency(31, 4).compareTo(Frequency.newCtcssFrequency(31, 5)) < 0);
+        assertTrue(Frequency.newCtcssFrequency(31, 6).compareTo(Frequency.newCtcssFrequency(31, 5)) > 0);
+        assertTrue(Frequency.newCtcssFrequency(21, 5).compareTo(Frequency.newCtcssFrequency(31, 5)) < 0);
+        assertTrue(Frequency.newCtcssFrequency(41, 5).compareTo(Frequency.newCtcssFrequency(31, 5)) > 0);
+    }
 }
