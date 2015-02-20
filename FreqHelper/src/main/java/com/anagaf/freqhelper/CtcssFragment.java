@@ -57,9 +57,9 @@ public class CtcssFragment extends BaseMainActivityFragment {
     }
 
     private void saveFrequency() {
-        BackStack.getsInstance().push(Settings.getFrequency(getActivity()));
+        //BackStack.getsInstance().push(Settings.getChannelFrequency(getActivity()));
         final Frequency frequency = getFrequency();
-        Settings.setFrequency(getActivity(), frequency);
+        Settings.setCtcssFrequency(getActivity(), frequency);
     }
 
     @Override

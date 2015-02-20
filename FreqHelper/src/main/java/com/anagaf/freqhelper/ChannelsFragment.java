@@ -2,7 +2,6 @@ package com.anagaf.freqhelper;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import com.anagaf.freqhelper.model.Frs;
 import com.anagaf.freqhelper.model.Lpd69;
 import com.anagaf.freqhelper.model.Lpd8;
 import com.anagaf.freqhelper.model.Pmr;
-import com.anagaf.freqhelper.model.Range;
 
 public class ChannelsFragment extends BaseMainActivityFragment {
 
@@ -47,7 +45,7 @@ public class ChannelsFragment extends BaseMainActivityFragment {
         final RangeView.Listener rangeViewListener = new RangeView.Listener() {
             @Override
             public void onFrequencyChanged(Frequency frequency) {
-                Settings.setFrequency(getActivity(), frequency);
+                Settings.setChannelFrequency(getActivity(), frequency);
                 loadFrequency();
             }
         };
@@ -63,7 +61,7 @@ public class ChannelsFragment extends BaseMainActivityFragment {
     }
 
     private void loadFrequency() {
-        final Frequency frequency = Settings.getFrequency(getActivity());
+        final Frequency frequency = Settings.getChannelFrequency(getActivity());
         mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
         mFrequencyKhzEdit.setValue(frequency.getKilohertzComponent());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
@@ -71,9 +69,9 @@ public class ChannelsFragment extends BaseMainActivityFragment {
     }
 
     private void saveFrequency() {
-        BackStack.getsInstance().push(Settings.getFrequency(getActivity()));
+        BackStack.getsInstance().push(Settings.getChannelFrequency(getActivity()));
         final Frequency frequency = getFrequency();
-        Settings.setFrequency(getActivity(), frequency);
+        Settings.setChannelFrequency(getActivity(), frequency);
     }
 
     @Override
@@ -91,7 +89,7 @@ public class ChannelsFragment extends BaseMainActivityFragment {
 //        if (frequency == null) {
 //            super.onBackPressed();
 //        } else {
-//            Settings.setFrequency(this, frequency);
+//            Settings.setChannelFrequency(this, frequency);
 //            loadFrequency();
 //        }
 //    }
