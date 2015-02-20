@@ -32,6 +32,10 @@
         <item name="android:maxLength">3</item>
     </style>
 
+    <style name="FreqDeciHertzEdit" parent="FreqEdit">
+        <item name="android:maxLength">1</item>
+    </style>
+
     <style name="RangeTitle" parent="BaseItem">
         <item name="android:background">@color/range_item_background</item>
         <item name="android:padding">@dimen/gap</item>

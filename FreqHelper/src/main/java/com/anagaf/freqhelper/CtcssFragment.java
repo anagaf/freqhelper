@@ -2,14 +2,12 @@ package com.anagaf.freqhelper;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
 import com.anagaf.freqhelper.model.Ctcss64;
-import com.anagaf.freqhelper.model.Range;
 
 public class CtcssFragment extends BaseMainActivityFragment {
 
@@ -33,7 +31,7 @@ public class CtcssFragment extends BaseMainActivityFragment {
         mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(frequencyComponentChangeListener);
 
-        mFrequencyHzFractionEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_fraction_edit);
+        mFrequencyHzFractionEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
         mFrequencyHzFractionEdit.setListener(frequencyComponentChangeListener);
 
         final RangeView.Listener rangeViewListener = new RangeView.Listener() {

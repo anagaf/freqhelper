@@ -42,8 +42,8 @@
                     tools:text="433"/>
 
                 <com.anagaf.freqhelper.FrequencyComponentEdit
-                    a:id="@+id/frequency_hz_fraction_edit"
-                    style="@style/FreqEdit"
+                    a:id="@+id/frequency_deci_hz_edit"
+                    style="@style/FreqDeciHertzEdit"
                     tools:text="000"/>
 
             </LinearLayout>
