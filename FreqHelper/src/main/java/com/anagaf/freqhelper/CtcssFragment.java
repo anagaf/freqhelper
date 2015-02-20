@@ -12,7 +12,7 @@ import com.anagaf.freqhelper.model.Ctcss64;
 public class CtcssFragment extends BaseMainActivityFragment {
 
     private FrequencyComponentEdit mFrequencyHzEdit;
-    private FrequencyDeciHertzComponentEdit mFrequencyHzFractionEdit;
+    private FrequencyDeciHertzComponentEdit mFrequencyDeciHzEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,8 +31,8 @@ public class CtcssFragment extends BaseMainActivityFragment {
         mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(frequencyComponentChangeListener);
 
-        mFrequencyHzFractionEdit = (FrequencyDeciHertzComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
-        mFrequencyHzFractionEdit.setListener(frequencyComponentChangeListener);
+        mFrequencyDeciHzEdit = (FrequencyDeciHertzComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
+        mFrequencyDeciHzEdit.setListener(frequencyComponentChangeListener);
 
         final RangeView.Listener rangeViewListener = new RangeView.Listener() {
             @Override
@@ -52,7 +52,7 @@ public class CtcssFragment extends BaseMainActivityFragment {
     private void loadFrequency() {
         final Frequency frequency = Settings.getCtcssFrequency(getActivity());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
-        mFrequencyHzFractionEdit.setValue(frequency.getHertzFractionComponent());
+        mFrequencyDeciHzEdit.setValue(frequency.getDeciHertzComponent());
         updateRanges();
     }
 
@@ -65,7 +65,7 @@ public class CtcssFragment extends BaseMainActivityFragment {
     @Override
     protected Frequency getFrequency() {
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
-        final Integer hzFraction = frequencyComponentStringToInteger(mFrequencyHzFractionEdit.getText().toString());
-        return Frequency.newCtcssFrequency(hz, hzFraction);
+        final Integer deciHz = frequencyComponentStringToInteger(mFrequencyDeciHzEdit.getText().toString());
+        return Frequency.newCtcssFrequency(hz, deciHz);
     }
 }

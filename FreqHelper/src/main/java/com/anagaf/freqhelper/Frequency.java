@@ -4,19 +4,11 @@ public class Frequency implements Comparable<Frequency> {
     private static final int HERTZ_PER_MEGAHERTZ = 1000000;
     private static final int HERTZ_PER_KILOHERTZ = 1000;
     private final Integer mHertz;
-    private final Integer mHertzFraction;
+    private final Integer mDeciHertz;
 
-//    public Frequency(int megahertz, int kilohertz) {
-//        this(megahertz, kilohertz, 0);
-//    }
-//
-//    public Frequency(int megahertz, int kilohertz, int hertz) {
-//        this(megahertz * HERTZ_PER_MEGAHERTZ + kilohertz * HERTZ_PER_KILOHERTZ + hertz, 0);
-//    }
-
-    private Frequency(int hertz, int hertzFraction) {
+    private Frequency(int hertz, int deciHertz) {
         mHertz = hertz;
-        mHertzFraction = hertzFraction;
+        mDeciHertz = deciHertz;
     }
 
     public static Frequency newChannelFrequency(int hertz) {
@@ -27,13 +19,13 @@ public class Frequency implements Comparable<Frequency> {
         return new Frequency(megahertz * HERTZ_PER_MEGAHERTZ + kilohertz * HERTZ_PER_KILOHERTZ + hertz, 0);
     }
 
-    public static Frequency newCtcssFrequency(int hertz, int hertzFraction) {
-        return new Frequency(hertz, hertzFraction);
+    public static Frequency newCtcssFrequency(int hertz, int deciHertz) {
+        return new Frequency(hertz, deciHertz);
     }
 
     @Override
     public String toString() {
-        return String.format("%d.%03d.%03d.%d", getMegahertzComponent(), getKilohertzComponent(), getHertzComponent(), mHertzFraction);
+        return String.format("%d.%03d.%03d.%d", getMegahertzComponent(), getKilohertzComponent(), getHertzComponent(), getDeciHertzComponent());
     }
 
     public Integer getHertz() {
@@ -52,8 +44,8 @@ public class Frequency implements Comparable<Frequency> {
         return getHertz() % HERTZ_PER_KILOHERTZ;
     }
 
-    public int getHertzFractionComponent() {
-        return mHertzFraction;
+    public int getDeciHertzComponent() {
+        return mDeciHertz;
     }
 
     @Override
@@ -65,7 +57,7 @@ public class Frequency implements Comparable<Frequency> {
 
         if (mHertz != null ? !mHertz.equals(frequency.mHertz) : frequency.mHertz != null)
             return false;
-        if (mHertzFraction != null ? !mHertzFraction.equals(frequency.mHertzFraction) : frequency.mHertzFraction != null)
+        if (mDeciHertz != null ? !mDeciHertz.equals(frequency.mDeciHertz) : frequency.mDeciHertz != null)
             return false;
 
         return true;
@@ -74,12 +66,12 @@ public class Frequency implements Comparable<Frequency> {
     @Override
     public int hashCode() {
         int result = mHertz != null ? mHertz.hashCode() : 0;
-        result = 31 * result + (mHertzFraction != null ? mHertzFraction.hashCode() : 0);
+        result = 31 * result + (mDeciHertz != null ? mDeciHertz.hashCode() : 0);
         return result;
     }
 
     public Frequency append(int hertz) {
-        return new Frequency(mHertz + hertz, mHertzFraction);
+        return new Frequency(mHertz + hertz, mDeciHertz);
     }
 
     @Override
@@ -88,6 +80,6 @@ public class Frequency implements Comparable<Frequency> {
     }
 
     private Long getDeciHertz() {
-        return mHertz * 10L + mHertzFraction;
+        return mHertz * 10L + mDeciHertz;
     }
 }

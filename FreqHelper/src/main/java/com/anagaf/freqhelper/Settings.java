@@ -36,8 +36,8 @@ class Settings {
         final Frequency frequency;
         if (prefs.contains(CTCSS_FREQUENCY_HERTZ_KEY) && prefs.contains(CTCSS_FREQUENCY_DECI_HERTZ_KEY)) {
             final int hertz = prefs.getInt(CTCSS_FREQUENCY_HERTZ_KEY, 0);
-            final int hertzFraction = prefs.getInt(CTCSS_FREQUENCY_DECI_HERTZ_KEY, 0);
-            frequency = Frequency.newCtcssFrequency(hertz, hertzFraction);
+            final int deciHertz = prefs.getInt(CTCSS_FREQUENCY_DECI_HERTZ_KEY, 0);
+            frequency = Frequency.newCtcssFrequency(hertz, deciHertz);
         } else {
             Range ctcss64 = new Ctcss64();
             frequency = ctcss64.getFrequency(1);
@@ -49,7 +49,7 @@ class Settings {
     public static void setCtcssFrequency(Context context, Frequency frequency) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putInt(CTCSS_FREQUENCY_HERTZ_KEY, frequency.getHertz())
-                .putInt(CTCSS_FREQUENCY_DECI_HERTZ_KEY, frequency.getHertzFractionComponent())
+                .putInt(CTCSS_FREQUENCY_DECI_HERTZ_KEY, frequency.getDeciHertzComponent())
                 .apply();
 
     }
