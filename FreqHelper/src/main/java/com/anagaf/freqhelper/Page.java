@@ -74,7 +74,7 @@ public abstract class Page extends Fragment {
         updateFrequency();
     }
 
-    private void pushCurrentStateToBackStack() {
+    public void pushCurrentStateToBackStack() {
         final Frequency currentFrequency = readFrequencyFromSettings(getActivity());
         BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
     }

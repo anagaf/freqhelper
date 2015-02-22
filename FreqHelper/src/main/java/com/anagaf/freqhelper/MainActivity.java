@@ -13,6 +13,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity {
     final List<PageInfo> mPages = new ArrayList<>();
     private ViewPager mViewPager;
+    private int mCurrentPageIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,23 @@ public class MainActivity extends FragmentActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(new Adapter(getSupportFragmentManager()));
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i2) {
+            }
+
+            @Override
+            public void onPageSelected(int index) {
+                if (mCurrentPageIndex > 0 && index != mCurrentPageIndex) {
+                    mPages.get(mCurrentPageIndex).getPage().pushCurrentStateToBackStack();
+                }
+                mCurrentPageIndex = index;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
         mViewPager.setCurrentItem(1); // channels
     }
 
@@ -34,7 +52,12 @@ public class MainActivity extends FragmentActivity {
         if (item == null) {
             super.onBackPressed();
         } else {
+            final boolean shouldPopToPreventLoop = mCurrentPageIndex > 0
+                    && item.getPageIndex() != mCurrentPageIndex;
             mViewPager.setCurrentItem(item.getPageIndex());
+            if (shouldPopToPreventLoop) {
+                BackStack.getsInstance().pop();
+            }
             final Page page = mPages.get(item.getPageIndex()).getPage();
             page.restoreFrequency(item.getFrequency());
         }
