@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper.converters;
+package com.anagaf.freqhelper.ranges;
 
 import com.anagaf.freqhelper.model.Ctcss64;
 import com.anagaf.freqhelper.model.Range;

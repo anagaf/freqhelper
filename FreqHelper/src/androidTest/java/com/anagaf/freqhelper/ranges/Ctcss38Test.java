@@ -1,9 +1,10 @@
-package com.anagaf.freqhelper.converters;
+package com.anagaf.freqhelper.ranges;
 
 import com.anagaf.freqhelper.model.Ctcss38;
 import com.anagaf.freqhelper.model.Range;
 
 public class Ctcss38Test extends BaseCtcssRangeTest {
+
     private Range mRange = new Ctcss38();
 
     @Override

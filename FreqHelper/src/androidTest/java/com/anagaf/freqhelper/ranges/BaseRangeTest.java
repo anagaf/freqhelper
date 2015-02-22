@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper.converters;
+package com.anagaf.freqhelper.ranges;
 
 import android.content.Context;
 import android.content.res.AssetManager;
