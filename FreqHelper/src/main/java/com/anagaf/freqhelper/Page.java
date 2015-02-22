@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.model.Frequency;
+import com.anagaf.freqhelper.model.Key;
 import com.anagaf.freqhelper.model.Range;
 
 public abstract class Page extends Fragment {
@@ -19,30 +19,31 @@ public abstract class Page extends Fragment {
         @Override
         public void onValueChanged(int value) {
             pushCurrentStateToBackStack();
-            final Frequency frequency = getFrequency();
-            writeFrequencyToSettings(getActivity(), frequency);
+            writeKeyToSettings(getActivity(), getKey());
             updateRanges();
         }
     };
 
     final RangeView.Listener mRangeViewListener = new RangeView.Listener() {
         @Override
-        public void onFrequencyChanged(Frequency frequency) {
+        public void onKeyChanged(Key key) {
             pushCurrentStateToBackStack();
-            writeFrequencyToSettings(getActivity(), frequency);
-            updateFrequency();
+            writeKeyToSettings(getActivity(), key);
+            updateKey();
         }
     };
 
     protected abstract TableLayout getRangesLayout();
 
-    protected abstract Frequency readFrequencyFromSettings(Context context);
+    protected abstract void updateKey();
 
-    protected abstract void writeFrequencyToSettings(Context context, Frequency frequency);
+    protected abstract Key getKey();
 
-    protected abstract void updateFrequency();
+    protected abstract Key getDefaultKey();
 
-    protected abstract Frequency getFrequency();
+    protected abstract String getSettingsKey();
+
+    protected abstract Key createKey(Long value);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,24 +64,40 @@ public abstract class Page extends Fragment {
     }
 
     protected void updateRanges() {
-        final Frequency frequency = getFrequency();
+        final Key key = getKey();
         for (int i = 0; i < getRangesLayout().getChildCount(); i++) {
             final RangeView row = (RangeView) getRangesLayout().getChildAt(i);
-            row.setFrequency(frequency);
+            row.setKey(key);
         }
     }
 
-    public void restoreFrequency(Frequency frequency) {
-        writeFrequencyToSettings(getActivity(), frequency);
-        updateFrequency();
+    public void restoreFrequency(Key key) {
+        writeKeyToSettings(getActivity(), key);
+        updateKey();
     }
 
     public void pushCurrentStateToBackStack() {
-        final Frequency currentFrequency = readFrequencyFromSettings(getActivity());
-        BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
+        final Key currentKey = readKeyFromSettings(getActivity());
+        BackStack.getsInstance().push(new BackStack.Item(mIndex, currentKey));
     }
 
     protected static Integer frequencyComponentStringToInteger(String string) {
         return string.isEmpty() ? 0 : Integer.parseInt(string);
+    }
+
+    protected Key readKeyFromSettings(Context context) {
+        Key key;
+        Long value = Settings.read(context, getSettingsKey());
+        if (value == null) {
+            key = getDefaultKey();
+            writeKeyToSettings(context, key);
+        } else {
+            key = createKey(value);
+        }
+        return key;
+    }
+
+    protected void writeKeyToSettings(Context context, Key key) {
+        Settings.write(context, getSettingsKey(), key.getValue());
     }
 }

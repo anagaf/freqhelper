@@ -8,11 +8,11 @@ public interface Range {
 
     int getCount();
 
-    Frequency getFrequency(int index);
+    Key getKey(int index);
 
-    int find(Frequency frequency);
+    int find(Key key);
 
-    int findPrev(Frequency frequency);
+    int findPrev(Key key);
 
-    int findNext(Frequency frequency);
+    int findNext(Key key);
 }

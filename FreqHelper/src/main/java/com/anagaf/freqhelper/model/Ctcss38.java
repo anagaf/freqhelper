@@ -19,9 +19,9 @@ import java.util.List;
 10	94.8	20	131.8	30	186.2
 */
 public class Ctcss38 extends StaticRange {
-    private static final List<Frequency> sFrequencies;
+    private static final List<Key> sFrequencies;
     static {
-        List<Frequency> frequencies = new ArrayList<>();
+        List<Key> frequencies = new ArrayList<>();
         frequencies.add(Frequency.newCtcssFrequency(67,0));
         frequencies.add(Frequency.newCtcssFrequency(71,9));
         frequencies.add(Frequency.newCtcssFrequency(74,4));
@@ -64,7 +64,7 @@ public class Ctcss38 extends StaticRange {
     }
 
     @Override
-    protected List<Frequency> getFrequencies() {
+    protected List<Key> getKeys() {
         return sFrequencies;
     }
 

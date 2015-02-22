@@ -5,33 +5,33 @@ import java.util.TreeMap;
 
 public abstract class AbstractRange implements Range {
 
-    private final NavigableMap<Frequency, Integer> mFrequencyChannelMap;
+    private final NavigableMap<Key, Integer> mItems;
 
     AbstractRange() {
-        mFrequencyChannelMap = new TreeMap<>();
+        mItems = new TreeMap<>();
         for (int i = 1; i <= getCount(); i++) {
-            mFrequencyChannelMap.put(getFrequency(i), i);
+            mItems.put(getKey(i), i);
         }
     }
 
     @Override
-    public int find(Frequency frequency) {
-        if (mFrequencyChannelMap.containsKey(frequency)) {
-            return mFrequencyChannelMap.get(frequency);
+    public int find(Key key) {
+        if (mItems.containsKey(key)) {
+            return mItems.get(key);
         } else {
             return INVALID_INDEX;
         }
     }
 
     @Override
-    public int findPrev(Frequency frequency) {
-        final TreeMap.Entry<Frequency, Integer> entry = mFrequencyChannelMap.lowerEntry(frequency);
+    public int findPrev(Key key) {
+        final TreeMap.Entry<Key, Integer> entry = mItems.lowerEntry(key);
         return (entry != null ? entry.getValue() : INVALID_INDEX);
     }
 
     @Override
-    public int findNext(Frequency frequency) {
-        final TreeMap.Entry<Frequency, Integer> entry = mFrequencyChannelMap.higherEntry(frequency);
+    public int findNext(Key key) {
+        final TreeMap.Entry<Key, Integer> entry = mItems.higherEntry(key);
         return (entry != null ? entry.getValue() : INVALID_INDEX);
     }
 

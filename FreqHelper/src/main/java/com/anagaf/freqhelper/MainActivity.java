@@ -20,7 +20,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        addPage(0, new ChannelsPage(), R.string.dcs);
+        addPage(0, new DcsPage(), R.string.dcs);
         addPage(1, new ChannelsPage(), R.string.channels);
         addPage(2, new CtcssPage(), R.string.ctcss);
 
@@ -59,7 +59,7 @@ public class MainActivity extends FragmentActivity {
                 BackStack.getsInstance().pop();
             }
             final Page page = mPages.get(item.getPageIndex()).getPage();
-            page.restoreFrequency(item.getFrequency());
+            page.restoreFrequency(item.getKey());
         }
     }
 

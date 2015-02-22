@@ -18,9 +18,9 @@ import java.util.List;
 */
 public class Lpd8 extends StaticRange {
 
-    private static final List<Frequency> sFrequencies;
+    private static final List<Key> sFrequencies;
     static {
-        List<Frequency> frequencies = new ArrayList<>();
+        List<Key> frequencies = new ArrayList<>();
         frequencies.add(Frequency.newChannelFrequency(433, 75, 0));
         frequencies.add(Frequency.newChannelFrequency(433, 100, 0));
         frequencies.add(Frequency.newChannelFrequency(433, 200, 0));
@@ -38,7 +38,7 @@ public class Lpd8 extends StaticRange {
     }
 
     @Override
-    protected List<Frequency> getFrequencies() {
+    protected List<Key> getKeys() {
         return sFrequencies;
     }
 }

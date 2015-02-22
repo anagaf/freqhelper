@@ -1,13 +1,12 @@
 package com.anagaf.freqhelper.model;
 
-public class Frequency implements Comparable<Frequency> {
+public class Frequency extends Key {
     private static final long DECI_HERTZ_PER_MEGAHERTZ = 10000000L;
     private static final long DECI_HERTZ_PER_KILOHERTZ = 10000L;
     private static final long DECI_HERTZ_PER_HERTZ = 10L;
-    private final Long mDeciHertz;
 
     private Frequency(long deciHertz) {
-        mDeciHertz = deciHertz;
+        super(deciHertz);
     }
 
     public static Frequency newFrequency(long deciHertz) {
@@ -28,7 +27,7 @@ public class Frequency implements Comparable<Frequency> {
     }
 
     public long getDeciHertz() {
-        return mDeciHertz;
+        return getValue();
     }
 
     public int getMegahertzComponent() {
@@ -43,32 +42,11 @@ public class Frequency implements Comparable<Frequency> {
         return (int) (getDeciHertz() % DECI_HERTZ_PER_KILOHERTZ / DECI_HERTZ_PER_HERTZ);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Frequency frequency = (Frequency) o;
-
-        return mDeciHertz.equals(frequency.mDeciHertz);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return mDeciHertz.hashCode();
-    }
-
     public int getDeciHertzComponent() {
         return (int) (getDeciHertz() % DECI_HERTZ_PER_HERTZ);
     }
 
     public Frequency append(int hertz) {
-        return new Frequency(mDeciHertz + DECI_HERTZ_PER_HERTZ * hertz);
-    }
-
-    @Override
-    public int compareTo(Frequency frequency) {
-        return mDeciHertz.compareTo(frequency.mDeciHertz);
+        return new Frequency(getDeciHertz() + DECI_HERTZ_PER_HERTZ * hertz);
     }
 }

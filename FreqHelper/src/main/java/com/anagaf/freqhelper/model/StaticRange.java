@@ -6,19 +6,19 @@ import java.util.List;
 
 public abstract class StaticRange extends AbstractRange {
 
-    protected abstract List<Frequency> getFrequencies();
+    protected abstract List<Key> getKeys();
 
     @Override
     public int getCount() {
-        return getFrequencies().size();
+        return getKeys().size();
     }
 
     @Override
-    public Frequency getFrequency(int index) {
+    public Key getKey(int index) {
         if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
             throw new IllegalArgumentException();
         }
-        return getFrequencies().get(index - 1);
+        return getKeys().get(index - 1);
     }
 
 }

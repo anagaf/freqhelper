@@ -1,6 +1,5 @@
 package com.anagaf.freqhelper;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,9 +11,9 @@ import com.anagaf.freqhelper.model.Ctcss38;
 import com.anagaf.freqhelper.model.Ctcss39;
 import com.anagaf.freqhelper.model.Ctcss64;
 import com.anagaf.freqhelper.model.Frequency;
+import com.anagaf.freqhelper.model.Key;
 
 public class CtcssPage extends Page {
-
     private TableLayout mRangesLayout;
     private FrequencyComponentEdit mFrequencyHzEdit;
     private FrequencyDeciHertzComponentEdit mFrequencyDeciHzEdit;
@@ -35,7 +34,7 @@ public class CtcssPage extends Page {
         addRangeRow(inflater, new Ctcss39());
         addRangeRow(inflater, new Ctcss64());
 
-        updateFrequency();
+        updateKey();
 
         return view;
     }
@@ -46,27 +45,32 @@ public class CtcssPage extends Page {
     }
 
     @Override
-    protected Frequency readFrequencyFromSettings(Context context) {
-        return Settings.getCtcssFrequency(context);
-    }
-
-    @Override
-    protected void writeFrequencyToSettings(Context context, Frequency frequency) {
-        Settings.setCtcssFrequency(context, frequency);
-    }
-
-    @Override
-    protected void updateFrequency() {
-        final Frequency frequency = Settings.getCtcssFrequency(getActivity());
+    protected void updateKey() {
+        final Frequency frequency = (Frequency) readKeyFromSettings(getActivity());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
         mFrequencyDeciHzEdit.setValue(frequency.getDeciHertzComponent());
         updateRanges();
     }
 
     @Override
-    protected Frequency getFrequency() {
+    protected Key getKey() {
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
         final Integer deciHz = frequencyComponentStringToInteger(mFrequencyDeciHzEdit.getText().toString());
         return Frequency.newCtcssFrequency(hz, deciHz);
+    }
+
+    @Override
+    protected Key getDefaultKey() {
+        return new Ctcss38().getKey(1);
+    }
+
+    @Override
+    protected String getSettingsKey() {
+        return "CtcssFrequency";
+    }
+
+    @Override
+    protected Key createKey(Long value) {
+        return Frequency.newFrequency(value);
     }
 }

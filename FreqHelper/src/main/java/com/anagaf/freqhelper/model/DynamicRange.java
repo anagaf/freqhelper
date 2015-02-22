@@ -5,7 +5,7 @@ import com.anagaf.freqhelper.BuildConfig;
 public abstract class DynamicRange extends AbstractRange {
 
     @Override
-    public Frequency getFrequency(int index) {
+    public Key getKey(int index) {
         if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
             throw new IllegalArgumentException();
         }
