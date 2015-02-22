@@ -1,7 +1,5 @@
 package com.anagaf.freqhelper.model;
 
-import com.anagaf.freqhelper.Frequency;
-
 public interface Range {
 
     public static final int INVALID_INDEX = 0;

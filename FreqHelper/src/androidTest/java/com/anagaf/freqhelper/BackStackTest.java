@@ -2,6 +2,8 @@ package com.anagaf.freqhelper;
 
 import android.test.AndroidTestCase;
 
+import com.anagaf.freqhelper.model.Frequency;
+
 public class BackStackTest extends AndroidTestCase {
     public void test() {
         final BackStack backStack = BackStack.getsInstance();

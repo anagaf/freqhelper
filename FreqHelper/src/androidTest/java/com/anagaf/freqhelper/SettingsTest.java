@@ -2,6 +2,8 @@ package com.anagaf.freqhelper;
 
 import android.test.AndroidTestCase;
 
+import com.anagaf.freqhelper.model.Frequency;
+
 public class SettingsTest extends AndroidTestCase {
 
     public void testFrequency() {

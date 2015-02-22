@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
 
+import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.Range;
 
 public abstract class Page extends Fragment {

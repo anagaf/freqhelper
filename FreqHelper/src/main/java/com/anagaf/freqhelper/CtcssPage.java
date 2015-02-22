@@ -11,6 +11,7 @@ import android.widget.TableLayout;
 import com.anagaf.freqhelper.model.Ctcss38;
 import com.anagaf.freqhelper.model.Ctcss39;
 import com.anagaf.freqhelper.model.Ctcss64;
+import com.anagaf.freqhelper.model.Frequency;
 
 public class CtcssPage extends Page {
 

@@ -1,5 +1,7 @@
 package com.anagaf.freqhelper;
 
+import com.anagaf.freqhelper.model.Frequency;
+
 import java.util.EmptyStackException;
 import java.util.Stack;
 

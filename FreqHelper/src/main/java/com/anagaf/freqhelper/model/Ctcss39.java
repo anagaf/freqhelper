@@ -1,6 +1,5 @@
 package com.anagaf.freqhelper.model;
 
-import com.anagaf.freqhelper.Frequency;
 import com.anagaf.freqhelper.R;
 
 import java.util.ArrayList;

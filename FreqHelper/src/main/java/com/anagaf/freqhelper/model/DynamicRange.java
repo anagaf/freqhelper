@@ -1,7 +1,6 @@
 package com.anagaf.freqhelper.model;
 
 import com.anagaf.freqhelper.BuildConfig;
-import com.anagaf.freqhelper.Frequency;
 
 public abstract class DynamicRange extends AbstractRange {
 

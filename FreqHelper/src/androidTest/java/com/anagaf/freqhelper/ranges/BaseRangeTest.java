@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.test.AndroidTestCase;
 
-import com.anagaf.freqhelper.Frequency;
+import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.Range;
 
 import java.io.BufferedReader;

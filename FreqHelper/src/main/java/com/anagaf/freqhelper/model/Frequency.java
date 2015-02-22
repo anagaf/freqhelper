@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.model;
 
 public class Frequency implements Comparable<Frequency> {
     private static final long DECI_HERTZ_PER_MEGAHERTZ = 10000000L;
@@ -43,10 +43,6 @@ public class Frequency implements Comparable<Frequency> {
         return (int) (getDeciHertz() % DECI_HERTZ_PER_KILOHERTZ / DECI_HERTZ_PER_HERTZ);
     }
 
-    public int getDeciHertzComponent() {
-        return (int) (getDeciHertz() % DECI_HERTZ_PER_HERTZ);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,15 +50,17 @@ public class Frequency implements Comparable<Frequency> {
 
         Frequency frequency = (Frequency) o;
 
-        if (mDeciHertz != null ? !mDeciHertz.equals(frequency.mDeciHertz) : frequency.mDeciHertz != null)
-            return false;
+        return mDeciHertz.equals(frequency.mDeciHertz);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        return mDeciHertz != null ? mDeciHertz.hashCode() : 0;
+        return mDeciHertz.hashCode();
+    }
+
+    public int getDeciHertzComponent() {
+        return (int) (getDeciHertz() % DECI_HERTZ_PER_HERTZ);
     }
 
     public Frequency append(int hertz) {

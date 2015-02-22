@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
+import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.Frs;
 import com.anagaf.freqhelper.model.Lpd69;
 import com.anagaf.freqhelper.model.Lpd8;

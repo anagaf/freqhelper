@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.anagaf.freqhelper.model.Ctcss64;
+import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.Lpd8;
 import com.anagaf.freqhelper.model.Range;
 

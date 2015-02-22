@@ -1,7 +1,6 @@
 package com.anagaf.freqhelper.model;
 
 import com.anagaf.freqhelper.BuildConfig;
-import com.anagaf.freqhelper.Frequency;
 
 import java.util.List;
 

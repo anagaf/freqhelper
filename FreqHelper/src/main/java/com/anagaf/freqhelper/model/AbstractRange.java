@@ -1,7 +1,5 @@
 package com.anagaf.freqhelper.model;
 
-import com.anagaf.freqhelper.Frequency;
-
 import java.util.NavigableMap;
 import java.util.TreeMap;
 

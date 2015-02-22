@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.Range;
 
 public class RangeView extends TableRow {
