@@ -1,6 +1,7 @@
-package com.anagaf.freqhelper.model;
+package com.anagaf.freqhelper.model.ranges;
 
 import com.anagaf.freqhelper.R;
+import com.anagaf.freqhelper.model.keys.Frequency;
 
 /*
 1	446.00625

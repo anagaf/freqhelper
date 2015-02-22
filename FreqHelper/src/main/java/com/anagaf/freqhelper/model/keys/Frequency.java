@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper.model;
+package com.anagaf.freqhelper.model.keys;
 
 public class Frequency extends Key {
     private static final long DECI_HERTZ_PER_MEGAHERTZ = 10000000L;

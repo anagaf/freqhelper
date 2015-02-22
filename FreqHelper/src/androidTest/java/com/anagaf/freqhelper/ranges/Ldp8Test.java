@@ -1,7 +1,7 @@
 package com.anagaf.freqhelper.ranges;
 
-import com.anagaf.freqhelper.model.Lpd8;
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.ranges.Lpd8;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 public class Ldp8Test extends BaseChannelRangeTest {
 

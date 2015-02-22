@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.model.Key;
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.keys.Key;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 public abstract class Page extends Fragment {
     public static final String PAGE_INDEX_KEY = "pageIndex";

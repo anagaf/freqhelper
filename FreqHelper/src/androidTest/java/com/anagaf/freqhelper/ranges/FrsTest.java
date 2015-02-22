@@ -1,7 +1,7 @@
 package com.anagaf.freqhelper.ranges;
 
-import com.anagaf.freqhelper.model.Frs;
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.ranges.Frs;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 public class FrsTest extends BaseChannelRangeTest {
 

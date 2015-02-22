@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.test.AndroidTestCase;
 
-import com.anagaf.freqhelper.model.Frequency;
-import com.anagaf.freqhelper.model.Key;
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.keys.Frequency;
+import com.anagaf.freqhelper.model.keys.Key;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

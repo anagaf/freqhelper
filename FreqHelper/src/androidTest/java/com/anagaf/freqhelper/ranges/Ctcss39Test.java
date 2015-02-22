@@ -1,7 +1,7 @@
 package com.anagaf.freqhelper.ranges;
 
-import com.anagaf.freqhelper.model.Ctcss39;
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.ranges.Ctcss39;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 public class Ctcss39Test extends BaseCtcssRangeTest {
 

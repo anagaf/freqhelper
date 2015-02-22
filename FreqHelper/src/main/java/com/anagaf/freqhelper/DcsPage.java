@@ -7,13 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.model.DcsCode;
-import com.anagaf.freqhelper.model.DirectDcs;
-import com.anagaf.freqhelper.model.Key;
+import com.anagaf.freqhelper.model.keys.DcsCode;
+import com.anagaf.freqhelper.model.ranges.DirectDcs;
+import com.anagaf.freqhelper.model.keys.Key;
+import com.anagaf.freqhelper.model.ranges.InverseDcs;
 
 public class DcsPage extends Page {
     private TableLayout mRangesLayout;
-    private FrequencyComponentEdit mCodeEdit;
+    private FrequencyComponentEdit mDirectCodeEdit;
+    private FrequencyComponentEdit mInverseCodeEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -21,8 +23,10 @@ public class DcsPage extends Page {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
-        mCodeEdit = (FrequencyComponentEdit) view.findViewById(R.id.dcs_code_edit);
-        mCodeEdit.setListener(getFrequencyComponentEditListener());
+        mDirectCodeEdit = (FrequencyComponentEdit) view.findViewById(R.id.dcs_direct_code_edit);
+        mDirectCodeEdit.setListener(getFrequencyComponentEditListener());
+
+        mInverseCodeEdit = (FrequencyComponentEdit) view.findViewById(R.id.dcs_inverse_code_edit);
 
         addRangeRow(inflater, new DirectDcs());
 
@@ -39,13 +43,21 @@ public class DcsPage extends Page {
     @Override
     protected void updateKey() {
         final DcsCode code = (DcsCode) readKeyFromSettings(getActivity());
-        mCodeEdit.setValue(code.getValue().intValue());
+        mDirectCodeEdit.setValue(code.getValue().intValue());
+
+        final DcsCode inverseCode = DirectDcs.getInverseCode(code);
+        if (inverseCode == null) {
+            mInverseCodeEdit.setText("--");
+        } else {
+            mInverseCodeEdit.setValue(inverseCode.getValue().intValue());
+        }
         updateRanges();
     }
 
+
     @Override
     protected Key getKey() {
-        final Integer dcsCodeValue = frequencyComponentStringToInteger(mCodeEdit.getText().toString());
+        final Integer dcsCodeValue = frequencyComponentStringToInteger(mDirectCodeEdit.getText().toString());
         return new DcsCode(dcsCodeValue);
     }
 

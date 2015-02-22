@@ -1,6 +1,7 @@
-package com.anagaf.freqhelper.model;
+package com.anagaf.freqhelper.model.ranges;
 
 import com.anagaf.freqhelper.BuildConfig;
+import com.anagaf.freqhelper.model.keys.Key;
 
 import java.util.List;
 

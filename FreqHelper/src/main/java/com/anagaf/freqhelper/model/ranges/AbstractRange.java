@@ -1,4 +1,6 @@
-package com.anagaf.freqhelper.model;
+package com.anagaf.freqhelper.model.ranges;
+
+import com.anagaf.freqhelper.model.keys.Key;
 
 import java.util.NavigableMap;
 import java.util.TreeMap;

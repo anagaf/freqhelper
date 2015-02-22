@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper.model;
+package com.anagaf.freqhelper.model.keys;
 
 public class DcsCode extends Key {
 

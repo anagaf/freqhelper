@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.model.Frequency;
-import com.anagaf.freqhelper.model.Frs;
-import com.anagaf.freqhelper.model.Key;
-import com.anagaf.freqhelper.model.Lpd69;
-import com.anagaf.freqhelper.model.Lpd8;
-import com.anagaf.freqhelper.model.Pmr;
+import com.anagaf.freqhelper.model.keys.Frequency;
+import com.anagaf.freqhelper.model.ranges.Frs;
+import com.anagaf.freqhelper.model.keys.Key;
+import com.anagaf.freqhelper.model.ranges.Lpd69;
+import com.anagaf.freqhelper.model.ranges.Lpd8;
+import com.anagaf.freqhelper.model.ranges.Pmr;
 
 public class ChannelsPage extends Page {
     private TableLayout mRangesLayout;

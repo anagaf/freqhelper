@@ -5,7 +5,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.AttributeSet;
 
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 public class RangeChannelEdit extends BaseEdit {
     private static final String EMPTY_CHANNEL_NUMBER = "--";

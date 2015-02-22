@@ -1,6 +1,8 @@
-package com.anagaf.freqhelper.model;
+package com.anagaf.freqhelper.model.ranges;
 
 import com.anagaf.freqhelper.R;
+import com.anagaf.freqhelper.model.keys.DcsCode;
+import com.anagaf.freqhelper.model.keys.Key;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -115,6 +117,7 @@ import java.util.List;
 public class DirectDcs extends StaticRange {
 
     private static final List<Key> sCodes;
+    private static final List<Key> sInverseCodes;
     static {
         List<Key> codes = new ArrayList<>();
         codes.add(new DcsCode(23));
@@ -222,9 +225,116 @@ public class DirectDcs extends StaticRange {
         codes.add(new DcsCode(743));
         codes.add(new DcsCode(754));
         sCodes = Collections.unmodifiableList(codes);
+
+        List<Key> inverseCodes = new ArrayList<>();
+        inverseCodes.add(new DcsCode(47));
+        inverseCodes.add(new DcsCode(244));
+        inverseCodes.add(new DcsCode(464));
+        inverseCodes.add(new DcsCode(627));
+        inverseCodes.add(new DcsCode(51));
+        inverseCodes.add(new DcsCode(172));
+        inverseCodes.add(new DcsCode(445));
+        inverseCodes.add(new DcsCode(23));
+        inverseCodes.add(new DcsCode(32));
+        inverseCodes.add(new DcsCode(452));
+        inverseCodes.add(new DcsCode(413));
+        inverseCodes.add(new DcsCode(271));
+        inverseCodes.add(new DcsCode(306));
+        inverseCodes.add(new DcsCode(245));
+        inverseCodes.add(new DcsCode(506));
+        inverseCodes.add(new DcsCode(174));
+        inverseCodes.add(new DcsCode(712));
+        inverseCodes.add(new DcsCode(152));
+        inverseCodes.add(new DcsCode(754));
+        inverseCodes.add(new DcsCode(225));
+        inverseCodes.add(new DcsCode(365));
+        inverseCodes.add(new DcsCode(364));
+        inverseCodes.add(new DcsCode(546));
+        inverseCodes.add(new DcsCode(223));
+        inverseCodes.add(new DcsCode(412));
+        inverseCodes.add(new DcsCode(274));
+        inverseCodes.add(new DcsCode(115));
+        inverseCodes.add(new DcsCode(731));
+        inverseCodes.add(new DcsCode(265));
+        inverseCodes.add(new DcsCode(503));
+        inverseCodes.add(new DcsCode(251));
+        inverseCodes.add(new DcsCode(36));
+        inverseCodes.add(new DcsCode(74));
+        inverseCodes.add(new DcsCode(263));
+        inverseCodes.add(new DcsCode(356));
+        inverseCodes.add(new DcsCode(134));
+        inverseCodes.add(new DcsCode(122));
+        inverseCodes.add(new DcsCode(411));
+        inverseCodes.add(new DcsCode(351));
+        inverseCodes.add(new DcsCode(25));
+        inverseCodes.add(new DcsCode(72));
+        inverseCodes.add(new DcsCode(523));
+        inverseCodes.add(new DcsCode(165));
+        inverseCodes.add(new DcsCode(462));
+        inverseCodes.add(new DcsCode(446));
+        inverseCodes.add(new DcsCode(732));
+        inverseCodes.add(new DcsCode(205));
+        inverseCodes.add(new DcsCode(156));
+        inverseCodes.add(new DcsCode(454));
+        inverseCodes.add(new DcsCode(65));
+        inverseCodes.add(new DcsCode(145));
+        inverseCodes.add(new DcsCode(71));
+        inverseCodes.add(new DcsCode(664));
+        inverseCodes.add(new DcsCode(423));
+        inverseCodes.add(new DcsCode(526));
+        inverseCodes.add(new DcsCode(465));
+        inverseCodes.add(new DcsCode(455));
+        inverseCodes.add(new DcsCode(532));
+        inverseCodes.add(new DcsCode(612));
+        inverseCodes.add(new DcsCode(243));
+        inverseCodes.add(new DcsCode(212));
+        inverseCodes.add(new DcsCode(131));
+        inverseCodes.add(new DcsCode(125));
+        inverseCodes.add(new DcsCode(734));
+        inverseCodes.add(new DcsCode(226));
+        inverseCodes.add(new DcsCode(143));
+        inverseCodes.add(new DcsCode(54));
+        inverseCodes.add(new DcsCode(315));
+        inverseCodes.add(new DcsCode(723));
+        inverseCodes.add(new DcsCode(516));
+        inverseCodes.add(new DcsCode(43));
+        inverseCodes.add(new DcsCode(255));
+        inverseCodes.add(new DcsCode(53));
+        inverseCodes.add(new DcsCode(266));
+        inverseCodes.add(new DcsCode(332));
+        inverseCodes.add(new DcsCode(252));
+        inverseCodes.add(new DcsCode(26));
+        inverseCodes.add(new DcsCode(331));
+        inverseCodes.add(new DcsCode(662));
+        inverseCodes.add(new DcsCode(162));
+        inverseCodes.add(new DcsCode(73));
+        inverseCodes.add(new DcsCode(432));
+        inverseCodes.add(new DcsCode(246));
+        inverseCodes.add(new DcsCode(325));
+        inverseCodes.add(new DcsCode(343));
+        inverseCodes.add(new DcsCode(132));
+        inverseCodes.add(new DcsCode(703));
+        inverseCodes.add(new DcsCode(631));
+        inverseCodes.add(new DcsCode(346));
+        inverseCodes.add(new DcsCode(632));
+        inverseCodes.add(new DcsCode(31));
+        inverseCodes.add(new DcsCode(606));
+        inverseCodes.add(new DcsCode(624));
+        inverseCodes.add(new DcsCode(743));
+        inverseCodes.add(new DcsCode(466));
+        inverseCodes.add(new DcsCode(311));
+        inverseCodes.add(new DcsCode(565));
+        inverseCodes.add(new DcsCode(114));
+        inverseCodes.add(new DcsCode(431));
+        inverseCodes.add(new DcsCode(155));
+        inverseCodes.add(new DcsCode(261));
+        inverseCodes.add(new DcsCode(371));
+        inverseCodes.add(new DcsCode(654));
+        inverseCodes.add(new DcsCode(116));
+        sInverseCodes = Collections.unmodifiableList(inverseCodes);
     }
 
-        @Override
+    @Override
     protected List<Key> getKeys() {
         return sCodes;
     }
@@ -232,5 +342,10 @@ public class DirectDcs extends StaticRange {
     @Override
     public Integer getNameStringId() {
         return R.string.direct_dcs;
+    }
+
+    public static DcsCode getInverseCode(DcsCode directCode) {
+        final int index = sCodes.indexOf(directCode);
+        return index >= 0 ? (DcsCode) sInverseCodes.get(index) : null;
     }
 }

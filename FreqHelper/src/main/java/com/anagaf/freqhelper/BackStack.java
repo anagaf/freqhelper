@@ -1,6 +1,6 @@
 package com.anagaf.freqhelper;
 
-import com.anagaf.freqhelper.model.Key;
+import com.anagaf.freqhelper.model.keys.Key;
 
 import java.util.EmptyStackException;
 import java.util.Stack;

@@ -1,6 +1,6 @@
 package com.anagaf.freqhelper.ranges;
 
-import com.anagaf.freqhelper.model.Frequency;
+import com.anagaf.freqhelper.model.keys.Frequency;
 
 public abstract class BaseCtcssRangeTest extends BaseRangeTest {
 

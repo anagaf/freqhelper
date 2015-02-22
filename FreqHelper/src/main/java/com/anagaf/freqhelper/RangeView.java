@@ -7,8 +7,8 @@ import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.anagaf.freqhelper.model.Key;
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.keys.Key;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 public class RangeView extends TableRow {
     private RangeChannelEdit mChannelEdit;

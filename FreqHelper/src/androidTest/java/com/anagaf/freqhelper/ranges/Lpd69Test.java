@@ -1,7 +1,7 @@
 package com.anagaf.freqhelper.ranges;
 
-import com.anagaf.freqhelper.model.Lpd69;
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.ranges.Lpd69;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 public class Lpd69Test extends BaseChannelRangeTest {
 

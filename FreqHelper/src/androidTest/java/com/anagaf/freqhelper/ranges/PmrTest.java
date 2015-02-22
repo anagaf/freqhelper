@@ -1,7 +1,7 @@
 package com.anagaf.freqhelper.ranges;
 
-import com.anagaf.freqhelper.model.Pmr;
-import com.anagaf.freqhelper.model.Range;
+import com.anagaf.freqhelper.model.ranges.Pmr;
+import com.anagaf.freqhelper.model.ranges.Range;
 
 public class PmrTest extends BaseChannelRangeTest {
 

@@ -2,7 +2,7 @@ package com.anagaf.freqhelper;
 
 import android.test.AndroidTestCase;
 
-import com.anagaf.freqhelper.model.Frequency;
+import com.anagaf.freqhelper.model.keys.Frequency;
 
 public class BackStackTest extends AndroidTestCase {
     public void test() {

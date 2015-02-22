@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.model.Ctcss38;
-import com.anagaf.freqhelper.model.Ctcss39;
-import com.anagaf.freqhelper.model.Ctcss64;
-import com.anagaf.freqhelper.model.Frequency;
-import com.anagaf.freqhelper.model.Key;
+import com.anagaf.freqhelper.model.ranges.Ctcss38;
+import com.anagaf.freqhelper.model.ranges.Ctcss39;
+import com.anagaf.freqhelper.model.ranges.Ctcss64;
+import com.anagaf.freqhelper.model.keys.Frequency;
+import com.anagaf.freqhelper.model.keys.Key;
 
 public class CtcssPage extends Page {
     private TableLayout mRangesLayout;
