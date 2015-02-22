@@ -8,6 +8,7 @@ import android.widget.TableLayout;
 import com.anagaf.freqhelper.model.Range;
 
 public abstract class BaseMainActivityFragment extends Fragment {
+    public static final String PAGE_INDEX_KEY = "pageIndex";
 
     private TableLayout mRangesLayout;
 
@@ -16,6 +17,8 @@ public abstract class BaseMainActivityFragment extends Fragment {
     }
 
     protected abstract Frequency getFrequency();
+
+    public abstract void restoreFrequency(Frequency frequency);
 
     protected void addRangeRow(LayoutInflater inflater, RangeView.Listener listener, Range range) {
         View view = inflater.inflate(R.layout.range, null, false);

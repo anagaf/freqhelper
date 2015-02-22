@@ -11,15 +11,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
+    final List<PageInfo> mPages = new ArrayList<>();
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
-        viewPager.setCurrentItem(1); // channels
+        addPage(0, new ChannelsFragment(), R.string.dcs);
+        addPage(1, new ChannelsFragment(), R.string.channels);
+        addPage(2, new CtcssFragment(), R.string.ctcss);
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(new Adapter(getSupportFragmentManager()));
+        mViewPager.setCurrentItem(1); // channels
+    }
+
+    @Override
+    public void onBackPressed() {
+        final BackStack.Item item = BackStack.getsInstance().pop();
+        if (item == null) {
+            super.onBackPressed();
+        } else {
+            mViewPager.setCurrentItem(item.getPageIndex());
+            final BaseMainActivityFragment page = mPages.get(item.getPageIndex()).getFragment();
+            page.restoreFrequency(item.getFrequency());
+        }
+    }
+
+    private void addPage(int index, BaseMainActivityFragment page, int stringResId) {
+        final Bundle args = new Bundle();
+        args.putInt(BaseMainActivityFragment.PAGE_INDEX_KEY, index);
+        page.setArguments(args);
+        mPages.add(new PageInfo(page, stringResId));
     }
 
     /**
@@ -27,15 +52,15 @@ public class MainActivity extends FragmentActivity {
      */
 
     private class PageInfo {
-        private Fragment mFragment;
+        private BaseMainActivityFragment mFragment;
         private int mTitleResId;
 
-        private PageInfo(Fragment fragment, int titleResId) {
+        private PageInfo(BaseMainActivityFragment fragment, int titleResId) {
             mFragment = fragment;
             mTitleResId = titleResId;
         }
 
-        public Fragment getFragment() {
+        public BaseMainActivityFragment getFragment() {
             return mFragment;
         }
 
@@ -46,15 +71,8 @@ public class MainActivity extends FragmentActivity {
 
     private class Adapter extends FragmentPagerAdapter {
 
-        final List<PageInfo> mPages;
-
         public Adapter(FragmentManager fm) {
             super(fm);
-
-            mPages = new ArrayList<>();
-            mPages.add(new PageInfo(new ChannelsFragment(), R.string.dcs));
-            mPages.add(new PageInfo(new ChannelsFragment(), R.string.channels));
-            mPages.add(new PageInfo(new CtcssFragment(), R.string.ctcss));
         }
 
         @Override

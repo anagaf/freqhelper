@@ -13,12 +13,15 @@ import com.anagaf.freqhelper.model.Ctcss64;
 
 public class CtcssFragment extends BaseMainActivityFragment {
 
+    private int mIndex;
     private FrequencyComponentEdit mFrequencyHzEdit;
     private FrequencyDeciHertzComponentEdit mFrequencyDeciHzEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.ctcss, null);
+
+        mIndex = getArguments().getInt(PAGE_INDEX_KEY);
 
         setRangesLayout((TableLayout) view.findViewById(R.id.ranges_layout));
 
@@ -39,6 +42,8 @@ public class CtcssFragment extends BaseMainActivityFragment {
         final RangeView.Listener rangeViewListener = new RangeView.Listener() {
             @Override
             public void onFrequencyChanged(Frequency frequency) {
+                final Frequency currentFrequency = Settings.getCtcssFrequency(getActivity());
+                BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
                 Settings.setCtcssFrequency(getActivity(), frequency);
                 loadFrequency();
             }
@@ -61,9 +66,10 @@ public class CtcssFragment extends BaseMainActivityFragment {
     }
 
     private void saveFrequency() {
-        //BackStack.getsInstance().push(Settings.getChannelFrequency(getActivity()));
-        final Frequency frequency = getFrequency();
-        Settings.setCtcssFrequency(getActivity(), frequency);
+        final Frequency currentFrequency = Settings.getCtcssFrequency(getActivity());
+        BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
+        final Frequency newFrequency = getFrequency();
+        Settings.setCtcssFrequency(getActivity(), newFrequency);
     }
 
     @Override
@@ -71,5 +77,11 @@ public class CtcssFragment extends BaseMainActivityFragment {
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
         final Integer deciHz = frequencyComponentStringToInteger(mFrequencyDeciHzEdit.getText().toString());
         return Frequency.newCtcssFrequency(hz, deciHz);
+    }
+
+    @Override
+    public void restoreFrequency(Frequency frequency) {
+        Settings.setCtcssFrequency(getActivity(), frequency);
+        loadFrequency();
     }
 }

@@ -14,14 +14,16 @@ import com.anagaf.freqhelper.model.Pmr;
 
 public class ChannelsFragment extends BaseMainActivityFragment {
 
+    private int mIndex;
     private FrequencyComponentEdit mFrequencyMhzEdit;
     private FrequencyComponentEdit mFrequencyKhzEdit;
     private FrequencyComponentEdit mFrequencyHzEdit;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.channels, null);
+
+        mIndex = getArguments().getInt(PAGE_INDEX_KEY);
 
         setRangesLayout((TableLayout) view.findViewById(R.id.ranges_layout));
 
@@ -45,6 +47,8 @@ public class ChannelsFragment extends BaseMainActivityFragment {
         final RangeView.Listener rangeViewListener = new RangeView.Listener() {
             @Override
             public void onFrequencyChanged(Frequency frequency) {
+                final Frequency currentFrequency = Settings.getChannelFrequency(getActivity());
+                BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
                 Settings.setChannelFrequency(getActivity(), frequency);
                 loadFrequency();
             }
@@ -69,9 +73,10 @@ public class ChannelsFragment extends BaseMainActivityFragment {
     }
 
     private void saveFrequency() {
-        BackStack.getsInstance().push(Settings.getChannelFrequency(getActivity()));
-        final Frequency frequency = getFrequency();
-        Settings.setChannelFrequency(getActivity(), frequency);
+        final Frequency currentFrequency = Settings.getChannelFrequency(getActivity());
+        BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
+        final Frequency newFrequency = getFrequency();
+        Settings.setChannelFrequency(getActivity(), newFrequency);
     }
 
     @Override
@@ -82,15 +87,9 @@ public class ChannelsFragment extends BaseMainActivityFragment {
         return Frequency.newChannelFrequency(mhz, khz, hz);
     }
 
-// TODO
-//    @Override
-//    public void onBackPressed() {
-//        final Frequency frequency = BackStack.getsInstance().pop();
-//        if (frequency == null) {
-//            super.onBackPressed();
-//        } else {
-//            Settings.setChannelFrequency(this, frequency);
-//            loadFrequency();
-//        }
-//    }
+    @Override
+    public void restoreFrequency(Frequency frequency) {
+        Settings.setChannelFrequency(getActivity(), frequency);
+        loadFrequency();
+    }
 }
