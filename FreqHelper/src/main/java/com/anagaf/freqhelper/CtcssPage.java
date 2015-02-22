@@ -1,5 +1,6 @@
 package com.anagaf.freqhelper;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -13,15 +14,12 @@ import com.anagaf.freqhelper.model.Ctcss64;
 
 public class CtcssPage extends Page {
 
-    private int mIndex;
     private FrequencyComponentEdit mFrequencyHzEdit;
     private FrequencyDeciHertzComponentEdit mFrequencyDeciHzEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.ctcss, null);
-
-        mIndex = getArguments().getInt(PAGE_INDEX_KEY);
 
         setRangesLayout((TableLayout) view.findViewById(R.id.ranges_layout));
 
@@ -39,37 +37,31 @@ public class CtcssPage extends Page {
         mFrequencyDeciHzEdit = (FrequencyDeciHertzComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
         mFrequencyDeciHzEdit.setListener(frequencyComponentChangeListener);
 
-        final RangeView.Listener rangeViewListener = new RangeView.Listener() {
-            @Override
-            public void onFrequencyChanged(Frequency frequency) {
-                final Frequency currentFrequency = Settings.getCtcssFrequency(getActivity());
-                BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
-                Settings.setCtcssFrequency(getActivity(), frequency);
-                loadFrequency();
-            }
-        };
-
-        addRangeRow(inflater, rangeViewListener, new Ctcss38());
-        addRangeRow(inflater, rangeViewListener, new Ctcss39());
-        addRangeRow(inflater, rangeViewListener, new Ctcss64());
+        addRangeRow(inflater, new Ctcss38());
+        addRangeRow(inflater, new Ctcss39());
+        addRangeRow(inflater, new Ctcss64());
 
         loadFrequency();
 
         return view;
     }
 
-    private void loadFrequency() {
+    @Override
+    protected Frequency readFrequencyFromSettings(Context context) {
+        return Settings.getCtcssFrequency(context);
+    }
+
+    @Override
+    protected void writeFrequencyToSettings(Context context, Frequency frequency) {
+        Settings.setCtcssFrequency(context, frequency);
+    }
+
+    @Override
+    protected void loadFrequency() {
         final Frequency frequency = Settings.getCtcssFrequency(getActivity());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
         mFrequencyDeciHzEdit.setValue(frequency.getDeciHertzComponent());
         updateRanges();
-    }
-
-    private void saveFrequency() {
-        final Frequency currentFrequency = Settings.getCtcssFrequency(getActivity());
-        BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
-        final Frequency newFrequency = getFrequency();
-        Settings.setCtcssFrequency(getActivity(), newFrequency);
     }
 
     @Override
@@ -77,11 +69,5 @@ public class CtcssPage extends Page {
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
         final Integer deciHz = frequencyComponentStringToInteger(mFrequencyDeciHzEdit.getText().toString());
         return Frequency.newCtcssFrequency(hz, deciHz);
-    }
-
-    @Override
-    public void restoreFrequency(Frequency frequency) {
-        Settings.setCtcssFrequency(getActivity(), frequency);
-        loadFrequency();
     }
 }

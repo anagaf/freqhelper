@@ -1,5 +1,6 @@
 package com.anagaf.freqhelper;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,7 +15,6 @@ import com.anagaf.freqhelper.model.Pmr;
 
 public class ChannelsPage extends Page {
 
-    private int mIndex;
     private FrequencyComponentEdit mFrequencyMhzEdit;
     private FrequencyComponentEdit mFrequencyKhzEdit;
     private FrequencyComponentEdit mFrequencyHzEdit;
@@ -22,8 +22,6 @@ public class ChannelsPage extends Page {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.channels, null);
-
-        mIndex = getArguments().getInt(PAGE_INDEX_KEY);
 
         setRangesLayout((TableLayout) view.findViewById(R.id.ranges_layout));
 
@@ -44,39 +42,33 @@ public class ChannelsPage extends Page {
         mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(frequencyComponentChangeListener);
 
-        final RangeView.Listener rangeViewListener = new RangeView.Listener() {
-            @Override
-            public void onFrequencyChanged(Frequency frequency) {
-                final Frequency currentFrequency = Settings.getChannelFrequency(getActivity());
-                BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
-                Settings.setChannelFrequency(getActivity(), frequency);
-                loadFrequency();
-            }
-        };
-
-        addRangeRow(inflater, rangeViewListener, new Lpd69());
-        addRangeRow(inflater, rangeViewListener, new Lpd8());
-        addRangeRow(inflater, rangeViewListener, new Pmr());
-        addRangeRow(inflater, rangeViewListener, new Frs());
+        addRangeRow(inflater, new Lpd69());
+        addRangeRow(inflater, new Lpd8());
+        addRangeRow(inflater, new Pmr());
+        addRangeRow(inflater, new Frs());
 
         loadFrequency();
 
         return view;
     }
 
-    private void loadFrequency() {
+    @Override
+    protected Frequency readFrequencyFromSettings(Context context) {
+        return Settings.getChannelFrequency(context);
+    }
+
+    @Override
+    protected void writeFrequencyToSettings(Context context, Frequency frequency) {
+        Settings.setChannelFrequency(context, frequency);
+    }
+
+    @Override
+    protected void loadFrequency() {
         final Frequency frequency = Settings.getChannelFrequency(getActivity());
         mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
         mFrequencyKhzEdit.setValue(frequency.getKilohertzComponent());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
         updateRanges();
-    }
-
-    private void saveFrequency() {
-        final Frequency currentFrequency = Settings.getChannelFrequency(getActivity());
-        BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
-        final Frequency newFrequency = getFrequency();
-        Settings.setChannelFrequency(getActivity(), newFrequency);
     }
 
     @Override
@@ -85,11 +77,5 @@ public class ChannelsPage extends Page {
         final Integer khz = frequencyComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
         return Frequency.newChannelFrequency(mhz, khz, hz);
-    }
-
-    @Override
-    public void restoreFrequency(Frequency frequency) {
-        Settings.setChannelFrequency(getActivity(), frequency);
-        loadFrequency();
     }
 }
