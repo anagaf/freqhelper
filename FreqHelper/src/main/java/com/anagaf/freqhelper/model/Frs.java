@@ -1,6 +1,5 @@
 package com.anagaf.freqhelper.model;
 
-import com.anagaf.freqhelper.BuildConfig;
 import com.anagaf.freqhelper.Frequency;
 import com.anagaf.freqhelper.R;
 
@@ -25,10 +24,9 @@ import java.util.List;
 14  467.7125
 */
 
-public class Frs extends AbstractRange {
+public class Frs extends StaticRange {
 
     private static final List<Frequency> sFrequencies;
-
     static {
         final int SEGMENT_CAPACITY = 7;
         final Frequency LOW_SEGMENT_BASE_FREQUENCY = Frequency.newChannelFrequency(462, 562, 500);
@@ -49,21 +47,12 @@ public class Frs extends AbstractRange {
     }
 
     @Override
-    public Frequency getFrequency(int index) {
-        if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
-            throw new IllegalArgumentException();
-        }
-        return sFrequencies.get(index - 1);
-    }
-
-    @Override
     public Integer getNameStringId() {
         return R.string.frs;
     }
 
     @Override
-    public int getCount() {
-        return sFrequencies.size();
+    protected List<Frequency> getFrequencies() {
+        return sFrequencies;
     }
-
 }

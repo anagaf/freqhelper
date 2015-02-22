@@ -1,6 +1,5 @@
 package com.anagaf.freqhelper.model;
 
-import com.anagaf.freqhelper.BuildConfig;
 import com.anagaf.freqhelper.Frequency;
 import com.anagaf.freqhelper.R;
 
@@ -18,7 +17,7 @@ import java.util.List;
 7	433.625
 8	433.800
 */
-public class Lpd8 extends AbstractRange {
+public class Lpd8 extends StaticRange {
 
     private static final List<Frequency> sFrequencies;
     static {
@@ -40,15 +39,7 @@ public class Lpd8 extends AbstractRange {
     }
 
     @Override
-    public int getCount() {
-        return sFrequencies.size();
-    }
-
-    @Override
-    public Frequency getFrequency(int index) {
-        if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
-            throw new IllegalArgumentException();
-        }
-        return sFrequencies.get(index - 1);
+    protected List<Frequency> getFrequencies() {
+        return sFrequencies;
     }
 }

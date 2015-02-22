@@ -1,6 +1,5 @@
 package com.anagaf.freqhelper.model;
 
-import com.anagaf.freqhelper.BuildConfig;
 import com.anagaf.freqhelper.Frequency;
 import com.anagaf.freqhelper.R;
 
@@ -27,7 +26,7 @@ import java.util.List;
 16	69.4	32	118.8	48	179.9	64	254.1
 */
 
-public class Ctcss64 extends AbstractStaticRange {
+public class Ctcss64 extends StaticRange {
     private static final List<Frequency> sFrequencies;
     static {
         List<Frequency> frequencies = new ArrayList<>();

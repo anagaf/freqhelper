@@ -19,7 +19,7 @@ import java.util.List;
 9	91.5	19	127.3	29	179.9
 10	94.8	20	131.8	30	186.2
 */
-public class Ctcss38 extends AbstractStaticRange {
+public class Ctcss38 extends StaticRange {
     private static final List<Frequency> sFrequencies;
     static {
         List<Frequency> frequencies = new ArrayList<>();

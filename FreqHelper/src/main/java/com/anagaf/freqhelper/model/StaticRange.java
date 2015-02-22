@@ -3,18 +3,23 @@ package com.anagaf.freqhelper.model;
 import com.anagaf.freqhelper.BuildConfig;
 import com.anagaf.freqhelper.Frequency;
 
-public abstract class FixedStepRange extends AbstractRange {
+import java.util.List;
+
+public abstract class StaticRange extends AbstractRange {
+
+    protected abstract List<Frequency> getFrequencies();
+
+    @Override
+    public int getCount() {
+        return getFrequencies().size();
+    }
 
     @Override
     public Frequency getFrequency(int index) {
         if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
             throw new IllegalArgumentException();
         }
-        Frequency baseFreq = getBaseFrequency();
-        return baseFreq.append((index - 1) * getStep());
+        return getFrequencies().get(index - 1);
     }
 
-    protected abstract Frequency getBaseFrequency();
-
-    protected abstract int getStep();
 }
