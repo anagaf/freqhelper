@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
+import com.anagaf.freqhelper.model.Ctcss38;
+import com.anagaf.freqhelper.model.Ctcss39;
 import com.anagaf.freqhelper.model.Ctcss64;
 
 public class CtcssFragment extends BaseMainActivityFragment {
@@ -42,6 +44,8 @@ public class CtcssFragment extends BaseMainActivityFragment {
             }
         };
 
+        addRangeRow(inflater, rangeViewListener, new Ctcss38());
+        addRangeRow(inflater, rangeViewListener, new Ctcss39());
         addRangeRow(inflater, rangeViewListener, new Ctcss64());
 
         loadFrequency();

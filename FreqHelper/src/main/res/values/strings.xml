@@ -10,4 +10,5 @@
     <string name="ctcss">CTCSS</string>
     <string name="dcs">DCS</string>
     <string name="ctcss64">64 tones</string>
+    <string name="ctcss39">39 tones</string>
 </resources>
