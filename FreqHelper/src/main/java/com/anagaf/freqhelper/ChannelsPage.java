@@ -15,6 +15,7 @@ import com.anagaf.freqhelper.model.Pmr;
 
 public class ChannelsPage extends Page {
 
+    private TableLayout mRangesLayout;
     private FrequencyComponentEdit mFrequencyMhzEdit;
     private FrequencyComponentEdit mFrequencyKhzEdit;
     private FrequencyComponentEdit mFrequencyHzEdit;
@@ -23,33 +24,30 @@ public class ChannelsPage extends Page {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.channels, null);
 
-        setRangesLayout((TableLayout) view.findViewById(R.id.ranges_layout));
-
-        final FrequencyComponentEdit.Listener frequencyComponentChangeListener = new FrequencyComponentEdit.Listener() {
-            @Override
-            public void onValueChanged(int value) {
-                saveFrequency();
-                updateRanges();
-            }
-        };
+        mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
         mFrequencyMhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_mhz_edit);
-        mFrequencyMhzEdit.setListener(frequencyComponentChangeListener);
+        mFrequencyMhzEdit.setListener(getFrequencyComponentEditListener());
 
         mFrequencyKhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_khz_edit);
-        mFrequencyKhzEdit.setListener(frequencyComponentChangeListener);
+        mFrequencyKhzEdit.setListener(getFrequencyComponentEditListener());
 
         mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
-        mFrequencyHzEdit.setListener(frequencyComponentChangeListener);
+        mFrequencyHzEdit.setListener(getFrequencyComponentEditListener());
 
         addRangeRow(inflater, new Lpd69());
         addRangeRow(inflater, new Lpd8());
         addRangeRow(inflater, new Pmr());
         addRangeRow(inflater, new Frs());
 
-        loadFrequency();
+        updateFrequency();
 
         return view;
+    }
+
+    @Override
+    protected TableLayout getRangesLayout() {
+        return mRangesLayout;
     }
 
     @Override
@@ -63,7 +61,7 @@ public class ChannelsPage extends Page {
     }
 
     @Override
-    protected void loadFrequency() {
+    protected void updateFrequency() {
         final Frequency frequency = Settings.getChannelFrequency(getActivity());
         mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
         mFrequencyKhzEdit.setValue(frequency.getKilohertzComponent());

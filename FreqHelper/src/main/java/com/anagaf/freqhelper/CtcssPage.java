@@ -14,6 +14,7 @@ import com.anagaf.freqhelper.model.Ctcss64;
 
 public class CtcssPage extends Page {
 
+    private TableLayout mRangesLayout;
     private FrequencyComponentEdit mFrequencyHzEdit;
     private FrequencyDeciHertzComponentEdit mFrequencyDeciHzEdit;
 
@@ -21,29 +22,26 @@ public class CtcssPage extends Page {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.ctcss, null);
 
-        setRangesLayout((TableLayout) view.findViewById(R.id.ranges_layout));
-
-        final FrequencyComponentEdit.Listener frequencyComponentChangeListener = new FrequencyComponentEdit.Listener() {
-            @Override
-            public void onValueChanged(int value) {
-                saveFrequency();
-                updateRanges();
-            }
-        };
+        mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
         mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
-        mFrequencyHzEdit.setListener(frequencyComponentChangeListener);
+        mFrequencyHzEdit.setListener(getFrequencyComponentEditListener());
 
         mFrequencyDeciHzEdit = (FrequencyDeciHertzComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
-        mFrequencyDeciHzEdit.setListener(frequencyComponentChangeListener);
+        mFrequencyDeciHzEdit.setListener(getFrequencyComponentEditListener());
 
         addRangeRow(inflater, new Ctcss38());
         addRangeRow(inflater, new Ctcss39());
         addRangeRow(inflater, new Ctcss64());
 
-        loadFrequency();
+        updateFrequency();
 
         return view;
+    }
+
+    @Override
+    protected TableLayout getRangesLayout() {
+        return mRangesLayout;
     }
 
     @Override
@@ -57,7 +55,7 @@ public class CtcssPage extends Page {
     }
 
     @Override
-    protected void loadFrequency() {
+    protected void updateFrequency() {
         final Frequency frequency = Settings.getCtcssFrequency(getActivity());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
         mFrequencyDeciHzEdit.setValue(frequency.getDeciHertzComponent());

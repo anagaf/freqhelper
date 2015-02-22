@@ -13,7 +13,14 @@ public abstract class Page extends Fragment {
     public static final String PAGE_INDEX_KEY = "pageIndex";
 
     private int mIndex;
-    private TableLayout mRangesLayout;
+
+    final FrequencyComponentEdit.Listener mFrequencyComponentEditListener = new FrequencyComponentEdit.Listener() {
+        @Override
+        public void onValueChanged(int value) {
+            saveFrequency();
+            updateRanges();
+        }
+    };
 
     final RangeView.Listener mRangeViewListener = new RangeView.Listener() {
         @Override
@@ -21,13 +28,19 @@ public abstract class Page extends Fragment {
             final Frequency currentFrequency = readFrequencyFromSettings(getActivity());
             BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
             writeFrequencyToSettings(getActivity(), frequency);
-            loadFrequency();
+            updateFrequency();
         }
     };
+
+    protected abstract TableLayout getRangesLayout();
 
     protected abstract Frequency readFrequencyFromSettings(Context context);
 
     protected abstract void writeFrequencyToSettings(Context context, Frequency frequency);
+
+    protected abstract void updateFrequency();
+
+    protected abstract Frequency getFrequency();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,26 +48,22 @@ public abstract class Page extends Fragment {
         mIndex = getArguments().getInt(PAGE_INDEX_KEY);
     }
 
-    protected abstract void loadFrequency();
-
-    public void setRangesLayout(TableLayout rangesLayout) {
-        mRangesLayout = rangesLayout;
+    protected FrequencyComponentEdit.Listener getFrequencyComponentEditListener() {
+        return mFrequencyComponentEditListener;
     }
-
-    protected abstract Frequency getFrequency();
 
     protected void addRangeRow(LayoutInflater inflater, Range range) {
         View view = inflater.inflate(R.layout.range, null, false);
         RangeView row = (RangeView) view;
         row.setRange(range);
         row.setListener(mRangeViewListener);
-        mRangesLayout.addView(row);
+        getRangesLayout().addView(row);
     }
 
     protected void updateRanges() {
         final Frequency frequency = getFrequency();
-        for (int i = 0; i < mRangesLayout.getChildCount(); i++) {
-            final RangeView row = (RangeView) mRangesLayout.getChildAt(i);
+        for (int i = 0; i < getRangesLayout().getChildCount(); i++) {
+            final RangeView row = (RangeView) getRangesLayout().getChildAt(i);
             row.setFrequency(frequency);
         }
     }
@@ -68,7 +77,7 @@ public abstract class Page extends Fragment {
 
     public void restoreFrequency(Frequency frequency) {
         writeFrequencyToSettings(getActivity(), frequency);
-        loadFrequency();
+        updateFrequency();
     }
 
     protected static Integer frequencyComponentStringToInteger(String string) {
