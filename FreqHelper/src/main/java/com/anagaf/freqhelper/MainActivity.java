@@ -19,9 +19,9 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        addPage(0, new ChannelsFragment(), R.string.dcs);
-        addPage(1, new ChannelsFragment(), R.string.channels);
-        addPage(2, new CtcssFragment(), R.string.ctcss);
+        addPage(0, new ChannelsPage(), R.string.dcs);
+        addPage(1, new ChannelsPage(), R.string.channels);
+        addPage(2, new CtcssPage(), R.string.ctcss);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(new Adapter(getSupportFragmentManager()));
@@ -35,14 +35,14 @@ public class MainActivity extends FragmentActivity {
             super.onBackPressed();
         } else {
             mViewPager.setCurrentItem(item.getPageIndex());
-            final BaseMainActivityFragment page = mPages.get(item.getPageIndex()).getFragment();
+            final Page page = mPages.get(item.getPageIndex()).getPage();
             page.restoreFrequency(item.getFrequency());
         }
     }
 
-    private void addPage(int index, BaseMainActivityFragment page, int stringResId) {
+    private void addPage(int index, Page page, int stringResId) {
         final Bundle args = new Bundle();
-        args.putInt(BaseMainActivityFragment.PAGE_INDEX_KEY, index);
+        args.putInt(Page.PAGE_INDEX_KEY, index);
         page.setArguments(args);
         mPages.add(new PageInfo(page, stringResId));
     }
@@ -52,16 +52,16 @@ public class MainActivity extends FragmentActivity {
      */
 
     private class PageInfo {
-        private BaseMainActivityFragment mFragment;
+        private Page mPage;
         private int mTitleResId;
 
-        private PageInfo(BaseMainActivityFragment fragment, int titleResId) {
-            mFragment = fragment;
+        private PageInfo(Page page, int titleResId) {
+            mPage = page;
             mTitleResId = titleResId;
         }
 
-        public BaseMainActivityFragment getFragment() {
-            return mFragment;
+        public Page getPage() {
+            return mPage;
         }
 
         public int getTitleResId() {
@@ -77,7 +77,7 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return mPages.get(position).getFragment();
+            return mPages.get(position).getPage();
         }
 
         @Override

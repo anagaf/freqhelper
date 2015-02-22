@@ -11,7 +11,7 @@ import com.anagaf.freqhelper.model.Ctcss38;
 import com.anagaf.freqhelper.model.Ctcss39;
 import com.anagaf.freqhelper.model.Ctcss64;
 
-public class CtcssFragment extends BaseMainActivityFragment {
+public class CtcssPage extends Page {
 
     private int mIndex;
     private FrequencyComponentEdit mFrequencyHzEdit;

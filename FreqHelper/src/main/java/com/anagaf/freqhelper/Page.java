@@ -7,7 +7,7 @@ import android.widget.TableLayout;
 
 import com.anagaf.freqhelper.model.Range;
 
-public abstract class BaseMainActivityFragment extends Fragment {
+public abstract class Page extends Fragment {
     public static final String PAGE_INDEX_KEY = "pageIndex";
 
     private TableLayout mRangesLayout;

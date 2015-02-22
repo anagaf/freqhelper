@@ -12,7 +12,7 @@ import com.anagaf.freqhelper.model.Lpd69;
 import com.anagaf.freqhelper.model.Lpd8;
 import com.anagaf.freqhelper.model.Pmr;
 
-public class ChannelsFragment extends BaseMainActivityFragment {
+public class ChannelsPage extends Page {
 
     private int mIndex;
     private FrequencyComponentEdit mFrequencyMhzEdit;
