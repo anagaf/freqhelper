@@ -63,8 +63,51 @@ public abstract class BaseRangeTest extends AndroidTestCase {
         }
     }
 
+
+    protected void testFindPrev(Frequency frequency, int expectedIndex) {
+        assertEquals(expectedIndex, getRange().findPrev(frequency));
+    }
+
+    public void testFindPrev() {
+        final long STEP = 10L;
+
+        final int firstIndex = 1;
+        final Frequency firstFrequency = getRange().getFrequency(firstIndex);
+        testFindPrev(Frequency.newFrequency(firstFrequency.getDeciHertz() - STEP), Range.INVALID_INDEX);
+        testFindPrev(firstFrequency, Range.INVALID_INDEX);
+        testFindPrev(Frequency.newFrequency(firstFrequency.getDeciHertz() + STEP), firstIndex);
+
+        final int lastIndex = getRange().getCount();
+        final Frequency lastFrequency = getRange().getFrequency(lastIndex);
+        testFindPrev(Frequency.newFrequency(lastFrequency.getDeciHertz() - STEP), lastIndex - 1);
+        testFindPrev(lastFrequency, lastIndex - 1);
+        testFindPrev(Frequency.newFrequency(lastFrequency.getDeciHertz() + STEP), lastIndex);
+    }
+
+
+    public void testFindNext() {
+        final long STEP = 10L;
+
+        final int firstIndex = 1;
+        final Frequency firstFrequency = getRange().getFrequency(1);
+        testFindNext(Frequency.newFrequency(firstFrequency.getDeciHertz() - STEP), firstIndex);
+        testFindNext(firstFrequency, firstIndex + 1);
+        testFindNext(Frequency.newFrequency(firstFrequency.getDeciHertz() + STEP), firstIndex + 1);
+
+        final int lastIndex = getRange().getCount();
+        final Frequency lastFrequency = getRange().getFrequency(lastIndex);
+        testFindNext(Frequency.newFrequency(lastFrequency.getDeciHertz() - STEP), lastIndex);
+        testFindNext(lastFrequency, Range.INVALID_INDEX);
+        testFindNext(Frequency.newFrequency(lastFrequency.getDeciHertz() + STEP), Range.INVALID_INDEX);
+    }
+
+    protected void testFindNext(Frequency frequency, int expectedIndex) {
+        assertEquals(expectedIndex, getRange().findNext(frequency));
+    }
+
     private Context getTestContext() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method getTestContext = AndroidTestCase.class.getMethod("getTestContext");
         return (Context) getTestContext.invoke(this);
     }
+
 }
