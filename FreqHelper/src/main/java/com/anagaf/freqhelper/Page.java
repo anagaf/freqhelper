@@ -17,7 +17,9 @@ public abstract class Page extends Fragment {
     final FrequencyComponentEdit.Listener mFrequencyComponentEditListener = new FrequencyComponentEdit.Listener() {
         @Override
         public void onValueChanged(int value) {
-            saveFrequency();
+            pushCurrentStateToBackStack();
+            final Frequency frequency = getFrequency();
+            writeFrequencyToSettings(getActivity(), frequency);
             updateRanges();
         }
     };
@@ -25,8 +27,7 @@ public abstract class Page extends Fragment {
     final RangeView.Listener mRangeViewListener = new RangeView.Listener() {
         @Override
         public void onFrequencyChanged(Frequency frequency) {
-            final Frequency currentFrequency = readFrequencyFromSettings(getActivity());
-            BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
+            pushCurrentStateToBackStack();
             writeFrequencyToSettings(getActivity(), frequency);
             updateFrequency();
         }
@@ -68,16 +69,14 @@ public abstract class Page extends Fragment {
         }
     }
 
-    protected void saveFrequency() {
-        final Frequency currentFrequency = readFrequencyFromSettings(getActivity());
-        BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
-        final Frequency newFrequency = getFrequency();
-        writeFrequencyToSettings(getActivity(), newFrequency);
-    }
-
     public void restoreFrequency(Frequency frequency) {
         writeFrequencyToSettings(getActivity(), frequency);
         updateFrequency();
+    }
+
+    private void pushCurrentStateToBackStack() {
+        final Frequency currentFrequency = readFrequencyFromSettings(getActivity());
+        BackStack.getsInstance().push(new BackStack.Item(mIndex, currentFrequency));
     }
 
     protected static Integer frequencyComponentStringToInteger(String string) {
