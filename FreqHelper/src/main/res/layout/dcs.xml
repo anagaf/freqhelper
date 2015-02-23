@@ -27,12 +27,13 @@
 
             <TextView
                 style="@style/FreqTitle"
-                a:text="@string/dcs_code"/>
+                a:text="@string/dcs_value"/>
 
             <LinearLayout
                 a:layout_width="match_parent"
                 a:layout_height="wrap_content"
                 a:orientation="horizontal"
+                a:layout_marginBottom="@dimen/gap"
                 >
 
                 <com.anagaf.freqhelper.FrequencyComponentEdit

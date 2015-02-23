@@ -13,7 +13,7 @@ import com.anagaf.freqhelper.model.ranges.Lpd69;
 import com.anagaf.freqhelper.model.ranges.Lpd8;
 import com.anagaf.freqhelper.model.ranges.Pmr;
 
-public class ChannelsPage extends FrequencyPage {
+public class ChannelsPage extends Page {
     private TableLayout mRangesLayout;
     private FrequencyComponentEdit mFrequencyMhzEdit;
     private FrequencyComponentEdit mFrequencyKhzEdit;
@@ -39,7 +39,7 @@ public class ChannelsPage extends FrequencyPage {
         addRangeRow(inflater, new Pmr());
         addRangeRow(inflater, new Frs());
 
-        updateFrequency();
+        updateValue();
 
         return view;
     }
@@ -50,7 +50,7 @@ public class ChannelsPage extends FrequencyPage {
     }
 
     @Override
-    protected void updateFrequency() {
+    protected void updateValue() {
         final long value = readValueFromSettings(getActivity());
         final Frequency frequency = Frequency.newFrequency(value);
         mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
@@ -61,9 +61,9 @@ public class ChannelsPage extends FrequencyPage {
 
     @Override
     protected long getValue() {
-        final Integer mhz = frequencyComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
-        final Integer khz = frequencyComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
-        final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
+        final Integer mhz = valueComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
+        final Integer khz = valueComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
+        final Integer hz = valueComponentStringToInteger(mFrequencyHzEdit.getText().toString());
         return Frequency.getChannelFrequencyDecihertz(mhz, khz, hz);
     }
 
