@@ -24,10 +24,10 @@ public class CtcssPage extends Page {
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
         mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
-        mFrequencyHzEdit.setListener(getFrequencyComponentEditListener());
+        mFrequencyHzEdit.setListener(getValueComponentEditListener());
 
         mFrequencyDeciHzEdit = (FrequencyDeciHertzComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
-        mFrequencyDeciHzEdit.setListener(getFrequencyComponentEditListener());
+        mFrequencyDeciHzEdit.setListener(getValueComponentEditListener());
 
         addRangeRow(inflater, new Ctcss38());
         addRangeRow(inflater, new Ctcss39());

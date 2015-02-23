@@ -26,13 +26,13 @@ public class ChannelsPage extends Page {
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
         mFrequencyMhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_mhz_edit);
-        mFrequencyMhzEdit.setListener(getFrequencyComponentEditListener());
+        mFrequencyMhzEdit.setListener(getValueComponentEditListener());
 
         mFrequencyKhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_khz_edit);
-        mFrequencyKhzEdit.setListener(getFrequencyComponentEditListener());
+        mFrequencyKhzEdit.setListener(getValueComponentEditListener());
 
         mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
-        mFrequencyHzEdit.setListener(getFrequencyComponentEditListener());
+        mFrequencyHzEdit.setListener(getValueComponentEditListener());
 
         addRangeRow(inflater, new Lpd69());
         addRangeRow(inflater, new Lpd8());

@@ -14,7 +14,7 @@ public abstract class Page extends Fragment {
 
     private int mIndex;
 
-    final FrequencyComponentEdit.Listener mFrequencyComponentEditListener = new FrequencyComponentEdit.Listener() {
+    final FrequencyComponentEdit.Listener mValueComponentEditListener = new FrequencyComponentEdit.Listener() {
         @Override
         public void onValueChanged(int value) {
             pushCurrentStateToBackStack();
@@ -95,8 +95,8 @@ public abstract class Page extends Fragment {
         return string.isEmpty() ? 0 : Integer.parseInt(string);
     }
 
-    protected FrequencyComponentEdit.Listener getFrequencyComponentEditListener() {
-        return mFrequencyComponentEditListener;
+    protected FrequencyComponentEdit.Listener getValueComponentEditListener() {
+        return mValueComponentEditListener;
     }
 
 }
