@@ -2,7 +2,6 @@ package com.anagaf.freqhelper.model.ranges;
 
 import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.model.keys.Frequency;
-import com.anagaf.freqhelper.model.keys.Key;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,9 +27,9 @@ import java.util.List;
 */
 
 public class Ctcss64 extends StaticRange {
-    private static final List<Key> sFrequencies;
+    private static final List<Frequency> sFrequencies;
     static {
-        List<Key> frequencies = new ArrayList<>();
+        List<Frequency> frequencies = new ArrayList<>();
         frequencies.add(Frequency.newCtcssFrequency(33, 0));
         frequencies.add(Frequency.newCtcssFrequency(35, 4));
         frequencies.add(Frequency.newCtcssFrequency(36, 6));
@@ -104,7 +103,7 @@ public class Ctcss64 extends StaticRange {
     }
 
     @Override
-    protected List<Key> getKeys() {
+    protected List<Frequency> getKeys() {
         return sFrequencies;
     }
 }

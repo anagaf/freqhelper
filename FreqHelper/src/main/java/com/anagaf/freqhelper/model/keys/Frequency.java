@@ -1,12 +1,14 @@
 package com.anagaf.freqhelper.model.keys;
 
-public class Frequency extends Key {
+public class Frequency implements Comparable<Frequency> {
     private static final long DECI_HERTZ_PER_MEGAHERTZ = 10000000L;
     private static final long DECI_HERTZ_PER_KILOHERTZ = 10000L;
     private static final long DECI_HERTZ_PER_HERTZ = 10L;
 
+    private final Long mDecihertz;
+
     private Frequency(long deciHertz) {
-        super(deciHertz);
+        mDecihertz = deciHertz;
     }
 
     public static Frequency newFrequency(long deciHertz) {
@@ -27,7 +29,7 @@ public class Frequency extends Key {
     }
 
     public long getDeciHertz() {
-        return getValue();
+        return mDecihertz;
     }
 
     public int getMegahertzComponent() {
@@ -48,5 +50,26 @@ public class Frequency extends Key {
 
     public Frequency append(int hertz) {
         return new Frequency(getDeciHertz() + DECI_HERTZ_PER_HERTZ * hertz);
+    }
+
+    public int compareTo(Frequency frequency) {
+        return mDecihertz.compareTo(frequency.mDecihertz);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Frequency frequency = (Frequency) o;
+
+        if (!mDecihertz.equals(frequency.mDecihertz)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return mDecihertz.hashCode();
     }
 }

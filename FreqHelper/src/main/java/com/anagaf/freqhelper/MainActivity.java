@@ -59,7 +59,7 @@ public class MainActivity extends FragmentActivity {
                 BackStack.getsInstance().pop();
             }
             final Page page = mPages.get(item.getPageIndex()).getPage();
-            page.restoreFrequency(item.getKey());
+            page.restoreState(item.getValue());
         }
     }
 

@@ -2,7 +2,6 @@ package com.anagaf.freqhelper.model.ranges;
 
 import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.model.keys.Frequency;
-import com.anagaf.freqhelper.model.keys.Key;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,20 +26,20 @@ import java.util.List;
 
 public class Frs extends StaticRange {
 
-    private static final List<Key> sFrequencies;
+    private static final List<Frequency> sFrequencies;
     static {
         final int SEGMENT_CAPACITY = 7;
         final Frequency LOW_SEGMENT_BASE_FREQUENCY = Frequency.newChannelFrequency(462, 562, 500);
         final Frequency HIGH_SEGMENT_BASE_FREQUENCY = Frequency.newChannelFrequency(467, 562, 500);
         final int STEP = 25000;
 
-        final List<Key> frequencies = new ArrayList<>();
+        final List<Frequency> frequencies = new ArrayList<>();
         fillFrequencies(frequencies, LOW_SEGMENT_BASE_FREQUENCY, SEGMENT_CAPACITY, STEP);
         fillFrequencies(frequencies, HIGH_SEGMENT_BASE_FREQUENCY, SEGMENT_CAPACITY, STEP);
         sFrequencies = Collections.unmodifiableList(frequencies);
     }
 
-    private static void fillFrequencies(List<Key> frequencies, Frequency baseFrequency, int count, int step) {
+    private static void fillFrequencies(List<Frequency> frequencies, Frequency baseFrequency, int count, int step) {
         for (int i = 0; i < count; i++) {
             final Frequency frequency = baseFrequency.append(step * i);
             frequencies.add(frequency);
@@ -53,7 +52,7 @@ public class Frs extends StaticRange {
     }
 
     @Override
-    protected List<Key> getKeys() {
+    protected List<Frequency> getKeys() {
         return sFrequencies;
     }
 }

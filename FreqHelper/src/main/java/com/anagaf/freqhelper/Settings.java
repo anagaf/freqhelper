@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 class Settings {
-    public static void write(Context context, String key, Long value) {
+    public static void write(Context context, String frequency, Long value) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putLong(key, value).commit();
+        prefs.edit().putLong(frequency, value).commit();
     }
 
     public static Long read(Context context, String key) {

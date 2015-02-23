@@ -1,13 +1,13 @@
 package com.anagaf.freqhelper.model.ranges;
 
 import com.anagaf.freqhelper.BuildConfig;
-import com.anagaf.freqhelper.model.keys.Key;
+import com.anagaf.freqhelper.model.keys.Frequency;
 
 import java.util.List;
 
 public abstract class StaticRange extends AbstractRange {
 
-    protected abstract List<Key> getKeys();
+    protected abstract List<Frequency> getKeys();
 
     @Override
     public int getCount() {
@@ -15,7 +15,7 @@ public abstract class StaticRange extends AbstractRange {
     }
 
     @Override
-    public Key getKey(int index) {
+    public Frequency getFrequency(int index) {
         if (BuildConfig.DEBUG && (index < 1 || index > getCount())) {
             throw new IllegalArgumentException();
         }

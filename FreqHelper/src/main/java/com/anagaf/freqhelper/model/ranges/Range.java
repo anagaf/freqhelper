@@ -1,6 +1,6 @@
 package com.anagaf.freqhelper.model.ranges;
 
-import com.anagaf.freqhelper.model.keys.Key;
+import com.anagaf.freqhelper.model.keys.Frequency;
 
 public interface Range {
 
@@ -10,11 +10,11 @@ public interface Range {
 
     int getCount();
 
-    Key getKey(int index);
+    Frequency getFrequency(int index);
 
-    int find(Key key);
+    int find(Frequency frequency);
 
-    int findPrev(Key key);
+    int findPrev(Frequency frequency);
 
-    int findNext(Key key);
+    int findNext(Frequency frequency);
 }

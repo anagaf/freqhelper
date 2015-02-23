@@ -5,7 +5,6 @@ import android.content.res.AssetManager;
 import android.test.AndroidTestCase;
 
 import com.anagaf.freqhelper.model.keys.Frequency;
-import com.anagaf.freqhelper.model.keys.Key;
 import com.anagaf.freqhelper.model.ranges.Range;
 
 import java.io.BufferedReader;
@@ -53,7 +52,7 @@ public abstract class BaseRangeTest extends AndroidTestCase {
     public void testGetFrequency() {
         assertEquals(getExpectedFrequencies().size(), getRange().getCount());
         for (int i = 0; i < getRange().getCount(); i++) {
-            assertEquals(getExpectedFrequencies().get(i), getRange().getKey(i + 1));
+            assertEquals(getExpectedFrequencies().get(i), getRange().getFrequency(i + 1));
         }
     }
 
@@ -68,16 +67,16 @@ public abstract class BaseRangeTest extends AndroidTestCase {
         final long STEP = 10L;
 
         final int firstIndex = 1;
-        final Key firstFrequency = getRange().getKey(firstIndex);
-        testFindPrev(Frequency.newFrequency(firstFrequency.getValue() - STEP), Range.INVALID_INDEX);
+        final Frequency firstFrequency = getRange().getFrequency(firstIndex);
+        testFindPrev(Frequency.newFrequency(firstFrequency.getDeciHertz() - STEP), Range.INVALID_INDEX);
         testFindPrev(firstFrequency, Range.INVALID_INDEX);
-        testFindPrev(Frequency.newFrequency(firstFrequency.getValue() + STEP), firstIndex);
+        testFindPrev(Frequency.newFrequency(firstFrequency.getDeciHertz() + STEP), firstIndex);
 
         final int lastIndex = getRange().getCount();
-        final Key lastFrequency = getRange().getKey(lastIndex);
-        testFindPrev(Frequency.newFrequency(lastFrequency.getValue() - STEP), lastIndex - 1);
+        final Frequency lastFrequency = getRange().getFrequency(lastIndex);
+        testFindPrev(Frequency.newFrequency(lastFrequency.getDeciHertz() - STEP), lastIndex - 1);
         testFindPrev(lastFrequency, lastIndex - 1);
-        testFindPrev(Frequency.newFrequency(lastFrequency.getValue() + STEP), lastIndex);
+        testFindPrev(Frequency.newFrequency(lastFrequency.getDeciHertz() + STEP), lastIndex);
     }
 
 
@@ -85,24 +84,24 @@ public abstract class BaseRangeTest extends AndroidTestCase {
         final long STEP = 10L;
 
         final int firstIndex = 1;
-        final Key firstFrequency = getRange().getKey(1);
-        testFindNext(Frequency.newFrequency(firstFrequency.getValue() - STEP), firstIndex);
+        final Frequency firstFrequency = getRange().getFrequency(1);
+        testFindNext(Frequency.newFrequency(firstFrequency.getDeciHertz() - STEP), firstIndex);
         testFindNext(firstFrequency, firstIndex + 1);
-        testFindNext(Frequency.newFrequency(firstFrequency.getValue() + STEP), firstIndex + 1);
+        testFindNext(Frequency.newFrequency(firstFrequency.getDeciHertz() + STEP), firstIndex + 1);
 
         final int lastIndex = getRange().getCount();
-        final Key lastFrequency = getRange().getKey(lastIndex);
-        testFindNext(Frequency.newFrequency(lastFrequency.getValue() - STEP), lastIndex);
+        final Frequency lastFrequency = getRange().getFrequency(lastIndex);
+        testFindNext(Frequency.newFrequency(lastFrequency.getDeciHertz() - STEP), lastIndex);
         testFindNext(lastFrequency, Range.INVALID_INDEX);
-        testFindNext(Frequency.newFrequency(lastFrequency.getValue() + STEP), Range.INVALID_INDEX);
+        testFindNext(Frequency.newFrequency(lastFrequency.getDeciHertz() + STEP), Range.INVALID_INDEX);
     }
 
-    protected void testFindNext(Key key, int expectedIndex) {
-        assertEquals(expectedIndex, getRange().findNext(key));
+    protected void testFindNext(Frequency frequency, int expectedIndex) {
+        assertEquals(expectedIndex, getRange().findNext(frequency));
     }
 
-    protected void testFindPrev(Key key, int expectedIndex) {
-        assertEquals(expectedIndex, getRange().findPrev(key));
+    protected void testFindPrev(Frequency frequency, int expectedIndex) {
+        assertEquals(expectedIndex, getRange().findPrev(frequency));
     }
 
     private Context getTestContext() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

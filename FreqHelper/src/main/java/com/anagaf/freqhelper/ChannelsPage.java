@@ -9,12 +9,11 @@ import android.widget.TableLayout;
 
 import com.anagaf.freqhelper.model.keys.Frequency;
 import com.anagaf.freqhelper.model.ranges.Frs;
-import com.anagaf.freqhelper.model.keys.Key;
 import com.anagaf.freqhelper.model.ranges.Lpd69;
 import com.anagaf.freqhelper.model.ranges.Lpd8;
 import com.anagaf.freqhelper.model.ranges.Pmr;
 
-public class ChannelsPage extends Page {
+public class ChannelsPage extends FrequencyPage {
     private TableLayout mRangesLayout;
     private FrequencyComponentEdit mFrequencyMhzEdit;
     private FrequencyComponentEdit mFrequencyKhzEdit;
@@ -40,7 +39,7 @@ public class ChannelsPage extends Page {
         addRangeRow(inflater, new Pmr());
         addRangeRow(inflater, new Frs());
 
-        updateKey();
+        updateFrequency();
 
         return view;
     }
@@ -51,8 +50,8 @@ public class ChannelsPage extends Page {
     }
 
     @Override
-    protected void updateKey() {
-        final Frequency frequency = (Frequency) readKeyFromSettings(getActivity());
+    protected void updateFrequency() {
+        final Frequency frequency = (Frequency) readFrequencyFromSettings(getActivity());
         mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
         mFrequencyKhzEdit.setValue(frequency.getKilohertzComponent());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
@@ -60,7 +59,7 @@ public class ChannelsPage extends Page {
     }
 
     @Override
-    protected Key getKey() {
+    protected Frequency getFrequency() {
         final Integer mhz = frequencyComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
         final Integer khz = frequencyComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
@@ -68,8 +67,8 @@ public class ChannelsPage extends Page {
     }
 
     @Override
-    protected Key getDefaultKey() {
-        return new Lpd69().getKey(1);
+    protected Frequency getDefaultKey() {
+        return new Lpd69().getFrequency(1);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class ChannelsPage extends Page {
     }
 
     @Override
-    protected Key createKey(Long value) {
+    protected Frequency createKey(Long value) {
         return Frequency.newFrequency(value);
     }
 }

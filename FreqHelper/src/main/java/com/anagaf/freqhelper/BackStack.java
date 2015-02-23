@@ -1,7 +1,5 @@
 package com.anagaf.freqhelper;
 
-import com.anagaf.freqhelper.model.keys.Key;
-
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -30,19 +28,19 @@ public class BackStack {
 
     public static class Item {
         private int mPageIndex;
-        private Key mKey;
+        private long mValue;
 
-        public Item(int pageIndex, Key key) {
+        public Item(int pageIndex, long value) {
             mPageIndex = pageIndex;
-            mKey = key;
+            mValue = value;
         }
 
         public int getPageIndex() {
             return mPageIndex;
         }
 
-        public Key getKey() {
-            return mKey;
+        public long getValue() {
+            return mValue;
         }
 
         @Override
@@ -52,14 +50,15 @@ public class BackStack {
 
             Item item = (Item) o;
 
-            return mPageIndex == item.mPageIndex && mKey.equals(item.mKey);
+            if (mPageIndex != item.mPageIndex) return false;
+            return mValue == item.mValue;
 
         }
 
         @Override
         public int hashCode() {
             int result = mPageIndex;
-            result = 31 * result + mKey.hashCode();
+            result = 31 * result + (int) (mValue ^ (mValue >>> 32));
             return result;
         }
     }

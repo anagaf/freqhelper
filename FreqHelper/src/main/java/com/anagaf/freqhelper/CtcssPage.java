@@ -11,9 +11,8 @@ import com.anagaf.freqhelper.model.ranges.Ctcss38;
 import com.anagaf.freqhelper.model.ranges.Ctcss39;
 import com.anagaf.freqhelper.model.ranges.Ctcss64;
 import com.anagaf.freqhelper.model.keys.Frequency;
-import com.anagaf.freqhelper.model.keys.Key;
 
-public class CtcssPage extends Page {
+public class CtcssPage extends FrequencyPage {
     private TableLayout mRangesLayout;
     private FrequencyComponentEdit mFrequencyHzEdit;
     private FrequencyDeciHertzComponentEdit mFrequencyDeciHzEdit;
@@ -34,7 +33,7 @@ public class CtcssPage extends Page {
         addRangeRow(inflater, new Ctcss39());
         addRangeRow(inflater, new Ctcss64());
 
-        updateKey();
+        updateFrequency();
 
         return view;
     }
@@ -45,23 +44,23 @@ public class CtcssPage extends Page {
     }
 
     @Override
-    protected void updateKey() {
-        final Frequency frequency = (Frequency) readKeyFromSettings(getActivity());
+    protected void updateFrequency() {
+        final Frequency frequency = readFrequencyFromSettings(getActivity());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
         mFrequencyDeciHzEdit.setValue(frequency.getDeciHertzComponent());
         updateRanges();
     }
 
     @Override
-    protected Key getKey() {
+    protected Frequency getFrequency() {
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
         final Integer deciHz = frequencyComponentStringToInteger(mFrequencyDeciHzEdit.getText().toString());
         return Frequency.newCtcssFrequency(hz, deciHz);
     }
 
     @Override
-    protected Key getDefaultKey() {
-        return new Ctcss38().getKey(1);
+    protected Frequency getDefaultKey() {
+        return new Ctcss38().getFrequency(1);
     }
 
     @Override
@@ -70,7 +69,8 @@ public class CtcssPage extends Page {
     }
 
     @Override
-    protected Key createKey(Long value) {
+    protected Frequency createKey(Long value) {
         return Frequency.newFrequency(value);
     }
+
 }

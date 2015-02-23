@@ -2,7 +2,6 @@ package com.anagaf.freqhelper.model.ranges;
 
 import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.model.keys.Frequency;
-import com.anagaf.freqhelper.model.keys.Key;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,9 +19,9 @@ import java.util.List;
 */
 public class Lpd8 extends StaticRange {
 
-    private static final List<Key> sFrequencies;
+    private static final List<Frequency> sFrequencies;
     static {
-        List<Key> frequencies = new ArrayList<>();
+        List<Frequency> frequencies = new ArrayList<>();
         frequencies.add(Frequency.newChannelFrequency(433, 75, 0));
         frequencies.add(Frequency.newChannelFrequency(433, 100, 0));
         frequencies.add(Frequency.newChannelFrequency(433, 200, 0));
@@ -40,7 +39,7 @@ public class Lpd8 extends StaticRange {
     }
 
     @Override
-    protected List<Key> getKeys() {
+    protected List<Frequency> getKeys() {
         return sFrequencies;
     }
 }
