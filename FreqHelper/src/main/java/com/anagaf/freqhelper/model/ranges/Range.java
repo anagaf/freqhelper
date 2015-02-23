@@ -1,20 +1,19 @@
 package com.anagaf.freqhelper.model.ranges;
 
-import com.anagaf.freqhelper.model.keys.Frequency;
-
 public interface Range {
 
     public static final int INVALID_INDEX = 0;
+    public static final long INVALID_VALUE = 0L;
 
     Integer getNameStringId();
 
     int getCount();
 
-    Frequency getFrequency(int index);
+    long getValue(int index);
 
-    int find(Frequency frequency);
+    int find(long value);
 
-    int findPrev(Frequency frequency);
+    int findPrev(long value);
 
-    int findNext(Frequency frequency);
+    int findNext(long value);
 }

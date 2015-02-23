@@ -51,7 +51,8 @@ public class ChannelsPage extends FrequencyPage {
 
     @Override
     protected void updateFrequency() {
-        final Frequency frequency = (Frequency) readFrequencyFromSettings(getActivity());
+        final long value = readValueFromSettings(getActivity());
+        final Frequency frequency = Frequency.newFrequency(value);
         mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
         mFrequencyKhzEdit.setValue(frequency.getKilohertzComponent());
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
@@ -59,16 +60,16 @@ public class ChannelsPage extends FrequencyPage {
     }
 
     @Override
-    protected Frequency getFrequency() {
+    protected long getValue() {
         final Integer mhz = frequencyComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
         final Integer khz = frequencyComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
-        return Frequency.newChannelFrequency(mhz, khz, hz);
+        return Frequency.getChannelFrequencyDecihertz(mhz, khz, hz);
     }
 
     @Override
-    protected Frequency getDefaultKey() {
-        return new Lpd69().getFrequency(1);
+    protected long getDefaultValue() {
+        return new Lpd69().getValue(1);
     }
 
     @Override
@@ -76,8 +77,4 @@ public class ChannelsPage extends FrequencyPage {
         return "ChannelFrequency";
     }
 
-    @Override
-    protected Frequency createKey(Long value) {
-        return Frequency.newFrequency(value);
-    }
 }

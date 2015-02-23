@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.test.AndroidTestCase;
 
-import com.anagaf.freqhelper.model.keys.Frequency;
 import com.anagaf.freqhelper.model.ranges.Range;
 
 import java.io.BufferedReader;
@@ -15,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseRangeTest extends AndroidTestCase {
-    private List<Frequency> mExpectedFrequencies = new ArrayList<>();
+    private List<Long> mExpectedValues = new ArrayList<>();
 
     protected abstract String getExpectedFrequenciesFileName();
 
     protected abstract Range getRange();
 
-    protected abstract Frequency createFrequency(String[] frequencyComponents);
+    protected abstract long parseValue(String[] components);
 
-    protected List<Frequency> getExpectedFrequencies() {
-        return mExpectedFrequencies;
+    protected List<Long> getExpectedValues() {
+        return mExpectedValues;
     }
 
     @Override
@@ -37,7 +36,7 @@ public abstract class BaseRangeTest extends AndroidTestCase {
             String line = reader.readLine();
             while (line != null) {
                 if (!line.isEmpty()) {
-                    mExpectedFrequencies.add(createFrequency(line.split("\\.")));
+                    mExpectedValues.add(parseValue(line.split("\\.")));
                 }
                 line = reader.readLine();
             }
@@ -50,16 +49,17 @@ public abstract class BaseRangeTest extends AndroidTestCase {
     }
 
     public void testGetFrequency() {
-        assertEquals(getExpectedFrequencies().size(), getRange().getCount());
+        assertEquals(getExpectedValues().size(), getRange().getCount());
         for (int i = 0; i < getRange().getCount(); i++) {
-            assertEquals(getExpectedFrequencies().get(i), getRange().getFrequency(i + 1));
+            assertTrue(getExpectedValues().get(i) == getRange().getValue(i + 1));
         }
     }
 
     public void testFind() {
-        assertEquals(getExpectedFrequencies().size(), getRange().getCount());
+        assertEquals(getExpectedValues().size(), getRange().getCount());
         for (int i = 0; i < getRange().getCount(); i++) {
-            assertEquals(i + 1, getRange().find(getExpectedFrequencies().get(i)));
+            final long expectedValue = getExpectedValues().get(i);
+            assertEquals(i + 1, getRange().find(expectedValue));
         }
     }
 
@@ -67,16 +67,16 @@ public abstract class BaseRangeTest extends AndroidTestCase {
         final long STEP = 10L;
 
         final int firstIndex = 1;
-        final Frequency firstFrequency = getRange().getFrequency(firstIndex);
-        testFindPrev(Frequency.newFrequency(firstFrequency.getDeciHertz() - STEP), Range.INVALID_INDEX);
-        testFindPrev(firstFrequency, Range.INVALID_INDEX);
-        testFindPrev(Frequency.newFrequency(firstFrequency.getDeciHertz() + STEP), firstIndex);
+        final long firstValue = getRange().getValue(firstIndex);
+        testFindPrev(firstValue - STEP, Range.INVALID_INDEX);
+        testFindPrev(firstValue, Range.INVALID_INDEX);
+        testFindPrev(firstValue + STEP, firstIndex);
 
         final int lastIndex = getRange().getCount();
-        final Frequency lastFrequency = getRange().getFrequency(lastIndex);
-        testFindPrev(Frequency.newFrequency(lastFrequency.getDeciHertz() - STEP), lastIndex - 1);
-        testFindPrev(lastFrequency, lastIndex - 1);
-        testFindPrev(Frequency.newFrequency(lastFrequency.getDeciHertz() + STEP), lastIndex);
+        final long lastValue = getRange().getValue(lastIndex);
+        testFindPrev(lastValue - STEP, lastIndex - 1);
+        testFindPrev(lastValue, lastIndex - 1);
+        testFindPrev(lastValue + STEP, lastIndex);
     }
 
 
@@ -84,24 +84,24 @@ public abstract class BaseRangeTest extends AndroidTestCase {
         final long STEP = 10L;
 
         final int firstIndex = 1;
-        final Frequency firstFrequency = getRange().getFrequency(1);
-        testFindNext(Frequency.newFrequency(firstFrequency.getDeciHertz() - STEP), firstIndex);
-        testFindNext(firstFrequency, firstIndex + 1);
-        testFindNext(Frequency.newFrequency(firstFrequency.getDeciHertz() + STEP), firstIndex + 1);
+        final long firstValue = getRange().getValue(1);
+        testFindNext(firstValue - STEP, firstIndex);
+        testFindNext(firstValue, firstIndex + 1);
+        testFindNext(firstValue + STEP, firstIndex + 1);
 
         final int lastIndex = getRange().getCount();
-        final Frequency lastFrequency = getRange().getFrequency(lastIndex);
-        testFindNext(Frequency.newFrequency(lastFrequency.getDeciHertz() - STEP), lastIndex);
-        testFindNext(lastFrequency, Range.INVALID_INDEX);
-        testFindNext(Frequency.newFrequency(lastFrequency.getDeciHertz() + STEP), Range.INVALID_INDEX);
+        final long lastValue = getRange().getValue(lastIndex);
+        testFindNext(lastValue - STEP, lastIndex);
+        testFindNext(lastValue, Range.INVALID_INDEX);
+        testFindNext(lastValue + STEP, Range.INVALID_INDEX);
     }
 
-    protected void testFindNext(Frequency frequency, int expectedIndex) {
-        assertEquals(expectedIndex, getRange().findNext(frequency));
+    protected void testFindNext(long value, int expectedIndex) {
+        assertEquals(expectedIndex, getRange().findNext(value));
     }
 
-    protected void testFindPrev(Frequency frequency, int expectedIndex) {
-        assertEquals(expectedIndex, getRange().findPrev(frequency));
+    protected void testFindPrev(long value, int expectedIndex) {
+        assertEquals(expectedIndex, getRange().findPrev(value));
     }
 
     private Context getTestContext() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

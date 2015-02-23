@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.anagaf.freqhelper.model.keys.Frequency;
 import com.anagaf.freqhelper.model.ranges.Range;
 
 public class RangeView extends TableRow {
@@ -69,12 +68,12 @@ public class RangeView extends TableRow {
         mChannelEdit.setMaxChannel(mRange.getCount());
     }
 
-    public void setFrequency(Frequency frequency) {
-        mChannelEdit.setValue(mRange.find(frequency));
+    public void setValue(long value) {
+        mChannelEdit.setValue(mRange.find(value));
 
-        mPrevChannel = mRange.findPrev(frequency);
+        mPrevChannel = mRange.findPrev(value);
         mPrevChannelButton.setEnabled(mPrevChannel != Range.INVALID_INDEX);
-        mNextChannel = mRange.findNext(frequency);
+        mNextChannel = mRange.findNext(value);
         mNextChannelButton.setEnabled(mNextChannel != Range.INVALID_INDEX);
     }
 
@@ -84,8 +83,7 @@ public class RangeView extends TableRow {
 
     private void moveToChannel(int channel) {
         if (channel >= 1 && channel <= mRange.getCount()) {
-            final Frequency frequency = mRange.getFrequency(channel);
-            mListener.onKeyChanged(frequency);
+            mListener.onKeyChanged(mRange.getValue(channel));
         }
     }
 
@@ -94,6 +92,6 @@ public class RangeView extends TableRow {
      */
 
     public interface Listener {
-        public void onKeyChanged(Frequency frequency);
+        public void onKeyChanged(long value);
     }
 }

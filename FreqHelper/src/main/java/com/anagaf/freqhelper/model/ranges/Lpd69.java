@@ -30,7 +30,7 @@ import com.anagaf.freqhelper.model.keys.Frequency;
 */
 public class Lpd69 extends DynamicRange {
 
-    private static final Frequency BASE_FREQUENCY = Frequency.newChannelFrequency(433, 75, 0);
+    private static final long BASE_VALUE = Frequency.getChannelFrequencyDecihertz(433, 75, 0);
 
     @Override
     public Integer getNameStringId() {
@@ -43,12 +43,12 @@ public class Lpd69 extends DynamicRange {
     }
 
     @Override
-    protected Frequency getBaseFrequency() {
-        return BASE_FREQUENCY;
+    protected long getBaseValue() {
+        return BASE_VALUE;
     }
 
     @Override
-    protected int getStep() {
-        return 25000;
+    protected long getStep() {
+        return 250000;
     }
 }

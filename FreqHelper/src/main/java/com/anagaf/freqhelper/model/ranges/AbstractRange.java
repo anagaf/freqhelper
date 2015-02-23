@@ -1,39 +1,37 @@
 package com.anagaf.freqhelper.model.ranges;
 
-import com.anagaf.freqhelper.model.keys.Frequency;
-
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
 public abstract class AbstractRange implements Range {
 
-    private final NavigableMap<Frequency, Integer> mItems;
+    private final NavigableMap<Long, Integer> mItems;
 
     AbstractRange() {
         mItems = new TreeMap<>();
         for (int i = 1; i <= getCount(); i++) {
-            mItems.put(getFrequency(i), i);
+            mItems.put(getValue(i), i);
         }
     }
 
     @Override
-    public int find(Frequency frequency) {
-        if (mItems.containsKey(frequency)) {
-            return mItems.get(frequency);
+    public int find(long value) {
+        if (mItems.containsKey(value)) {
+            return mItems.get(value);
         } else {
             return INVALID_INDEX;
         }
     }
 
     @Override
-    public int findPrev(Frequency frequency) {
-        final TreeMap.Entry<Frequency, Integer> entry = mItems.lowerEntry(frequency);
+    public int findPrev(long value) {
+        final TreeMap.Entry<Long, Integer> entry = mItems.lowerEntry(value);
         return (entry != null ? entry.getValue() : INVALID_INDEX);
     }
 
     @Override
-    public int findNext(Frequency frequency) {
-        final TreeMap.Entry<Frequency, Integer> entry = mItems.higherEntry(frequency);
+    public int findNext(long value) {
+        final TreeMap.Entry<Long, Integer> entry = mItems.higherEntry(value);
         return (entry != null ? entry.getValue() : INVALID_INDEX);
     }
 

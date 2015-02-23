@@ -45,32 +45,28 @@ public class CtcssPage extends FrequencyPage {
 
     @Override
     protected void updateFrequency() {
-        final Frequency frequency = readFrequencyFromSettings(getActivity());
+        final long value = readValueFromSettings(getActivity());
+        final Frequency frequency = Frequency.newFrequency(value);
         mFrequencyHzEdit.setValue(frequency.getHertzComponent());
         mFrequencyDeciHzEdit.setValue(frequency.getDeciHertzComponent());
         updateRanges();
     }
 
     @Override
-    protected Frequency getFrequency() {
+    protected long getValue() {
         final Integer hz = frequencyComponentStringToInteger(mFrequencyHzEdit.getText().toString());
         final Integer deciHz = frequencyComponentStringToInteger(mFrequencyDeciHzEdit.getText().toString());
-        return Frequency.newCtcssFrequency(hz, deciHz);
+        return Frequency.getCtcssFrequencyDecihertz(hz, deciHz);
     }
 
     @Override
-    protected Frequency getDefaultKey() {
-        return new Ctcss38().getFrequency(1);
+    protected long getDefaultValue() {
+        return new Ctcss38().getValue(1);
     }
 
     @Override
     protected String getSettingsKey() {
         return "CtcssFrequency";
-    }
-
-    @Override
-    protected Frequency createKey(Long value) {
-        return Frequency.newFrequency(value);
     }
 
 }

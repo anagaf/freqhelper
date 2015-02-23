@@ -20,52 +20,52 @@ import java.util.List;
 10	94.8	20	131.8	30	186.2
 */
 public class Ctcss38 extends StaticRange {
-    private static final List<Frequency> sFrequencies;
+    private static final List<Long> sFrequencies;
     static {
-        List<Frequency> frequencies = new ArrayList<>();
-        frequencies.add(Frequency.newCtcssFrequency(67, 0));
-        frequencies.add(Frequency.newCtcssFrequency(71,9));
-        frequencies.add(Frequency.newCtcssFrequency(74,4));
-        frequencies.add(Frequency.newCtcssFrequency(77,0));
-        frequencies.add(Frequency.newCtcssFrequency(79,7));
-        frequencies.add(Frequency.newCtcssFrequency(82,5));
-        frequencies.add(Frequency.newCtcssFrequency(85,4));
-        frequencies.add(Frequency.newCtcssFrequency(88,5));
-        frequencies.add(Frequency.newCtcssFrequency(91,5));
-        frequencies.add(Frequency.newCtcssFrequency(94,8));
-        frequencies.add(Frequency.newCtcssFrequency(97,4));
-        frequencies.add(Frequency.newCtcssFrequency(100,0));
-        frequencies.add(Frequency.newCtcssFrequency(103,5));
-        frequencies.add(Frequency.newCtcssFrequency(107,2));
-        frequencies.add(Frequency.newCtcssFrequency(110,9));
-        frequencies.add(Frequency.newCtcssFrequency(114,8));
-        frequencies.add(Frequency.newCtcssFrequency(118,8));
-        frequencies.add(Frequency.newCtcssFrequency(123,0));
-        frequencies.add(Frequency.newCtcssFrequency(127,3));
-        frequencies.add(Frequency.newCtcssFrequency(131,8));
-        frequencies.add(Frequency.newCtcssFrequency(136,5));
-        frequencies.add(Frequency.newCtcssFrequency(141,3));
-        frequencies.add(Frequency.newCtcssFrequency(146,2));
-        frequencies.add(Frequency.newCtcssFrequency(151,4));
-        frequencies.add(Frequency.newCtcssFrequency(156,7));
-        frequencies.add(Frequency.newCtcssFrequency(162,2));
-        frequencies.add(Frequency.newCtcssFrequency(167,9));
-        frequencies.add(Frequency.newCtcssFrequency(173,8));
-        frequencies.add(Frequency.newCtcssFrequency(179,9));
-        frequencies.add(Frequency.newCtcssFrequency(186,2));
-        frequencies.add(Frequency.newCtcssFrequency(192,8));
-        frequencies.add(Frequency.newCtcssFrequency(203,5));
-        frequencies.add(Frequency.newCtcssFrequency(210,7));
-        frequencies.add(Frequency.newCtcssFrequency(218,1));
-        frequencies.add(Frequency.newCtcssFrequency(225,7));
-        frequencies.add(Frequency.newCtcssFrequency(233,6));
-        frequencies.add(Frequency.newCtcssFrequency(241,8));
-        frequencies.add(Frequency.newCtcssFrequency(250,3));
+        List<Long> frequencies = new ArrayList<>();
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(67, 0));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(71,9));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(74,4));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(77,0));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(79,7));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(82,5));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(85,4));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(88,5));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(91,5));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(94,8));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(97,4));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(100,0));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(103,5));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(107,2));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(110,9));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(114,8));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(118,8));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(123,0));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(127,3));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(131,8));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(136,5));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(141,3));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(146,2));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(151,4));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(156,7));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(162,2));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(167,9));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(173,8));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(179,9));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(186,2));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(192,8));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(203,5));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(210,7));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(218,1));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(225,7));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(233,6));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(241,8));
+        frequencies.add(Frequency.getCtcssFrequencyDecihertz(250,3));
         sFrequencies = Collections.unmodifiableList(frequencies);
     }
 
     @Override
-    protected List<Frequency> getKeys() {
+    protected List<Long> getValues() {
         return sFrequencies;
     }
 

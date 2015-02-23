@@ -15,12 +15,12 @@ public class Frequency implements Comparable<Frequency> {
         return new Frequency(deciHertz);
     }
 
-    public static Frequency newChannelFrequency(int megahertz, int kilohertz, int hertz) {
-        return newFrequency(megahertz * DECI_HERTZ_PER_MEGAHERTZ + kilohertz * DECI_HERTZ_PER_KILOHERTZ + DECI_HERTZ_PER_HERTZ * hertz);
+    public static long getChannelFrequencyDecihertz(int megahertz, int kilohertz, int hertz) {
+        return megahertz * DECI_HERTZ_PER_MEGAHERTZ + kilohertz * DECI_HERTZ_PER_KILOHERTZ + DECI_HERTZ_PER_HERTZ * hertz;
     }
 
-    public static Frequency newCtcssFrequency(int hertz, int deciHertz) {
-        return newFrequency(DECI_HERTZ_PER_HERTZ * hertz + deciHertz);
+    public static Long getCtcssFrequencyDecihertz(int hertz, int deciHertz) {
+        return DECI_HERTZ_PER_HERTZ * hertz + deciHertz;
     }
 
     @Override
@@ -63,9 +63,8 @@ public class Frequency implements Comparable<Frequency> {
 
         Frequency frequency = (Frequency) o;
 
-        if (!mDecihertz.equals(frequency.mDecihertz)) return false;
+        return mDecihertz.equals(frequency.mDecihertz);
 
-        return true;
     }
 
     @Override

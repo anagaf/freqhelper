@@ -15,7 +15,7 @@ import com.anagaf.freqhelper.model.keys.Frequency;
 */
 public class Pmr extends DynamicRange {
 
-    private static final Frequency BASE_FREQUENCY = Frequency.newChannelFrequency(446, 6, 250);
+    private static final long BASE_VALUE = Frequency.getChannelFrequencyDecihertz(446, 6, 250);
 
     @Override
     public Integer getNameStringId() {
@@ -28,12 +28,12 @@ public class Pmr extends DynamicRange {
     }
 
     @Override
-    protected Frequency getBaseFrequency() {
-        return BASE_FREQUENCY;
+    protected long getBaseValue() {
+        return BASE_VALUE;
     }
 
     @Override
-    protected int getStep() {
-        return 12500;
+    protected long getStep() {
+        return 125000;
     }
 }

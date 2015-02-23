@@ -19,18 +19,18 @@ import java.util.List;
 */
 public class Lpd8 extends StaticRange {
 
-    private static final List<Frequency> sFrequencies;
+    private static final List<Long> sValues;
     static {
-        List<Frequency> frequencies = new ArrayList<>();
-        frequencies.add(Frequency.newChannelFrequency(433, 75, 0));
-        frequencies.add(Frequency.newChannelFrequency(433, 100, 0));
-        frequencies.add(Frequency.newChannelFrequency(433, 200, 0));
-        frequencies.add(Frequency.newChannelFrequency(433, 300, 0));
-        frequencies.add(Frequency.newChannelFrequency(433, 350, 0));
-        frequencies.add(Frequency.newChannelFrequency(433, 475, 0));
-        frequencies.add(Frequency.newChannelFrequency(433, 625, 0));
-        frequencies.add(Frequency.newChannelFrequency(433, 800, 0));
-        sFrequencies = Collections.unmodifiableList(frequencies);
+        List<Long> values = new ArrayList<>();
+        values.add(Frequency.getChannelFrequencyDecihertz(433, 75, 0));
+        values.add(Frequency.getChannelFrequencyDecihertz(433, 100, 0));
+        values.add(Frequency.getChannelFrequencyDecihertz(433, 200, 0));
+        values.add(Frequency.getChannelFrequencyDecihertz(433, 300, 0));
+        values.add(Frequency.getChannelFrequencyDecihertz(433, 350, 0));
+        values.add(Frequency.getChannelFrequencyDecihertz(433, 475, 0));
+        values.add(Frequency.getChannelFrequencyDecihertz(433, 625, 0));
+        values.add(Frequency.getChannelFrequencyDecihertz(433, 800, 0));
+        sValues = Collections.unmodifiableList(values);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Lpd8 extends StaticRange {
     }
 
     @Override
-    protected List<Frequency> getKeys() {
-        return sFrequencies;
+    protected List<Long> getValues() {
+        return sValues;
     }
 }
