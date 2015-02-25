@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.anagaf.freqhelper.model.ranges.Range;
 
-class Settings {
+public class Settings {
     public static void write(Context context, String frequency, long value) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putLong(frequency, value).commit();

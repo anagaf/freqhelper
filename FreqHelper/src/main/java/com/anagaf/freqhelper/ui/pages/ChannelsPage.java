@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.pages;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.model.keys.Frequency;
+import com.anagaf.freqhelper.R;
+import com.anagaf.freqhelper.ui.views.ValueEdit;
+import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.ranges.Frs;
 import com.anagaf.freqhelper.model.ranges.Lpd69;
 import com.anagaf.freqhelper.model.ranges.Lpd8;

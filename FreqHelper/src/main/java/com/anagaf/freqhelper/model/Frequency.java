@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper.model.keys;
+package com.anagaf.freqhelper.model;
 
 public class Frequency implements Comparable<Frequency> {
     private static final long DECI_HERTZ_PER_MEGAHERTZ = 10000000L;

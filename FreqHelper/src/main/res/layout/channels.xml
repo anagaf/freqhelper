@@ -3,7 +3,7 @@
               a:layout_width="match_parent"
               a:layout_height="match_parent"
               a:orientation="vertical"
-              tools:context="com.anagaf.freqhelper.MainActivity">
+              tools:context="com.anagaf.freqhelper.ui.MainActivity">
 
     <!-- Focus thief -->
     <View
@@ -35,19 +35,19 @@
                 a:layout_marginBottom="@dimen/gap"
                 a:orientation="horizontal">
 
-                <com.anagaf.freqhelper.ValueEdit
+                <com.anagaf.freqhelper.ui.views.ValueEdit
                     a:id="@+id/frequency_mhz_edit"
                     style="@style/FreqEdit"
                     a:layout_marginRight="@dimen/gap"
                     tools:text="433"/>
 
-                <com.anagaf.freqhelper.ValueEdit
+                <com.anagaf.freqhelper.ui.views.ValueEdit
                     a:id="@+id/frequency_khz_edit"
                     style="@style/FreqEdit"
                     a:layout_marginRight="@dimen/gap"
                     tools:text="075"/>
 
-                <com.anagaf.freqhelper.ValueEdit
+                <com.anagaf.freqhelper.ui.views.ValueEdit
                     a:id="@+id/frequency_hz_edit"
                     style="@style/FreqEdit"
                     tools:text="000"/>

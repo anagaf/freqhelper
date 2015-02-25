@@ -1,8 +1,11 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.pages;
+
+import com.anagaf.freqhelper.ui.views.BaseEdit;
+import com.anagaf.freqhelper.ui.views.RangeView;
 
 public abstract class AbstractFrequencyPage extends Page {
 
-    final ValueEdit.Listener mValueComponentEditListener = new ValueEdit.Listener() {
+    final BaseEdit.Listener mValueComponentEditListener = new BaseEdit.Listener() {
         @Override
         public void onValueChanged(int value) {
             pushCurrentStateToBackStack();
@@ -13,7 +16,7 @@ public abstract class AbstractFrequencyPage extends Page {
 
     protected abstract long getValue();
 
-    protected ValueEdit.Listener getValueComponentEditListener() {
+    protected BaseEdit.Listener getValueComponentEditListener() {
         return mValueComponentEditListener;
     }
 

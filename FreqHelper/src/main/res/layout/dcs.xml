@@ -3,7 +3,7 @@
               a:layout_width="match_parent"
               a:layout_height="match_parent"
               a:orientation="vertical"
-              tools:context="com.anagaf.freqhelper.MainActivity">
+              tools:context="com.anagaf.freqhelper.ui.MainActivity">
 
     <!-- Focus thief -->
     <View
@@ -36,13 +36,13 @@
                 a:layout_marginBottom="@dimen/gap"
                 >
 
-                <com.anagaf.freqhelper.DcsCodeEdit
+                <com.anagaf.freqhelper.ui.views.DcsCodeEdit
                     a:id="@+id/dcs_direct_code_edit"
                     style="@style/FreqEdit"
                     a:layout_marginRight="@dimen/gap"
                     tools:text="433"/>
 
-                <com.anagaf.freqhelper.DcsCodeEdit
+                <com.anagaf.freqhelper.ui.views.DcsCodeEdit
                     a:id="@+id/dcs_inverse_code_edit"
                     style="@style/FreqEdit"
                     tools:text="433"/>

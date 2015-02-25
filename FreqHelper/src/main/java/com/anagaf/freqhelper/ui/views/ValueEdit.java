@@ -1,10 +1,8 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.views;
 
 import android.content.Context;
 import android.text.InputFilter;
 import android.util.AttributeSet;
-
-import com.anagaf.freqhelper.model.ranges.Range;
 
 public class ValueEdit extends BaseEdit {
 

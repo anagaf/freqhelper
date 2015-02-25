@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.views;
 
 import android.content.Context;
 import android.text.InputFilter;
@@ -30,7 +30,7 @@ public class DcsCodeEdit extends BaseEdit {
     }
 
     @Override
-    protected void setValue(int value) {
+    public void setValue(int value) {
         if (value == Range.INVALID_VALUE) {
             setText(INVALID_VALUE);
         } else {

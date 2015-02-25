@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.pages;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
 
+import com.anagaf.freqhelper.BackStack;
+import com.anagaf.freqhelper.R;
+import com.anagaf.freqhelper.ui.views.RangeView;
+import com.anagaf.freqhelper.Settings;
 import com.anagaf.freqhelper.model.ranges.Range;
 
 public abstract class Page extends Fragment {

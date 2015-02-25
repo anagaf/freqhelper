@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -30,7 +30,7 @@ public abstract class BaseEdit extends EditText {
         init();
     }
 
-    protected abstract void setValue(int value);
+    public abstract void setValue(int value);
     protected abstract int getValue();
 
     private void init() {

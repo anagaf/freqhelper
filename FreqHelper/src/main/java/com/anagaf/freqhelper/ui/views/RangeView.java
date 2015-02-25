@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.model.ranges.Range;
 
 public class RangeView extends TableRow {

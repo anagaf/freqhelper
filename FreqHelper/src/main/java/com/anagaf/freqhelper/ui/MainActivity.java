@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+
+import com.anagaf.freqhelper.BackStack;
+import com.anagaf.freqhelper.R;
+import com.anagaf.freqhelper.ui.pages.ChannelsPage;
+import com.anagaf.freqhelper.ui.pages.CtcssPage;
+import com.anagaf.freqhelper.ui.pages.DcsPage;
+import com.anagaf.freqhelper.ui.pages.Page;
 
 import java.util.ArrayList;
 import java.util.List;

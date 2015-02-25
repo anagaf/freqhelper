@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.views;
 
 import android.content.Context;
 import android.text.InputFilter;

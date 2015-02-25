@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui.pages;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
+import com.anagaf.freqhelper.ui.views.BaseEdit;
+import com.anagaf.freqhelper.R;
+import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.model.ranges.Dcs;
-import com.anagaf.freqhelper.model.ranges.Range;
 
 public class DcsPage extends Page {
 
@@ -23,7 +25,7 @@ public class DcsPage extends Page {
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
         mDirectCodeEdit = (BaseEdit) view.findViewById(R.id.dcs_direct_code_edit);
-        mDirectCodeEdit.setListener(new ValueEdit.Listener() {
+        mDirectCodeEdit.setListener(new BaseEdit.Listener() {
 
             @Override
             public void onValueChanged(int value) {
@@ -34,7 +36,7 @@ public class DcsPage extends Page {
         });
 
         mInverseCodeEdit = (BaseEdit) view.findViewById(R.id.dcs_inverse_code_edit);
-        mInverseCodeEdit.setListener(new ValueEdit.Listener() {
+        mInverseCodeEdit.setListener(new BaseEdit.Listener() {
 
             @Override
             public void onValueChanged(int value) {
