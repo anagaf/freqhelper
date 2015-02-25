@@ -13,11 +13,11 @@ import com.anagaf.freqhelper.model.ranges.Lpd69;
 import com.anagaf.freqhelper.model.ranges.Lpd8;
 import com.anagaf.freqhelper.model.ranges.Pmr;
 
-public class ChannelsPage extends Page {
+public class ChannelsPage extends AbstractFrequencyPage {
     private TableLayout mRangesLayout;
-    private FrequencyComponentEdit mFrequencyMhzEdit;
-    private FrequencyComponentEdit mFrequencyKhzEdit;
-    private FrequencyComponentEdit mFrequencyHzEdit;
+    private ValueEdit mFrequencyMhzEdit;
+    private ValueEdit mFrequencyKhzEdit;
+    private ValueEdit mFrequencyHzEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -25,13 +25,13 @@ public class ChannelsPage extends Page {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
-        mFrequencyMhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_mhz_edit);
+        mFrequencyMhzEdit = (ValueEdit) view.findViewById(R.id.frequency_mhz_edit);
         mFrequencyMhzEdit.setListener(getValueComponentEditListener());
 
-        mFrequencyKhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_khz_edit);
+        mFrequencyKhzEdit = (ValueEdit) view.findViewById(R.id.frequency_khz_edit);
         mFrequencyKhzEdit.setListener(getValueComponentEditListener());
 
-        mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
+        mFrequencyHzEdit = (ValueEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(getValueComponentEditListener());
 
         addRangeRow(inflater, new Lpd69());
@@ -61,9 +61,9 @@ public class ChannelsPage extends Page {
 
     @Override
     protected long getValue() {
-        final Integer mhz = valueComponentStringToInteger(mFrequencyMhzEdit.getText().toString());
-        final Integer khz = valueComponentStringToInteger(mFrequencyKhzEdit.getText().toString());
-        final Integer hz = valueComponentStringToInteger(mFrequencyHzEdit.getText().toString());
+        final Integer mhz = mFrequencyMhzEdit.getValue();
+        final Integer khz = mFrequencyKhzEdit.getValue();
+        final Integer hz = mFrequencyHzEdit.getValue();
         return Frequency.getChannelFrequencyDecihertz(mhz, khz, hz);
     }
 

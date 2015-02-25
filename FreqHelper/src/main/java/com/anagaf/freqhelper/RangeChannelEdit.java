@@ -33,6 +33,15 @@ public class RangeChannelEdit extends BaseEdit {
         setText(channelString);
     }
 
+    @Override
+    protected int getValue() {
+        if (getText().toString().isEmpty()) {
+            return 0;
+        } else {
+            return Integer.parseInt(getText().toString());
+        }
+    }
+
     public void setMaxChannel(int maxChannel) {
         final InputFilter channelInputFilter = new MinMaxFilter(maxChannel);
         setFilters(new InputFilter[]{channelInputFilter});

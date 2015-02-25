@@ -14,15 +14,6 @@ public abstract class Page extends Fragment {
 
     private int mIndex;
 
-    final FrequencyComponentEdit.Listener mValueComponentEditListener = new FrequencyComponentEdit.Listener() {
-        @Override
-        public void onValueChanged(int value) {
-            pushCurrentStateToBackStack();
-            writeValueToSettings(getActivity(), getValue());
-            updateRanges();
-        }
-    };
-
     final RangeView.Listener mRangeViewListener = new RangeView.Listener() {
         @Override
         public void onKeyChanged(long value) {
@@ -39,8 +30,6 @@ public abstract class Page extends Fragment {
     protected abstract long getDefaultValue();
 
     protected abstract String getSettingsKey();
-
-    protected abstract long getValue();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +60,7 @@ public abstract class Page extends Fragment {
     }
 
     protected long readValueFromSettings(Context context) {
-        Long value = Settings.read(context, getSettingsKey());
+        long value = Settings.read(context, getSettingsKey());
         if (value == Range.INVALID_VALUE) {
             value = getDefaultValue();
             writeValueToSettings(context, value);
@@ -83,20 +72,13 @@ public abstract class Page extends Fragment {
         Settings.write(context, getSettingsKey(), value);
     }
 
-    protected void updateRanges() {
-        final long value = getValue();
-        for (int i = 0; i < getRangesLayout().getChildCount(); i++) {
-            final RangeView row = (RangeView) getRangesLayout().getChildAt(i);
-            row.setValue(value);
-        }
-    }
-
-    protected static Integer valueComponentStringToInteger(String string) {
-        return string.isEmpty() ? 0 : Integer.parseInt(string);
-    }
-
-    protected FrequencyComponentEdit.Listener getValueComponentEditListener() {
-        return mValueComponentEditListener;
-    }
-
+//    protected static Integer valueComponentStringToInteger(String string) {
+//        int value;
+//        if (string.isEmpty()) {
+//            value = 0;
+//        } else if (string.isEmpty())
+//            value =
+//        }
+//        return string.isEmpty() ? 0 : Integer.parseInt(string);
+//    }
 }

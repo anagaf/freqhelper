@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public abstract class BaseEdit extends EditText {
+    protected static final String INVALID_VALUE = "--";
+
     private String mBackupText;
     private Listener mListener;
 
@@ -29,6 +31,7 @@ public abstract class BaseEdit extends EditText {
     }
 
     protected abstract void setValue(int value);
+    protected abstract int getValue();
 
     private void init() {
         setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -46,22 +49,13 @@ public abstract class BaseEdit extends EditText {
         setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    final String text = getText().toString();
-                    int value;
-                    try {
-                        value = Integer.parseInt(text);
-                    } catch (NumberFormatException ex) {
-                        value = 0;
-                    }
-                    setValue(value);
-
+                if (actionId == EditorInfo.IME_ACTION_DONE && isValueValid()) {
                     mBackupText = null;
 
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getWindowToken(), 0);
 
-                    mListener.onValueChanged(value);
+                    mListener.onValueChanged(getValue());
 
                     clearFocus();
 
@@ -74,6 +68,10 @@ public abstract class BaseEdit extends EditText {
 
     public void setListener(Listener listener) {
         mListener = listener;
+    }
+
+    public boolean isValueValid() {
+        return !getText().toString().equals(INVALID_VALUE);
     }
 
     /**

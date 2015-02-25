@@ -342,8 +342,13 @@ public class Dcs extends StaticRange {
         return R.string.channel;
     }
 
-    public static Long getInverseCode(Long code) {
-        final int index = sCodes.indexOf(code);
+    public static long getInverseCode(long directCode) {
+        final int index = sCodes.indexOf(directCode);
         return (index >= 0 ? sInverseCodes.get(index) : Range.INVALID_VALUE);
+    }
+
+    public static long getDirectCode(long inverse) {
+        final int index = sInverseCodes.indexOf(inverse);
+        return (index >= 0 ? sCodes.get(index) : Range.INVALID_VALUE);
     }
 }

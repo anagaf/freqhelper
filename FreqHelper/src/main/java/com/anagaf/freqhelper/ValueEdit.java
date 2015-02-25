@@ -4,32 +4,34 @@ import android.content.Context;
 import android.text.InputFilter;
 import android.util.AttributeSet;
 
-public class FrequencyDeciHertzComponentEdit extends BaseEdit {
+import com.anagaf.freqhelper.model.ranges.Range;
 
-    public FrequencyDeciHertzComponentEdit(Context context) {
+public class ValueEdit extends BaseEdit {
+
+    public ValueEdit(Context context) {
         super(context);
         init();
     }
 
-    public FrequencyDeciHertzComponentEdit(Context context, AttributeSet attrs) {
+    public ValueEdit(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public FrequencyDeciHertzComponentEdit(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ValueEdit(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     private void init() {
         setFilters(new InputFilter[]{
-                new InputFilter.LengthFilter(1)
+                new InputFilter.LengthFilter(3)
         });
     }
 
     @Override
     public void setValue(int value) {
-        setText(String.valueOf(value));
+        setText(String.format("%03d", value));
     }
 
     @Override

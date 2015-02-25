@@ -12,9 +12,9 @@ import com.anagaf.freqhelper.model.ranges.Ctcss39;
 import com.anagaf.freqhelper.model.ranges.Ctcss64;
 import com.anagaf.freqhelper.model.keys.Frequency;
 
-public class CtcssPage extends Page {
+public class CtcssPage extends AbstractFrequencyPage {
     private TableLayout mRangesLayout;
-    private FrequencyComponentEdit mFrequencyHzEdit;
+    private ValueEdit mFrequencyHzEdit;
     private FrequencyDeciHertzComponentEdit mFrequencyDeciHzEdit;
 
     @Override
@@ -23,7 +23,7 @@ public class CtcssPage extends Page {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
-        mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
+        mFrequencyHzEdit = (ValueEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(getValueComponentEditListener());
 
         mFrequencyDeciHzEdit = (FrequencyDeciHertzComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
@@ -54,8 +54,8 @@ public class CtcssPage extends Page {
 
     @Override
     protected long getValue() {
-        final Integer hz = valueComponentStringToInteger(mFrequencyHzEdit.getText().toString());
-        final Integer deciHz = valueComponentStringToInteger(mFrequencyDeciHzEdit.getText().toString());
+        final Integer hz = mFrequencyHzEdit.getValue();
+        final Integer deciHz = mFrequencyDeciHzEdit.getValue();
         return Frequency.getCtcssFrequencyDecihertz(hz, deciHz);
     }
 

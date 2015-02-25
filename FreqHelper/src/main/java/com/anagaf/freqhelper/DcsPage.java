@@ -13,8 +13,8 @@ import com.anagaf.freqhelper.model.ranges.Range;
 public class DcsPage extends Page {
 
     private TableLayout mRangesLayout;
-    private FrequencyComponentEdit mDirectCodeEdit;
-    private FrequencyComponentEdit mInverseCodeEdit;
+    private BaseEdit mDirectCodeEdit;
+    private BaseEdit mInverseCodeEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -22,26 +22,24 @@ public class DcsPage extends Page {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
-        mDirectCodeEdit = (FrequencyComponentEdit) view.findViewById(R.id.dcs_direct_code_edit);
-        mDirectCodeEdit.setListener(new FrequencyComponentEdit.Listener() {
+        mDirectCodeEdit = (BaseEdit) view.findViewById(R.id.dcs_direct_code_edit);
+        mDirectCodeEdit.setListener(new ValueEdit.Listener() {
 
             @Override
             public void onValueChanged(int value) {
                 pushCurrentStateToBackStack();
                 writeValueToSettings(getActivity(), value);
-                updateRanges();
                 updateValue();
             }
         });
 
-        mInverseCodeEdit = (FrequencyComponentEdit) view.findViewById(R.id.dcs_inverse_code_edit);
-        mInverseCodeEdit.setListener(new FrequencyComponentEdit.Listener() {
+        mInverseCodeEdit = (BaseEdit) view.findViewById(R.id.dcs_inverse_code_edit);
+        mInverseCodeEdit.setListener(new ValueEdit.Listener() {
 
             @Override
             public void onValueChanged(int value) {
                 pushCurrentStateToBackStack();
                 writeValueToSettings(getActivity(), -1 * value);
-                updateRanges();
                 updateValue();
             }
         });
@@ -61,15 +59,20 @@ public class DcsPage extends Page {
 
     @Override
     protected void updateValue() {
-        final Long code = readValueFromSettings(getActivity());
-        final Long inverseCode = Dcs.getInverseCode(code);
-        mDirectCodeEdit.setValue(code.intValue());
-        if (inverseCode != Range.INVALID_VALUE) {
-            mInverseCodeEdit.setValue(inverseCode.intValue());
+        final long code = readValueFromSettings(getActivity());
+        final Long directCode;
+        final Long inverseCode;
+        if (code > 0) {
+            directCode = code;
+            inverseCode = Dcs.getInverseCode(directCode);
         } else {
-            mInverseCodeEdit.setText("--");
+            inverseCode = code;
+            directCode = Dcs.getDirectCode(inverseCode);
         }
-        updateRanges();
+        mDirectCodeEdit.setValue(directCode.intValue());
+        mInverseCodeEdit.setValue(inverseCode.intValue());
+
+        updateRanges(directCode);
     }
 
     @Override
@@ -82,13 +85,10 @@ public class DcsPage extends Page {
         return "DcsCode";
     }
 
-    @Override
-    protected long getValue() {
-        return getDirectCode();
+    private void updateRanges(long directCode) {
+        for (int i = 0; i < getRangesLayout().getChildCount(); i++) {
+            final RangeView row = (RangeView) getRangesLayout().getChildAt(i);
+            row.setValue(directCode);
+        }
     }
-
-    private long getDirectCode() {
-        return valueComponentStringToInteger(mDirectCodeEdit.getText().toString());
-    }
-
 }
