@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.ui.views.FrequencyDeciHertzComponentEdit;
 import com.anagaf.freqhelper.R;
-import com.anagaf.freqhelper.ui.views.ValueEdit;
+import com.anagaf.freqhelper.ui.views.FrequencyComponentEdit;
 import com.anagaf.freqhelper.model.ranges.Ctcss38;
 import com.anagaf.freqhelper.model.ranges.Ctcss39;
 import com.anagaf.freqhelper.model.ranges.Ctcss64;
@@ -17,8 +16,8 @@ import com.anagaf.freqhelper.model.Frequency;
 
 public class CtcssPage extends AbstractFrequencyPage {
     private TableLayout mRangesLayout;
-    private ValueEdit mFrequencyHzEdit;
-    private FrequencyDeciHertzComponentEdit mFrequencyDeciHzEdit;
+    private FrequencyComponentEdit mFrequencyHzEdit;
+    private FrequencyComponentEdit mFrequencyDeciHzEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -26,10 +25,10 @@ public class CtcssPage extends AbstractFrequencyPage {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
-        mFrequencyHzEdit = (ValueEdit) view.findViewById(R.id.frequency_hz_edit);
+        mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(getValueComponentEditListener());
 
-        mFrequencyDeciHzEdit = (FrequencyDeciHertzComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
+        mFrequencyDeciHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
         mFrequencyDeciHzEdit.setListener(getValueComponentEditListener());
 
         addRangeRow(inflater, new Ctcss38());

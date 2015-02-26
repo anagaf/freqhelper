@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 
 import com.anagaf.freqhelper.R;
-import com.anagaf.freqhelper.ui.views.ValueEdit;
+import com.anagaf.freqhelper.ui.views.FrequencyComponentEdit;
 import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.ranges.Frs;
 import com.anagaf.freqhelper.model.ranges.Lpd69;
@@ -17,9 +17,9 @@ import com.anagaf.freqhelper.model.ranges.Pmr;
 
 public class ChannelsPage extends AbstractFrequencyPage {
     private TableLayout mRangesLayout;
-    private ValueEdit mFrequencyMhzEdit;
-    private ValueEdit mFrequencyKhzEdit;
-    private ValueEdit mFrequencyHzEdit;
+    private FrequencyComponentEdit mFrequencyMhzEdit;
+    private FrequencyComponentEdit mFrequencyKhzEdit;
+    private FrequencyComponentEdit mFrequencyHzEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,13 +27,13 @@ public class ChannelsPage extends AbstractFrequencyPage {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
-        mFrequencyMhzEdit = (ValueEdit) view.findViewById(R.id.frequency_mhz_edit);
+        mFrequencyMhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_mhz_edit);
         mFrequencyMhzEdit.setListener(getValueComponentEditListener());
 
-        mFrequencyKhzEdit = (ValueEdit) view.findViewById(R.id.frequency_khz_edit);
+        mFrequencyKhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_khz_edit);
         mFrequencyKhzEdit.setListener(getValueComponentEditListener());
 
-        mFrequencyHzEdit = (ValueEdit) view.findViewById(R.id.frequency_hz_edit);
+        mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(getValueComponentEditListener());
 
         addRangeRow(inflater, new Lpd69());
