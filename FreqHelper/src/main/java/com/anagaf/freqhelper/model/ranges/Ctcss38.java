@@ -71,6 +71,6 @@ public class Ctcss38 extends StaticRange {
 
     @Override
     public Integer getNameStringId() {
-        return R.string.ctcss39;
+        return R.string.ctcss38;
     }
 }
