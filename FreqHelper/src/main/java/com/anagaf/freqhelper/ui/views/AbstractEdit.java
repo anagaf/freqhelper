@@ -16,7 +16,6 @@ public abstract class AbstractEdit extends EditText {
 
     protected int mMaxLength;
     private String mInvalidValue;
-    private String mBackupText;
     private Listener mListener;
 
     public AbstractEdit(Context context) {
@@ -63,23 +62,20 @@ public abstract class AbstractEdit extends EditText {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    mBackupText = getText().toString();
                     setText("");
-                } else if (mBackupText != null) {
-                    setText(mBackupText);
+                } else {
+                    mListener.onValueChanged();
                 }
             }
         });
+
         setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE && !isInvalidValue()) {
-                    mBackupText = null;
 
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getWindowToken(), 0);
-
-                    mListener.onValueChanged();
 
                     clearFocus();
 

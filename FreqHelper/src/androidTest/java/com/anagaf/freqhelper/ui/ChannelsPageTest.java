@@ -1,7 +1,7 @@
 package com.anagaf.freqhelper.ui;
 
-import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
@@ -9,13 +9,16 @@ import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.ui.views.ValueComponentEdit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActivity> {
+    public static final String INVALID_CHANNEL = "--";
     private ValueComponentEdit mMhzEdit;
     private ValueComponentEdit mKhzEdit;
     private ValueComponentEdit mHzEdit;
 
-    private RangeView mLpd69View;
-
+    private List<RangeView> mRangeViews;
 
     public ChannelsPageTest() {
         super(MainActivity.class);
@@ -25,27 +28,62 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     public void setUp() throws Exception {
         super.setUp();
 
-        Activity activity = getActivity();
+        mMhzEdit = (ValueComponentEdit) getActivity().findViewById(R.id.frequency_mhz_edit);
+        mKhzEdit = (ValueComponentEdit) getActivity().findViewById(R.id.frequency_khz_edit);
+        mHzEdit = (ValueComponentEdit) getActivity().findViewById(R.id.frequency_hz_edit);
 
-        mMhzEdit = (ValueComponentEdit) activity.findViewById(R.id.frequency_mhz_edit);
-        mKhzEdit = (ValueComponentEdit) activity.findViewById(R.id.frequency_khz_edit);
-        mHzEdit = (ValueComponentEdit) activity.findViewById(R.id.frequency_hz_edit);
-
-        ViewGroup rangesLayout = (ViewGroup) getActivity().findViewById(R.id.ranges_layout);
-        mLpd69View = (RangeView) rangesLayout.getChildAt(0);
+        mRangeViews = new ArrayList<>();
+        final ViewGroup rangesLayout = (ViewGroup) getActivity().findViewById(R.id.ranges_layout);
+        for (int i = 0; i < rangesLayout.getChildCount(); i++) {
+            mRangeViews.add((RangeView) rangesLayout.getChildAt(i));
+        }
     }
 
     public void testSetFrequency() throws Throwable {
-        runTestOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mMhzEdit.setValueComponent(433);
-                mKhzEdit.setValueComponent(75);
-                mHzEdit.setValueComponent(0);
+        TouchUtils.tapView(this, mMhzEdit);
+        sendKeys("4 3 3 ENTER");
 
-                EditText channelEdit = (EditText) mLpd69View.findViewById(R.id.channel);
-                assertEquals("1", channelEdit.getText().toString());
-            }
-        });
+        TouchUtils.tapView(this, mKhzEdit);
+        sendKeys("7 5 ENTER");
+
+        TouchUtils.tapView(this, mHzEdit);
+        sendKeys("0 ENTER");
+
+        Thread.sleep(1000);
+
+        checkChannels(new String[] {"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, mMhzEdit);
+        sendKeys("4 3 4 ENTER");
+
+        Thread.sleep(1000);
+
+        checkChannels(new String[] {"41", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, mKhzEdit);
+        sendKeys("1 0 0 ENTER");
+        TouchUtils.tapView(this, mHzEdit);
+        sendKeys("0 ENTER");
+
+        Thread.sleep(1000);
+
+        checkChannels(new String[]{"42", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, mHzEdit);
+        sendKeys("5 0 ENTER");
+
+        Thread.sleep(1000);
+
+        checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
+    }
+
+    private void checkChannels(String[] expectedChannels) {
+        for (int i = 0; i < expectedChannels.length; i++) {
+            assertEquals(expectedChannels[i], getChannelEdit(mRangeViews.get(i)).getText().toString());
+        }
+    }
+
+    private EditText getChannelEdit(RangeView rangeView) {
+        return (EditText) rangeView.findViewById(R.id.channel);
     }
 }
