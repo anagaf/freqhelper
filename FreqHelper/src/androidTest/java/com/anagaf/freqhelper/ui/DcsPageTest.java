@@ -54,6 +54,8 @@ public class DcsPageTest extends ActivityInstrumentationTestCase2<MainActivity> 
         setDirectCode("23");
         checkCodes("023", "047");
         checkChannel("1");
+
+        // TODO: check 0 input
     }
 
 //    public void testSetInverseCode() throws InterruptedException {

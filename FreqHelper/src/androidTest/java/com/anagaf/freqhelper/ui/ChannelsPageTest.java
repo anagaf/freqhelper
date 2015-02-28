@@ -35,6 +35,8 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     public void setUp() throws Exception {
         super.setUp();
 
+        getInstrumentation().setInTouchMode(false);
+
         mMhzEdit = (ValueComponentEdit) getActivity().findViewById(R.id.frequency_mhz_edit);
         mKhzEdit = (ValueComponentEdit) getActivity().findViewById(R.id.frequency_khz_edit);
         mHzEdit = (ValueComponentEdit) getActivity().findViewById(R.id.frequency_hz_edit);
@@ -47,36 +49,20 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     public void testSetFrequency() throws Throwable {
-        TouchUtils.tapView(this, mMhzEdit);
-        sendKeys("4 3 3 ENTER");
-
-        TouchUtils.tapView(this, mKhzEdit);
-        sendKeys("7 5 ENTER");
-
-        TouchUtils.tapView(this, mHzEdit);
-        sendKeys("0 ENTER");
-
+        setFrequency("4 3 3", "7 5", "0"); // TODO: test empty input
         checkFrequency("433", "075", "000");
         checkChannels(new String[] {"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
 
-        TouchUtils.tapView(this, mMhzEdit);
-        sendKeys("4 3 4 ENTER");
-
+        typeEditText(mMhzEdit, "4 3 4");
         checkFrequency("434", "075", "000");
         checkChannels(new String[] {"41", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
 
-        TouchUtils.tapView(this, mKhzEdit);
-        sendKeys("1 0 0 ENTER");
-        TouchUtils.tapView(this, mHzEdit);
-        sendKeys("0 ENTER");
-
+        typeEditText(mKhzEdit, "1 0 0");
         checkFrequency("434", "100", "000");
         checkChannels(new String[]{"42", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
 
-        TouchUtils.tapView(this, mHzEdit);
-        sendKeys("5 0 ENTER");
+        typeEditText(mHzEdit, "5 0");
         checkFrequency("434", "100", "050");
-
         checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
     }
 
@@ -145,17 +131,15 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     private void setFrequency(String mhz, String khz, String hz) {
-        TouchUtils.tapView(this, mMhzEdit);
-        sendKeys(mhz);
-        sendKeys("ENTER");
+        typeEditText(mMhzEdit, mhz);
+        typeEditText(mKhzEdit, khz);
+        typeEditText(mHzEdit, hz);
+    }
 
-        TouchUtils.tapView(this, mKhzEdit);
-        sendKeys(khz);
-        sendKeys("ENTER");
-
-        TouchUtils.tapView(this, mHzEdit);
-        sendKeys(hz);
-        sendKeys("ENTER");
+    private void typeEditText(EditText editText, String text) {
+        TouchUtils.tapView(this, editText);
+        sendKeys(text);
+        TestUtils.pressEnter(getInstrumentation(), editText);
     }
 
     private void checkFrequency(String mhz, String khz, String hz) {

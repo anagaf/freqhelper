@@ -37,6 +37,8 @@ public class ChannelEdit extends AbstractEdit {
     public int getChannel() {
         if (getText().toString().isEmpty()) {
             return 0;
+        } else if (getText().toString().equals(EMPTY_CHANNEL_NUMBER)) {
+            return Range.INVALID_INDEX;
         } else {
             return Integer.parseInt(getText().toString());
         }

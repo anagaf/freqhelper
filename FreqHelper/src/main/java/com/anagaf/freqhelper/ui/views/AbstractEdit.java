@@ -3,6 +3,7 @@ package com.anagaf.freqhelper.ui.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +18,7 @@ public abstract class AbstractEdit extends EditText {
     protected int mMaxLength;
     private String mInvalidValue;
     private Listener mListener;
+    private String mBackupText;
 
     public AbstractEdit(Context context) {
         super(context);
@@ -62,8 +64,12 @@ public abstract class AbstractEdit extends EditText {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
+                    mBackupText = getText().toString();
                     setText("");
                 } else {
+                    if (!TextUtils.isEmpty(mBackupText)) {
+                        setText(mBackupText);
+                    }
                     formatValue();
                     mListener.onValueChanged();
                 }
@@ -77,6 +83,9 @@ public abstract class AbstractEdit extends EditText {
 
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getWindowToken(), 0);
+
+                    mBackupText = null;
+                    mListener.onValueChanged();
 
                     clearFocus();
 
