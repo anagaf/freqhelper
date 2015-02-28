@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.app;
 
 import android.test.AndroidTestCase;
 

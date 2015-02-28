@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.anagaf.freqhelper.BackStack;
+import com.anagaf.freqhelper.app.BackStack;
 import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.ui.pages.ChannelsPage;
 import com.anagaf.freqhelper.ui.pages.CtcssPage;

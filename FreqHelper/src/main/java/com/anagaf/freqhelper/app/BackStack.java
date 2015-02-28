@@ -1,4 +1,4 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.app;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -50,8 +50,7 @@ public class BackStack {
 
             Item item = (Item) o;
 
-            if (mPageIndex != item.mPageIndex) return false;
-            return mValue == item.mValue;
+            return mPageIndex == item.mPageIndex && mValue == item.mValue;
 
         }
 

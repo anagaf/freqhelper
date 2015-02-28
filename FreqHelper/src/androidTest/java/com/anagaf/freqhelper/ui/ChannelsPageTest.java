@@ -1,13 +1,11 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.ui;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.ActivityTestCase;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.anagaf.freqhelper.ui.MainActivity;
+import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.ui.views.ValueComponentEdit;
 

@@ -1,8 +1,6 @@
-package com.anagaf.freqhelper;
+package com.anagaf.freqhelper.model;
 
 import android.test.AndroidTestCase;
-
-import com.anagaf.freqhelper.model.Frequency;
 
 public class FrequencyTest extends AndroidTestCase {
 

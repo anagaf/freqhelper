@@ -1,10 +1,8 @@
-package com.anagaf.freqhelper.ranges;
+package com.anagaf.freqhelper.model.ranges;
 
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.test.AndroidTestCase;
-
-import com.anagaf.freqhelper.model.ranges.Range;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
