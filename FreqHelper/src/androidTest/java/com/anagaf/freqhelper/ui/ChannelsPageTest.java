@@ -77,6 +77,32 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
     }
 
+
+    public void testSetChannel() throws Throwable {
+        TouchUtils.tapView(this, mMhzEdit);
+        sendKeys("4 3 3 ENTER");
+
+        TouchUtils.tapView(this, mKhzEdit);
+        sendKeys("7 5 ENTER");
+
+        TouchUtils.tapView(this, mHzEdit);
+        sendKeys("0 ENTER");
+
+        final RangeView lpd69 = mRangeViews.get(0);
+        final EditText lpd69ChannelEdit = getChannelEdit(lpd69);
+
+        TouchUtils.tapView(this, lpd69ChannelEdit);
+        sendKeys("3 2 ENTER");
+
+        checkFrequency("433", "850", "000");
+    }
+
+    private void checkFrequency(String mhz, String khz, String hz) {
+        assertEquals(mhz, mMhzEdit.getText().toString());
+        assertEquals(khz, mKhzEdit.getText().toString());
+        assertEquals(hz, mHzEdit.getText().toString());
+    }
+
     private void checkChannels(String[] expectedChannels) {
         for (int i = 0; i < expectedChannels.length; i++) {
             assertEquals(expectedChannels[i], getChannelEdit(mRangeViews.get(i)).getText().toString());
