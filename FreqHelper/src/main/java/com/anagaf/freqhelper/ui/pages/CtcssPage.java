@@ -23,7 +23,7 @@ public class CtcssPage extends AbstractFrequencyPage {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.ctcss, null);
 
-        mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
+        mRangesLayout = (TableLayout) view.findViewById(R.id.ctcss_ranges_layout);
 
         mFrequencyHzEdit = (ValueComponentEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(getValueComponentEditListener());

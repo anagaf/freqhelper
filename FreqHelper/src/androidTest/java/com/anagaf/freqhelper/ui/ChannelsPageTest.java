@@ -40,7 +40,7 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         mHzEdit = (ValueComponentEdit) getActivity().findViewById(R.id.frequency_hz_edit);
 
         mRangeViews = new ArrayList<>();
-        final ViewGroup rangesLayout = (ViewGroup) getActivity().findViewById(R.id.ranges_layout);
+        final ViewGroup rangesLayout = (ViewGroup) getActivity().findViewById(R.id.channels_ranges_layout);
         for (int i = 0; i < rangesLayout.getChildCount(); i++) {
             mRangeViews.add((RangeView) rangesLayout.getChildAt(i));
         }
@@ -92,7 +92,7 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         sendKeys("0 ENTER");
 
         final RangeView lpd69 = mRangeViews.get(0);
-        final EditText lpd69ChannelEdit = getChannelEdit(lpd69);
+        final EditText lpd69ChannelEdit = TestUtils.getChannelEdit(lpd69);
 
         TouchUtils.tapView(this, lpd69ChannelEdit);
         sendKeys("3 2 ENTER");
@@ -166,12 +166,9 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
 
     private void checkChannels(String[] expectedChannels) {
         for (int i = 0; i < expectedChannels.length; i++) {
-            assertEquals(expectedChannels[i], getChannelEdit(mRangeViews.get(i)).getText().toString());
+            final EditText edit = TestUtils.getChannelEdit(mRangeViews.get(i));
+            assertEquals(expectedChannels[i], edit.getText().toString());
         }
-    }
-
-    private EditText getChannelEdit(RangeView rangeView) {
-        return (EditText) rangeView.findViewById(R.id.channel);
     }
 
     private View getNextChannelButton(int rangeIndex) {

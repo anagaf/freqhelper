@@ -25,7 +25,7 @@ public class ChannelsPage extends AbstractFrequencyPage {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.channels, null);
 
-        mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
+        mRangesLayout = (TableLayout) view.findViewById(R.id.channels_ranges_layout);
 
         mFrequencyMhzEdit = (ValueComponentEdit) view.findViewById(R.id.frequency_mhz_edit);
         mFrequencyMhzEdit.setListener(getValueComponentEditListener());

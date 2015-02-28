@@ -51,7 +51,7 @@
             </LinearLayout>
 
             <TableLayout
-                a:id="@+id/ranges_layout"
+                a:id="@+id/dcs_ranges_layout"
                 a:layout_width="match_parent"
                 a:layout_height="wrap_content"/>
         </LinearLayout>

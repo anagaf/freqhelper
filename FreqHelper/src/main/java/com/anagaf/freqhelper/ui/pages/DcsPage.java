@@ -23,7 +23,7 @@ public class DcsPage extends Page {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dcs, null);
 
-        mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
+        mRangesLayout = (TableLayout) view.findViewById(R.id.dcs_ranges_layout);
 
         mDirectCodeEdit = (ValueEdit) view.findViewById(R.id.dcs_direct_code_edit);
         mDirectCodeEdit.setListener(new AbstractEdit.Listener() {
