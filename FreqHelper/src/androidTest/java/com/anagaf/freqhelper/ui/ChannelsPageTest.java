@@ -2,6 +2,7 @@ package com.anagaf.freqhelper.ui;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
@@ -14,6 +15,12 @@ import java.util.List;
 
 public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActivity> {
     public static final String INVALID_CHANNEL = "--";
+
+    private static final int LPD69_INDEX = 0;
+    private static final int LPD8_INDEX = 1;
+    private static final int FRS_INDEX = 3;
+    private static final int PMR_INDEX = 2;
+
     private ValueComponentEdit mMhzEdit;
     private ValueComponentEdit mKhzEdit;
     private ValueComponentEdit mHzEdit;
@@ -93,6 +100,64 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         checkFrequency("433", "850", "000");
     }
 
+    public void testNextChannel() throws Throwable {
+        setFrequency("4 3 3", "7 5", "0");
+        checkFrequency("433", "075", "000");
+        checkChannels(new String[] {"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, getNextChannelButton(LPD69_INDEX));
+        checkFrequency("433", "100", "000");
+        checkChannels(new String[] {"2", "2", INVALID_CHANNEL, INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, getNextChannelButton(LPD8_INDEX));
+        checkFrequency("433", "200", "000");
+        checkChannels(new String[]{"6", "3", INVALID_CHANNEL, INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, getNextChannelButton(PMR_INDEX));
+        checkFrequency("446", "006", "250");
+        checkChannels(new String[] {INVALID_CHANNEL, INVALID_CHANNEL, "1", INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, getNextChannelButton(FRS_INDEX));
+        checkFrequency("462", "562", "500");
+        checkChannels(new String[] {INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, "1"});
+    }
+
+    public void testPrevChannel() throws Throwable {
+        setFrequency("4 6 7", "7 1 2", "5 0 0");
+        checkFrequency("467", "712", "500");
+        checkChannels(new String[] {INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, "14"});
+
+        TouchUtils.tapView(this, getPrevChannelButton(FRS_INDEX));
+        checkFrequency("467", "687", "500");
+        checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, "13"});
+
+        TouchUtils.tapView(this, getPrevChannelButton(PMR_INDEX));
+        checkFrequency("446", "093", "750");
+        checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, "8", INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, getPrevChannelButton(LPD8_INDEX));
+        checkFrequency("433", "800", "000");
+        checkChannels(new String[]{"30", "8", INVALID_CHANNEL, INVALID_CHANNEL});
+
+        TouchUtils.tapView(this, getPrevChannelButton(LPD69_INDEX));
+        checkFrequency("433", "775", "000");
+        checkChannels(new String[]{"29", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
+    }
+
+    private void setFrequency(String mhz, String khz, String hz) {
+        TouchUtils.tapView(this, mMhzEdit);
+        sendKeys(mhz);
+        sendKeys("ENTER");
+
+        TouchUtils.tapView(this, mKhzEdit);
+        sendKeys(khz);
+        sendKeys("ENTER");
+
+        TouchUtils.tapView(this, mHzEdit);
+        sendKeys(hz);
+        sendKeys("ENTER");
+    }
+
     private void checkFrequency(String mhz, String khz, String hz) {
         assertEquals(mhz, mMhzEdit.getText().toString());
         assertEquals(khz, mKhzEdit.getText().toString());
@@ -107,5 +172,13 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
 
     private EditText getChannelEdit(RangeView rangeView) {
         return (EditText) rangeView.findViewById(R.id.channel);
+    }
+
+    private View getNextChannelButton(int rangeIndex) {
+        return mRangeViews.get(rangeIndex).findViewById(R.id.next_channel_button);
+    }
+
+    private View getPrevChannelButton(int rangeIndex) {
+        return mRangeViews.get(rangeIndex).findViewById(R.id.prev_channel_button);
     }
 }
