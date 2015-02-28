@@ -7,34 +7,34 @@ import android.util.AttributeSet;
 
 import com.anagaf.freqhelper.model.ranges.Range;
 
-public class RangeChannelEdit extends BaseEdit {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ChannelEdit extends AbstractEdit {
     private static final String EMPTY_CHANNEL_NUMBER = "--";
 
-    public RangeChannelEdit(Context context) {
+    public ChannelEdit(Context context) {
         super(context);
     }
 
-    public RangeChannelEdit(Context context, AttributeSet attrs) {
+    public ChannelEdit(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RangeChannelEdit(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ChannelEdit(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    public void setValue(int value) {
-        final String channelString;
-        if (value == Range.INVALID_INDEX) {
-            channelString = EMPTY_CHANNEL_NUMBER;
+    public void setChannel(int channel) {
+        if (channel != Range.INVALID_INDEX) {
+            setText(String.valueOf(channel));
         } else {
-            channelString = String.valueOf(value);
+            setInvalidValue();
         }
-        setText(channelString);
     }
 
-    @Override
-    protected int getValue() {
+    public int getChannel() {
         if (getText().toString().isEmpty()) {
             return 0;
         } else {
@@ -43,8 +43,9 @@ public class RangeChannelEdit extends BaseEdit {
     }
 
     public void setMaxChannel(int maxChannel) {
-        final InputFilter channelInputFilter = new MinMaxFilter(maxChannel);
-        setFilters(new InputFilter[]{channelInputFilter});
+        final List<InputFilter> filters = new ArrayList<>(Arrays.asList(getFilters()));
+        filters.add(new MinMaxFilter(maxChannel));
+        setFilters(filters.toArray(new InputFilter[filters.size()]));
     }
 
     /**

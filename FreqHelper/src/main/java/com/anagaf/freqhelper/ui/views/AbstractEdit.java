@@ -1,6 +1,8 @@
 package com.anagaf.freqhelper.ui.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
@@ -9,31 +11,53 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public abstract class BaseEdit extends EditText {
-    protected static final String INVALID_VALUE = "--";
+public abstract class AbstractEdit extends EditText {
+    private static final int DEFAULT_MAX_LENGTH = 1;
 
+    protected int mMaxLength;
+    private String mInvalidValue;
     private String mBackupText;
     private Listener mListener;
 
-    public BaseEdit(Context context) {
+    public AbstractEdit(Context context) {
         super(context);
-        init();
+        init(null);
     }
 
-    public BaseEdit(Context context, AttributeSet attrs) {
+    public AbstractEdit(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(attrs);
     }
 
-    public BaseEdit(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AbstractEdit(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
-    public abstract void setValue(int value);
-    protected abstract int getValue();
+    public void setInvalidValue() {
+        setText(mInvalidValue);
+    }
 
-    private void init() {
+    public boolean isInvalidValue() {
+        return getText().toString().equals(mInvalidValue);
+    }
+
+    private void init(AttributeSet attrs) {
+        if (attrs != null) {
+            TypedArray typedAttrs = getContext().getTheme().obtainStyledAttributes(attrs, new int[]{android.R.attr.maxLength}, 0, 0);
+            try {
+                mMaxLength = typedAttrs.getInt(0, DEFAULT_MAX_LENGTH);
+            } finally {
+                typedAttrs.recycle();
+            }
+        }
+
+        mInvalidValue = String.format("%0" + mMaxLength + "d", 0).replace('0', '-');
+
+        setFilters(new InputFilter[]{
+                new InputFilter.LengthFilter(mMaxLength)
+        });
+
         setOnFocusChangeListener(new OnFocusChangeListener() {
 
             @Override
@@ -49,13 +73,13 @@ public abstract class BaseEdit extends EditText {
         setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE && isValueValid()) {
+                if (actionId == EditorInfo.IME_ACTION_DONE && !isInvalidValue()) {
                     mBackupText = null;
 
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getWindowToken(), 0);
 
-                    mListener.onValueChanged(getValue());
+                    mListener.onValueChanged();
 
                     clearFocus();
 
@@ -70,15 +94,11 @@ public abstract class BaseEdit extends EditText {
         mListener = listener;
     }
 
-    public boolean isValueValid() {
-        return !getText().toString().equals(INVALID_VALUE);
-    }
-
     /**
      * ******* Inner Classes *********
      */
 
     public interface Listener {
-        public void onValueChanged(int value);
+        public void onValueChanged();
     }
 }

@@ -11,7 +11,7 @@ import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.model.ranges.Range;
 
 public class RangeView extends TableRow {
-    private RangeChannelEdit mChannelEdit;
+    private ChannelEdit mChannelEdit;
     private Button mPrevChannelButton;
     private Button mNextChannelButton;
 
@@ -49,12 +49,13 @@ public class RangeView extends TableRow {
             }
         });
 
-        mChannelEdit = (RangeChannelEdit) findViewById(R.id.channel);
-        mChannelEdit.setListener(new BaseEdit.Listener() {
+        mChannelEdit = (ChannelEdit) findViewById(R.id.channel);
+        mChannelEdit.setListener(new AbstractEdit.Listener() {
             @Override
-            public void onValueChanged(int value) {
-                if (value != Range.INVALID_INDEX) {
-                    moveToChannel(value);
+            public void onValueChanged() {
+                final int channel = mChannelEdit.getChannel();
+                if (channel != Range.INVALID_INDEX) {
+                    moveToChannel(channel);
                 }
             }
         });
@@ -70,7 +71,7 @@ public class RangeView extends TableRow {
     }
 
     public void setValue(long value) {
-        mChannelEdit.setValue(mRange.find(value));
+        mChannelEdit.setChannel(mRange.find(value));
 
         mPrevChannel = mRange.findPrev(value);
         mPrevChannelButton.setEnabled(mPrevChannel != Range.INVALID_INDEX);

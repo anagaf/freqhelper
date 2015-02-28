@@ -36,15 +36,17 @@
                 a:layout_marginBottom="@dimen/gap"
                 >
 
-                <com.anagaf.freqhelper.ui.views.DcsCodeEdit
+                <com.anagaf.freqhelper.ui.views.ValueEdit
                     a:id="@+id/dcs_direct_code_edit"
                     style="@style/FreqEdit"
                     a:layout_marginRight="@dimen/gap"
+                    a:maxLength="3"
                     tools:text="433"/>
 
-                <com.anagaf.freqhelper.ui.views.DcsCodeEdit
+                <com.anagaf.freqhelper.ui.views.ValueEdit
                     a:id="@+id/dcs_inverse_code_edit"
                     style="@style/FreqEdit"
+                    a:maxLength="3"
                     tools:text="433"/>
             </LinearLayout>
 

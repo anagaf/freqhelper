@@ -14,7 +14,7 @@
         a:id="@+id/prev_channel_button"
         style="@style/ChannelButtonPrev"/>
 
-    <com.anagaf.freqhelper.ui.views.RangeChannelEdit
+    <com.anagaf.freqhelper.ui.views.ChannelEdit
         a:id="@+id/channel"
         style="@style/ChannelEdit"/>
 

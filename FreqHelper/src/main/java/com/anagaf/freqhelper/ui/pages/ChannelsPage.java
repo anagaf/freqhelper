@@ -8,18 +8,18 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 
 import com.anagaf.freqhelper.R;
-import com.anagaf.freqhelper.ui.views.FrequencyComponentEdit;
 import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.ranges.Frs;
 import com.anagaf.freqhelper.model.ranges.Lpd69;
 import com.anagaf.freqhelper.model.ranges.Lpd8;
 import com.anagaf.freqhelper.model.ranges.Pmr;
+import com.anagaf.freqhelper.ui.views.ValueComponentEdit;
 
 public class ChannelsPage extends AbstractFrequencyPage {
     private TableLayout mRangesLayout;
-    private FrequencyComponentEdit mFrequencyMhzEdit;
-    private FrequencyComponentEdit mFrequencyKhzEdit;
-    private FrequencyComponentEdit mFrequencyHzEdit;
+    private ValueComponentEdit mFrequencyMhzEdit;
+    private ValueComponentEdit mFrequencyKhzEdit;
+    private ValueComponentEdit mFrequencyHzEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,13 +27,13 @@ public class ChannelsPage extends AbstractFrequencyPage {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
-        mFrequencyMhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_mhz_edit);
+        mFrequencyMhzEdit = (ValueComponentEdit) view.findViewById(R.id.frequency_mhz_edit);
         mFrequencyMhzEdit.setListener(getValueComponentEditListener());
 
-        mFrequencyKhzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_khz_edit);
+        mFrequencyKhzEdit = (ValueComponentEdit) view.findViewById(R.id.frequency_khz_edit);
         mFrequencyKhzEdit.setListener(getValueComponentEditListener());
 
-        mFrequencyHzEdit = (FrequencyComponentEdit) view.findViewById(R.id.frequency_hz_edit);
+        mFrequencyHzEdit = (ValueComponentEdit) view.findViewById(R.id.frequency_hz_edit);
         mFrequencyHzEdit.setListener(getValueComponentEditListener());
 
         addRangeRow(inflater, new Lpd69());
@@ -55,17 +55,17 @@ public class ChannelsPage extends AbstractFrequencyPage {
     protected void updateValue() {
         final long value = readValueFromSettings(getActivity());
         final Frequency frequency = Frequency.newFrequency(value);
-        mFrequencyMhzEdit.setValue(frequency.getMegahertzComponent());
-        mFrequencyKhzEdit.setValue(frequency.getKilohertzComponent());
-        mFrequencyHzEdit.setValue(frequency.getHertzComponent());
+        mFrequencyMhzEdit.setValueComponent(frequency.getMegahertzComponent());
+        mFrequencyKhzEdit.setValueComponent(frequency.getKilohertzComponent());
+        mFrequencyHzEdit.setValueComponent(frequency.getHertzComponent());
         updateRanges();
     }
 
     @Override
     protected long getValue() {
-        final Integer mhz = mFrequencyMhzEdit.getValue();
-        final Integer khz = mFrequencyKhzEdit.getValue();
-        final Integer hz = mFrequencyHzEdit.getValue();
+        final Integer mhz = mFrequencyMhzEdit.getValueComponent();
+        final Integer khz = mFrequencyKhzEdit.getValueComponent();
+        final Integer hz = mFrequencyHzEdit.getValueComponent();
         return Frequency.getChannelFrequencyDecihertz(mhz, khz, hz);
     }
 

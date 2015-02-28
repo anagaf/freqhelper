@@ -7,16 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.ui.views.BaseEdit;
+import com.anagaf.freqhelper.ui.views.AbstractEdit;
 import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.model.ranges.Dcs;
+import com.anagaf.freqhelper.ui.views.ValueEdit;
 
 public class DcsPage extends Page {
 
     private TableLayout mRangesLayout;
-    private BaseEdit mDirectCodeEdit;
-    private BaseEdit mInverseCodeEdit;
+    private ValueEdit mDirectCodeEdit;
+    private ValueEdit mInverseCodeEdit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,23 +25,25 @@ public class DcsPage extends Page {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ranges_layout);
 
-        mDirectCodeEdit = (BaseEdit) view.findViewById(R.id.dcs_direct_code_edit);
-        mDirectCodeEdit.setListener(new BaseEdit.Listener() {
+        mDirectCodeEdit = (ValueEdit) view.findViewById(R.id.dcs_direct_code_edit);
+        mDirectCodeEdit.setListener(new AbstractEdit.Listener() {
 
             @Override
-            public void onValueChanged(int value) {
+            public void onValueChanged() {
                 pushCurrentStateToBackStack();
+                final long value = mDirectCodeEdit.getValue();
                 writeValueToSettings(getActivity(), value);
                 updateValue();
             }
         });
 
-        mInverseCodeEdit = (BaseEdit) view.findViewById(R.id.dcs_inverse_code_edit);
-        mInverseCodeEdit.setListener(new BaseEdit.Listener() {
+        mInverseCodeEdit = (ValueEdit) view.findViewById(R.id.dcs_inverse_code_edit);
+        mInverseCodeEdit.setListener(new AbstractEdit.Listener() {
 
             @Override
-            public void onValueChanged(int value) {
+            public void onValueChanged() {
                 pushCurrentStateToBackStack();
+                final long value = mInverseCodeEdit.getValue();
                 writeValueToSettings(getActivity(), -1 * value);
                 updateValue();
             }
@@ -52,7 +55,6 @@ public class DcsPage extends Page {
 
         return view;
     }
-
 
     @Override
     protected TableLayout getRangesLayout() {
