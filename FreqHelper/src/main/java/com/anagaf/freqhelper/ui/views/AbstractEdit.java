@@ -64,6 +64,7 @@ public abstract class AbstractEdit extends EditText {
                 if (hasFocus) {
                     setText("");
                 } else {
+                    formatValue();
                     mListener.onValueChanged();
                 }
             }
@@ -84,34 +85,22 @@ public abstract class AbstractEdit extends EditText {
                 return false;
             }
         });
+    }
 
-//        addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                final String text = s.toString();
-//                if (!text.equals(mInvalidValue)) {
-//                    final int value;
-//                    if (text.isEmpty()) {
-//                        value = 0;
-//                    } else {
-//                        value = Integer.parseInt(text);
-//                    }
-//                    final String newText = formatValue(value);
-//                    if (!newText.equals(text)) {
-//                        s.replace(0, text.length(), newText);
-//                    }
-//                }
-//            }
-//        });
+    private void formatValue() {
+        final String text = getText().toString();
+        if (!text.equals(mInvalidValue)) {
+            final int value;
+            if (text.isEmpty()) {
+                value = 0;
+            } else {
+                value = Integer.parseInt(text);
+            }
+            final String newText = formatValue(value);
+            if (!newText.equals(text)) {
+                setText(newText);
+            }
+        }
     }
 
     protected String formatValue(int value) {
