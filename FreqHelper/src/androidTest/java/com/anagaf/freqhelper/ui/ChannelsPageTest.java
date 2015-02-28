@@ -49,11 +49,13 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         TouchUtils.tapView(this, mHzEdit);
         sendKeys("0 ENTER");
 
+        checkFrequency("433", "075", "000");
         checkChannels(new String[] {"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
 
         TouchUtils.tapView(this, mMhzEdit);
         sendKeys("4 3 4 ENTER");
 
+        checkFrequency("434", "075", "000");
         checkChannels(new String[] {"41", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
 
         TouchUtils.tapView(this, mKhzEdit);
@@ -61,10 +63,12 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         TouchUtils.tapView(this, mHzEdit);
         sendKeys("0 ENTER");
 
+        checkFrequency("434", "100", "000");
         checkChannels(new String[]{"42", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
 
         TouchUtils.tapView(this, mHzEdit);
         sendKeys("5 0 ENTER");
+        checkFrequency("434", "100", "050");
 
         checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
     }

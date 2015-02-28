@@ -21,7 +21,8 @@ public class ValueEdit extends AbstractEdit {
 
     public void setValue(long value) {
         if (value != Range.INVALID_VALUE) {
-            setText(String.format("%0" + mMaxLength + "d", Math.abs(value)));
+            final Long absValue = Math.abs(value);
+            setText(formatValue(absValue.intValue()));
         } else {
             setInvalidValue();
         }

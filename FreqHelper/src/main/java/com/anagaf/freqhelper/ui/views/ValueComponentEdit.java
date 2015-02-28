@@ -17,7 +17,7 @@ public class ValueComponentEdit extends AbstractEdit {
     }
 
     public void setValueComponent(int valueComponent) {
-        setText(String.format("%0" + mMaxLength + "d", Math.abs(valueComponent)));
+        setText(formatValue(Math.abs(valueComponent)));
     }
 
     public int getValueComponent() {
