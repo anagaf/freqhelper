@@ -43,31 +43,32 @@ public class DcsPageTest extends ActivityInstrumentationTestCase2<MainActivity> 
         }
     }
 
-    public void testSetDirectCode() throws InterruptedException {
+    public void testSetCode() throws InterruptedException {
         getInstrumentation().waitForIdleSync();
 
         TestUtils.typeEditText(this, mDirectCodeEdit, "1");
+        Thread.sleep(1000);
         checkCodes("001", INVALID_CODE);
         checkChannel(INVALID_CHANNEL);
 
         TestUtils.typeEditText(this, mDirectCodeEdit, "2 3");
+        Thread.sleep(1000);
         checkCodes("023", "047");
         checkChannel("1");
 
         // TODO: check 0 input
-    }
-
-    public void testSetInverseCode() throws InterruptedException {
-        getInstrumentation().waitForIdleSync();
 
         TestUtils.typeEditText(this, mInverseCodeEdit, "5 6");
+        Thread.sleep(1000);
         checkCodes(INVALID_CODE, "056");
         checkChannel(INVALID_CHANNEL);
 
         TestUtils.typeEditText(this, mInverseCodeEdit, "4 4 5");
+        Thread.sleep(1000);
         checkCodes("043", "445");
         checkChannel("7");
     }
+
 
     private void checkCodes(String expectedDirectCode, String expectedInverseCode) {
         assertEquals(expectedDirectCode, mDirectCodeEdit.getText().toString());

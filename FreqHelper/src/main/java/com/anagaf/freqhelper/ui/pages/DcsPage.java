@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.ui.views.AbstractEdit;
 import com.anagaf.freqhelper.R;
-import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.model.ranges.Dcs;
+import com.anagaf.freqhelper.ui.views.AbstractEdit;
+import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.ui.views.ValueEdit;
 
 public class DcsPage extends Page {
@@ -70,7 +70,7 @@ public class DcsPage extends Page {
             directCode = code;
             inverseCode = Dcs.getInverseCode(directCode);
         } else {
-            inverseCode = code;
+            inverseCode = Math.abs(code);
             directCode = Dcs.getDirectCode(inverseCode);
         }
         mDirectCodeEdit.setValue(directCode.intValue());
