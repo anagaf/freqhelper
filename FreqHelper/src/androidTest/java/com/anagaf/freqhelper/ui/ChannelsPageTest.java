@@ -51,40 +51,32 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     public void testSetFrequency() throws Throwable {
         setFrequency("4 3 3", "7 5", "0"); // TODO: test empty input
         checkFrequency("433", "075", "000");
-        checkChannels(new String[] {"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[]{"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
 
-        typeEditText(mMhzEdit, "4 3 4");
+        TestUtils.typeEditText(this, mMhzEdit, "4 3 4");
         checkFrequency("434", "075", "000");
         checkChannels(new String[] {"41", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
 
-        typeEditText(mKhzEdit, "1 0 0");
+        TestUtils.typeEditText(this, mKhzEdit, "1 0 0");
         checkFrequency("434", "100", "000");
         checkChannels(new String[]{"42", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
 
-        typeEditText(mHzEdit, "5 0");
+        TestUtils.typeEditText(this, mHzEdit, "5 0");
         checkFrequency("434", "100", "050");
         checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
     }
 
 
     public void testSetChannel() throws Throwable {
-        TouchUtils.tapView(this, mMhzEdit);
-        sendKeys("4 3 3 ENTER");
+        setFrequency("4 3 3", "7 5", "0");
+        checkFrequency("433", "075", "000");
+        checkChannels(new String[]{"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
 
-        TouchUtils.tapView(this, mKhzEdit);
-        sendKeys("7 5 ENTER");
-
-        TouchUtils.tapView(this, mHzEdit);
-        sendKeys("0 ENTER");
-
-        final RangeView lpd69 = mRangeViews.get(0);
-        final EditText lpd69ChannelEdit = TestUtils.getChannelEdit(lpd69);
-
-        TouchUtils.tapView(this, lpd69ChannelEdit);
-        sendKeys("3 2 ENTER");
+        setChannel(LPD69_INDEX, "3 2");
 
         checkFrequency("433", "850", "000");
     }
+
 
     public void testNextChannel() throws Throwable {
         setFrequency("4 3 3", "7 5", "0");
@@ -131,15 +123,15 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     private void setFrequency(String mhz, String khz, String hz) {
-        typeEditText(mMhzEdit, mhz);
-        typeEditText(mKhzEdit, khz);
-        typeEditText(mHzEdit, hz);
+        TestUtils.typeEditText(this, mMhzEdit, mhz);
+        TestUtils.typeEditText(this, mKhzEdit, khz);
+        TestUtils.typeEditText(this, mHzEdit, hz);
     }
 
-    private void typeEditText(EditText editText, String text) {
-        TouchUtils.tapView(this, editText);
-        sendKeys(text);
-        TestUtils.pressEnter(getInstrumentation(), editText);
+    private void setChannel(int rangeIndex, String channel) {
+        final RangeView rangeView = mRangeViews.get(rangeIndex);
+        final EditText channelEdit = TestUtils.getChannelEdit(rangeView);
+        TestUtils.typeEditText(this, channelEdit, channel);
     }
 
     private void checkFrequency(String mhz, String khz, String hz) {

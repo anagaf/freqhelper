@@ -2,7 +2,6 @@ package com.anagaf.freqhelper.ui;
 
 import android.support.v4.view.ViewPager;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
 import android.view.ViewGroup;
 
 import com.anagaf.freqhelper.R;
@@ -47,40 +46,28 @@ public class DcsPageTest extends ActivityInstrumentationTestCase2<MainActivity> 
     public void testSetDirectCode() throws InterruptedException {
         getInstrumentation().waitForIdleSync();
 
-        setDirectCode("1");
+        TestUtils.typeEditText(this, mDirectCodeEdit, "1");
         checkCodes("001", INVALID_CODE);
         checkChannel(INVALID_CHANNEL);
 
-        setDirectCode("23");
+        TestUtils.typeEditText(this, mDirectCodeEdit, "2 3");
         checkCodes("023", "047");
         checkChannel("1");
 
         // TODO: check 0 input
     }
 
-//    public void testSetInverseCode() throws InterruptedException {
-//        getInstrumentation().waitForIdleSync();
-//
-//        setInverseCode("56");
-//        checkCodes(INVALID_CODE, "056");
-//        checkChannel(INVALID_CHANNEL);
-//
-//        setInverseCode("445");
-//        checkCodes("043", "445");
-//        checkChannel("7");
-//    }
+    public void testSetInverseCode() throws InterruptedException {
+        getInstrumentation().waitForIdleSync();
 
-    private void setDirectCode(String code) {
-        TouchUtils.tapView(this, mDirectCodeEdit);
-        sendKeys(code);
-        sendKeys("ENTER");
+        TestUtils.typeEditText(this, mInverseCodeEdit, "5 6");
+        checkCodes(INVALID_CODE, "056");
+        checkChannel(INVALID_CHANNEL);
+
+        TestUtils.typeEditText(this, mInverseCodeEdit, "4 4 5");
+        checkCodes("043", "445");
+        checkChannel("7");
     }
-
-//    private void setInverseCode(String code) {
-//        TouchUtils.tapView(this, mInverseCodeEdit);
-//        sendKeys(code);
-//        sendKeys("ENTER");
-//    }
 
     private void checkCodes(String expectedDirectCode, String expectedInverseCode) {
         assertEquals(expectedDirectCode, mDirectCodeEdit.getText().toString());

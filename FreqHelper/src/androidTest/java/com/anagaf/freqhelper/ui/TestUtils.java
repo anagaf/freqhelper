@@ -1,6 +1,8 @@
 package com.anagaf.freqhelper.ui;
 
 import android.app.Instrumentation;
+import android.test.InstrumentationTestCase;
+import android.test.TouchUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
@@ -13,7 +15,13 @@ class TestUtils {
         return (EditText) rangeView.findViewById(R.id.channel);
     }
 
-    public static void pressEnter(Instrumentation instrumentation, final EditText editText)
+    public static void typeEditText(InstrumentationTestCase test, EditText editText, String text) {
+        TouchUtils.tapView(test, editText);
+        test.sendKeys(text);
+        pressEnter(test.getInstrumentation(), editText);
+    }
+
+    private static void pressEnter(Instrumentation instrumentation, final EditText editText)
     {
         instrumentation.runOnMainSync(new Runnable() {
             @Override
