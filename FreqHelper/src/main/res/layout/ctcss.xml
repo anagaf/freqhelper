@@ -20,9 +20,9 @@
         <LinearLayout
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
-            a:orientation="vertical"
             a:layout_gravity="center"
             a:layout_margin="@dimen/gap"
+            a:orientation="vertical"
             >
 
             <TextView
@@ -36,13 +36,13 @@
                 a:orientation="horizontal">
 
                 <com.anagaf.freqhelper.ui.views.ValueComponentEdit
-                    a:id="@+id/frequency_hz_edit"
+                    a:id="@+id/ctcss_hz_edit"
                     style="@style/FreqEdit"
                     a:layout_marginRight="@dimen/gap"
                     a:maxLength="3"/>
 
                 <com.anagaf.freqhelper.ui.views.ValueComponentEdit
-                    a:id="@+id/frequency_deci_hz_edit"
+                    a:id="@+id/ctcss_dhz_edit"
                     style="@style/FreqEdit"
                     a:maxLength="1"/>
 

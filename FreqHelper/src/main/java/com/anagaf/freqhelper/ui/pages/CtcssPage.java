@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 
 import com.anagaf.freqhelper.R;
+import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.model.ranges.Ctcss38;
 import com.anagaf.freqhelper.model.ranges.Ctcss39;
 import com.anagaf.freqhelper.model.ranges.Ctcss64;
-import com.anagaf.freqhelper.model.Frequency;
 import com.anagaf.freqhelper.ui.views.ValueComponentEdit;
 
 public class CtcssPage extends AbstractFrequencyPage {
@@ -25,10 +25,10 @@ public class CtcssPage extends AbstractFrequencyPage {
 
         mRangesLayout = (TableLayout) view.findViewById(R.id.ctcss_ranges_layout);
 
-        mFrequencyHzEdit = (ValueComponentEdit) view.findViewById(R.id.frequency_hz_edit);
+        mFrequencyHzEdit = (ValueComponentEdit) view.findViewById(R.id.ctcss_hz_edit);
         mFrequencyHzEdit.setListener(getValueComponentEditListener());
 
-        mFrequencyDeciHzEdit = (ValueComponentEdit) view.findViewById(R.id.frequency_deci_hz_edit);
+        mFrequencyDeciHzEdit = (ValueComponentEdit) view.findViewById(R.id.ctcss_dhz_edit);
         mFrequencyDeciHzEdit.setListener(getValueComponentEditListener());
 
         addRangeRow(inflater, new Ctcss38());

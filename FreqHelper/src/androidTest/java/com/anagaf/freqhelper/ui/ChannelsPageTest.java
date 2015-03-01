@@ -53,15 +53,15 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         checkFrequency("433", "075", "000");
         checkChannels(new String[]{"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
 
-        TestUtils.typeEditText(this, mMhzEdit, "4 3 4");
+        TestUtils.typeEditText(getInstrumentation(), mMhzEdit, "4 3 4");
         checkFrequency("434", "075", "000");
         checkChannels(new String[] {"41", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
 
-        TestUtils.typeEditText(this, mKhzEdit, "1 0 0");
+        TestUtils.typeEditText(getInstrumentation(), mKhzEdit, "1 0 0");
         checkFrequency("434", "100", "000");
         checkChannels(new String[]{"42", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
 
-        TestUtils.typeEditText(this, mHzEdit, "5 0");
+        TestUtils.typeEditText(getInstrumentation(), mHzEdit, "5 0");
         checkFrequency("434", "100", "050");
         checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
     }
@@ -123,15 +123,15 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     private void setFrequency(String mhz, String khz, String hz) {
-        TestUtils.typeEditText(this, mMhzEdit, mhz);
-        TestUtils.typeEditText(this, mKhzEdit, khz);
-        TestUtils.typeEditText(this, mHzEdit, hz);
+        TestUtils.typeEditText(getInstrumentation(), mMhzEdit, mhz);
+        TestUtils.typeEditText(getInstrumentation(), mKhzEdit, khz);
+        TestUtils.typeEditText(getInstrumentation(), mHzEdit, hz);
     }
 
     private void setChannel(int rangeIndex, String channel) {
         final RangeView rangeView = mRangeViews.get(rangeIndex);
         final EditText channelEdit = TestUtils.getChannelEdit(rangeView);
-        TestUtils.typeEditText(this, channelEdit, channel);
+        TestUtils.typeEditText(getInstrumentation(), channelEdit, channel);
     }
 
     private void checkFrequency(String mhz, String khz, String hz) {
