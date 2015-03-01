@@ -6,11 +6,11 @@
               tools:context="com.anagaf.freqhelper.ui.MainActivity">
 
     <!-- Focus thief -->
-    <View
-        a:layout_width="1dp"
-        a:layout_height="1dp"
-        a:focusable="true"
-        a:focusableInTouchMode="true"/>
+    <!--<View-->
+    <!--a:layout_width="1dp"-->
+    <!--a:layout_height="1dp"-->
+    <!--a:focusable="true"-->
+    <!--a:focusableInTouchMode="true"/>-->
 
     <!-- Content -->
     <ScrollView

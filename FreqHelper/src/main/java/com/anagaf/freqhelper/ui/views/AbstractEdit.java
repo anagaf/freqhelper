@@ -65,9 +65,8 @@ public abstract class AbstractEdit extends EditText {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     mBackupText = getText().toString();
-                    setText("");
                 } else {
-                    if (!TextUtils.isEmpty(mBackupText)) {
+                    if (getText().toString().isEmpty() && !TextUtils.isEmpty(mBackupText)) {
                         setText(mBackupText);
                     }
                     formatValue();

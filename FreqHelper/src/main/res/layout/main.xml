@@ -4,6 +4,14 @@
               a:layout_height="match_parent"
               a:orientation="vertical">
 
+    <!-- Focus thief -->
+    <View
+        a:id="@+id/focus_thief"
+        a:layout_width="1dp"
+        a:layout_height="1dp"
+        a:focusable="true"
+        a:focusableInTouchMode="true"/>
+
     <android.support.v4.view.ViewPager
         a:id="@+id/pager"
         a:layout_width="match_parent"

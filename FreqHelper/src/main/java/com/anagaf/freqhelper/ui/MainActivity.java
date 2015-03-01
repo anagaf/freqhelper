@@ -6,9 +6,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
-import com.anagaf.freqhelper.app.BackStack;
 import com.anagaf.freqhelper.R;
+import com.anagaf.freqhelper.app.BackStack;
 import com.anagaf.freqhelper.ui.pages.ChannelsPage;
 import com.anagaf.freqhelper.ui.pages.CtcssPage;
 import com.anagaf.freqhelper.ui.pages.DcsPage;
@@ -21,6 +22,7 @@ public class MainActivity extends FragmentActivity {
     final List<PageInfo> mPages = new ArrayList<>();
     private ViewPager mViewPager;
     private int mCurrentPageIndex = -1;
+    private View mFocusThief;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +53,14 @@ public class MainActivity extends FragmentActivity {
             }
         });
         mViewPager.setCurrentItem(1); // channels
+
+        mFocusThief = findViewById(R.id.focus_thief);
     }
 
     @Override
     public void onBackPressed() {
+        mFocusThief.requestFocus();
+
         final BackStack.Item item = BackStack.getsInstance().pop();
         if (item == null) {
             super.onBackPressed();

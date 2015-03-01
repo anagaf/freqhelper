@@ -6,11 +6,11 @@
               tools:context="com.anagaf.freqhelper.ui.MainActivity">
 
     <!-- Focus thief -->
-    <View
-        a:layout_width="1dp"
-        a:layout_height="1dp"
-        a:focusable="true"
-        a:focusableInTouchMode="true"/>
+    <!--<View-->
+    <!--a:layout_width="1dp"-->
+    <!--a:layout_height="1dp"-->
+    <!--a:focusable="true"-->
+    <!--a:focusableInTouchMode="true"/>-->
 
     <!-- Content -->
     <ScrollView
@@ -20,9 +20,9 @@
         <LinearLayout
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
-            a:orientation="vertical"
             a:layout_gravity="center"
             a:layout_margin="@dimen/gap"
+            a:orientation="vertical"
             >
 
             <TextView
@@ -32,8 +32,8 @@
             <LinearLayout
                 a:layout_width="match_parent"
                 a:layout_height="wrap_content"
-                a:orientation="horizontal"
                 a:layout_marginBottom="@dimen/gap"
+                a:orientation="horizontal"
                 >
 
                 <com.anagaf.freqhelper.ui.views.ValueEdit

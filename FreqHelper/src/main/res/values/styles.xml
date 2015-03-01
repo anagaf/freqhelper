@@ -16,6 +16,7 @@
         <item name="android:gravity">center</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:singleLine">true</item>
+        <item name="android:selectAllOnFocus">true</item>
         <item name="android:inputType">number</item>
     </style>
 
