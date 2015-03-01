@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="range_item_background">#00994C</color>
+    <color name="range_item_highlight">#00664C</color>
     <color name="range_item_background_disabled">#7B9A8A</color>
-    <color name="range_item_background_pressed">#00724C</color>
     <color name="frequency_item_background">#3399FF</color>
+    <color name="frequency_item_highlight">#3366FF</color>
     <color name="text_color">#FFFFFF</color>
 </resources>

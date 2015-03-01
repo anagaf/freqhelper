@@ -25,11 +25,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/gap</item>
+        <item name="android:padding">@dimen/gap</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="FreqEdit" parent="BaseEdit">
         <item name="android:background">@color/frequency_item_background</item>
+        <item name="android:textColorHighlight">@color/frequency_item_highlight</item>
+        <item name="android:padding">@dimen/gap</item>
     </style>
 
     <style name="RangeTitle" parent="BaseItem">
@@ -57,6 +60,7 @@
 
     <style name="ChannelEdit" parent="BaseEdit">
         <item name="android:background">@color/range_item_background</item>
+        <item name="android:textColorHighlight">@color/range_item_highlight</item>
         <item name="android:padding">@dimen/gap</item>
         <item name="android:layout_marginRight">@dimen/gap</item>
         <item name="android:layout_marginBottom">@dimen/gap</item>
