@@ -48,7 +48,7 @@ public class CtcssPageTest extends ActivityInstrumentationTestCase2<MainActivity
     }
 
     public void testSetFrequency() {
-        setFrequency("71", "9"); // TODO: test empty input
+        setFrequency("71", "9");
         checkFrequency("071", "9");
         TestUtils.checkChannels(mRangeViews, new String[]{"2", "3", "17"});
 

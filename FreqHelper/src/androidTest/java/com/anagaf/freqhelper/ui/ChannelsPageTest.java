@@ -50,7 +50,7 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     public void testSetFrequency() throws Throwable {
-        setFrequency("433", "75", "0"); // TODO: test empty input
+        setFrequency("433", "75", "0");
         checkFrequency("433", "075", "000");
         checkChannels(new String[]{"1", "1", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
@@ -65,6 +65,12 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         TestUtils.typeEditText(getInstrumentation(), mHzEdit, "5 0");
         checkFrequency("434", "100", "050");
         checkChannels(new String[]{INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
+
+        TestUtils.typeEditText(getInstrumentation(), mHzEdit, "5 0");
+        checkFrequency("434", "100", "050");
+        checkChannels(new String[]{INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
+
+        // TODO: test restoring value in case of empty input
     }
 
 

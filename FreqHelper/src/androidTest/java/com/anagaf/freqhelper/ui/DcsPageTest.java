@@ -43,8 +43,6 @@ public class DcsPageTest extends ActivityInstrumentationTestCase2<MainActivity> 
         checkCodes("023", "047");
         checkChannel("1");
 
-        // TODO: check 0 input
-
         TestUtils.typeEditText(getInstrumentation(), mInverseCodeEdit, "5 6");
         checkCodes(INVALID_CODE, "056");
         checkChannel(INVALID_CHANNEL);
