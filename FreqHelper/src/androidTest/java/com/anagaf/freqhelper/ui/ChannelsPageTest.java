@@ -68,13 +68,21 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
 
 
     public void testSetChannel() throws Throwable {
-        setFrequency("4 3 3", "7 5", "0");
+        setFrequency("433", "75", "0");
         checkFrequency("433", "075", "000");
         checkChannels(new String[]{"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
 
-        setChannel(LPD69_INDEX, "3 2");
-
+        setChannel(LPD69_INDEX, "32");
         checkFrequency("433", "850", "000");
+
+        setChannel(LPD8_INDEX, "8");
+        checkFrequency("433", "800", "000");
+
+        setChannel(PMR_INDEX, "5");
+        checkFrequency("446", "056", "250");
+
+        setChannel(FRS_INDEX, "12");
+        checkFrequency("467", "662", "500");
     }
 
 
