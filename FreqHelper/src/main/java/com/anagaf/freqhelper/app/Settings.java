@@ -9,7 +9,7 @@ import com.anagaf.freqhelper.model.ranges.Range;
 public class Settings {
     public static void write(Context context, String frequency, long value) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putLong(frequency, value).commit();
+        prefs.edit().putLong(frequency, value).apply();
     }
 
     public static long read(Context context, String key) {
