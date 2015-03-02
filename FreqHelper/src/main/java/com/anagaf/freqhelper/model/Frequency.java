@@ -1,5 +1,7 @@
 package com.anagaf.freqhelper.model;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Frequency implements Comparable<Frequency> {
     private static final long DECI_HERTZ_PER_MEGAHERTZ = 10000000L;
     private static final long DECI_HERTZ_PER_KILOHERTZ = 10000L;
@@ -52,7 +54,7 @@ public class Frequency implements Comparable<Frequency> {
         return new Frequency(getDeciHertz() + DECI_HERTZ_PER_HERTZ * hertz);
     }
 
-    public int compareTo(Frequency frequency) {
+    public int compareTo(@NotNull Frequency frequency) {
         return mDecihertz.compareTo(frequency.mDecihertz);
     }
 

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FreqHelper/FreqHelper.iml" filepath="$PROJECT_DIR$/FreqHelper/FreqHelper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/freqhelper.iml" filepath="$PROJECT_DIR$/freqhelper.iml" />
     </modules>
   </component>
 </project>
