@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChannelEdit extends AbstractEdit {
-    private static final String EMPTY_CHANNEL_NUMBER = "--";
-
     public ChannelEdit(Context context) {
         super(context);
     }
@@ -37,7 +35,7 @@ public class ChannelEdit extends AbstractEdit {
     public int getChannel() {
         if (getText().toString().isEmpty()) {
             return 0;
-        } else if (getText().toString().equals(EMPTY_CHANNEL_NUMBER)) {
+        } else if (isInvalidValue()) {
             return Range.INVALID_INDEX;
         } else {
             return Integer.parseInt(getText().toString());
@@ -48,13 +46,16 @@ public class ChannelEdit extends AbstractEdit {
         final List<InputFilter> filters = new ArrayList<>(Arrays.asList(getFilters()));
         filters.add(new MinMaxFilter(maxChannel));
         setFilters(filters.toArray(new InputFilter[filters.size()]));
+
+        final int maxLength = (int) (Math.log10(maxChannel)+1);
+        setMaxLength(maxLength);
     }
 
     /**
      * ******* Inner Classes *********
      */
 
-    private static class MinMaxFilter implements InputFilter {
+    private class MinMaxFilter implements InputFilter {
         private static final int MIN = 1;
         private final int mMax;
 
@@ -67,7 +68,7 @@ public class ChannelEdit extends AbstractEdit {
             final String replacement = source.subSequence(start, end).toString();
             String newValueString = dest.subSequence(0, destStart).toString() + replacement + dest.subSequence(destEnd, dest.length()).toString();
             CharSequence result = "";
-            if (newValueString.equals(EMPTY_CHANNEL_NUMBER)) {
+            if (isInvalidValue(newValueString)) {
                 result = null;
             } else {
                 try {

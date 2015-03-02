@@ -40,24 +40,32 @@ public abstract class AbstractEdit extends EditText {
     }
 
     protected boolean isInvalidValue() {
-        return getText().toString().equals(mInvalidValue);
+        return isInvalidValue(getText().toString());
+    }
+
+    protected boolean isInvalidValue(String value) {
+        return mInvalidValue.equals(value);
+    }
+
+    protected void setMaxLength(int maxLength) {
+        mMaxLength = maxLength;
+        mInvalidValue = String.format("%0" + mMaxLength + "d", 0).replace('0', '-');
+        setFilters(new InputFilter[]{
+                new InputFilter.LengthFilter(mMaxLength)
+        });
     }
 
     private void init(AttributeSet attrs) {
+        int maxLength = DEFAULT_MAX_LENGTH;
         if (attrs != null) {
             TypedArray typedAttrs = getContext().getTheme().obtainStyledAttributes(attrs, new int[]{android.R.attr.maxLength}, 0, 0);
             try {
-                mMaxLength = typedAttrs.getInt(0, DEFAULT_MAX_LENGTH);
+                maxLength = typedAttrs.getInt(0, DEFAULT_MAX_LENGTH);
             } finally {
                 typedAttrs.recycle();
             }
         }
-
-        mInvalidValue = String.format("%0" + mMaxLength + "d", 0).replace('0', '-');
-
-        setFilters(new InputFilter[]{
-                new InputFilter.LengthFilter(mMaxLength)
-        });
+        setMaxLength(maxLength);
 
         setOnFocusChangeListener(new OnFocusChangeListener() {
 

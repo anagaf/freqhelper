@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActivity> {
-    private static final String INVALID_CHANNEL = "--";
+    private static final String INVALID_CHANNEL_2DIGITS = "--";
+    private static final String INVALID_CHANNEL_1DIGIT = "-";
 
     private static final int LPD69_INDEX = 0;
     private static final int LPD8_INDEX = 1;
@@ -49,28 +50,28 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     }
 
     public void testSetFrequency() throws Throwable {
-        setFrequency("4 3 3", "7 5", "0"); // TODO: test empty input
+        setFrequency("433", "75", "0"); // TODO: test empty input
         checkFrequency("433", "075", "000");
-        checkChannels(new String[]{"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[]{"1", "1", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
         TestUtils.typeEditText(getInstrumentation(), mMhzEdit, "4 3 4");
         checkFrequency("434", "075", "000");
-        checkChannels(new String[] {"41", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[] {"41", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
         TestUtils.typeEditText(getInstrumentation(), mKhzEdit, "1 0 0");
         checkFrequency("434", "100", "000");
-        checkChannels(new String[]{"42", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[]{"42", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
         TestUtils.typeEditText(getInstrumentation(), mHzEdit, "5 0");
         checkFrequency("434", "100", "050");
-        checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[]{INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
     }
 
 
     public void testSetChannel() throws Throwable {
         setFrequency("433", "75", "0");
         checkFrequency("433", "075", "000");
-        checkChannels(new String[]{"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[]{"1", "1", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
         setChannel(LPD69_INDEX, "32");
         checkFrequency("433", "850", "000");
@@ -89,45 +90,45 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
     public void testNextChannel() throws Throwable {
         setFrequency("4 3 3", "7 5", "0");
         checkFrequency("433", "075", "000");
-        checkChannels(new String[] {"1", "1", INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[] {"1", "1", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
         TouchUtils.tapView(this, getNextChannelButton(LPD69_INDEX));
         checkFrequency("433", "100", "000");
-        checkChannels(new String[] {"2", "2", INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[] {"2", "2", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
         TouchUtils.tapView(this, getNextChannelButton(LPD8_INDEX));
         checkFrequency("433", "200", "000");
-        checkChannels(new String[]{"6", "3", INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[]{"6", "3", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
         TouchUtils.tapView(this, getNextChannelButton(PMR_INDEX));
         checkFrequency("446", "006", "250");
-        checkChannels(new String[] {INVALID_CHANNEL, INVALID_CHANNEL, "1", INVALID_CHANNEL});
+        checkChannels(new String[] {INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, "1", INVALID_CHANNEL_2DIGITS});
 
         TouchUtils.tapView(this, getNextChannelButton(FRS_INDEX));
         checkFrequency("462", "562", "500");
-        checkChannels(new String[] {INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, "1"});
+        checkChannels(new String[] {INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, "1"});
     }
 
     public void testPrevChannel() throws Throwable {
         setFrequency("4 6 7", "7 1 2", "5 0 0");
         checkFrequency("467", "712", "500");
-        checkChannels(new String[] {INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, "14"});
+        checkChannels(new String[] {INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, "14"});
 
         TouchUtils.tapView(this, getPrevChannelButton(FRS_INDEX));
         checkFrequency("467", "687", "500");
-        checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL, "13"});
+        checkChannels(new String[]{INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, "13"});
 
         TouchUtils.tapView(this, getPrevChannelButton(PMR_INDEX));
         checkFrequency("446", "093", "750");
-        checkChannels(new String[]{INVALID_CHANNEL, INVALID_CHANNEL, "8", INVALID_CHANNEL});
+        checkChannels(new String[]{INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, "8", INVALID_CHANNEL_2DIGITS});
 
         TouchUtils.tapView(this, getPrevChannelButton(LPD8_INDEX));
         checkFrequency("433", "800", "000");
-        checkChannels(new String[]{"30", "8", INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[]{"30", "8", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
         TouchUtils.tapView(this, getPrevChannelButton(LPD69_INDEX));
         checkFrequency("433", "775", "000");
-        checkChannels(new String[]{"29", INVALID_CHANNEL, INVALID_CHANNEL, INVALID_CHANNEL});
+        checkChannels(new String[]{"29", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
     }
 
     private void setFrequency(String mhz, String khz, String hz) {
