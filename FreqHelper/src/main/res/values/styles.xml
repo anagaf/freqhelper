@@ -42,7 +42,10 @@
     </style>
 
     <style name="ChannelButton" parent="BaseItem">
-        <item name="android:padding">@dimen/gap</item>
+        <item name="android:paddingTop">@dimen/gap</item>
+        <item name="android:paddingBottom">@dimen/gap</item>
+        <item name="android:paddingLeft">@dimen/double_gap</item>
+        <item name="android:paddingRight">@dimen/double_gap</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">@dimen/gap</item>
         <item name="android:background">@drawable/range_item_background</item>
