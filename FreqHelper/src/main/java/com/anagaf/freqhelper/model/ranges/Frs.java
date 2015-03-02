@@ -31,7 +31,7 @@ public class Frs extends StaticRange {
         final int SEGMENT_CAPACITY = 7;
         final long LOW_SEGMENT_BASE_VALUE = Frequency.getChannelFrequencyDecihertz(462, 562, 500);
         final long HIGH_SEGMENT_BASE_VALUE = Frequency.getChannelFrequencyDecihertz(467, 562, 500);
-        final int STEP_DECI_HZ = 250000;
+        final long STEP_DECI_HZ = 250000L;
 
         final List<Long> values = new ArrayList<>();
         fillFrequencies(values, LOW_SEGMENT_BASE_VALUE, SEGMENT_CAPACITY, STEP_DECI_HZ);
@@ -39,8 +39,8 @@ public class Frs extends StaticRange {
         sValues = Collections.unmodifiableList(values);
     }
 
-    private static void fillFrequencies(List<Long> values, long base, int count, int step) {
-        for (int i = 0; i < count; i++) {
+    private static void fillFrequencies(List<Long> values, long base, int count, long step) {
+        for (long i = 0; i < count; i++) {
             values.add(base + step * i);
         }
     }

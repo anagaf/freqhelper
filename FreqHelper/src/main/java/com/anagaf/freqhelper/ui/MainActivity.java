@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity {
      * ******* Inner Classes *********
      */
 
-    private class PageInfo {
+    private static class PageInfo {
         private final Page mPage;
         private final int mTitleResId;
 

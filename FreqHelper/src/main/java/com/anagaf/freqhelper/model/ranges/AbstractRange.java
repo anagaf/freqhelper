@@ -7,7 +7,7 @@ public abstract class AbstractRange implements Range {
 
     private final NavigableMap<Long, Integer> mItems;
 
-    AbstractRange() {
+    protected AbstractRange() {
         mItems = new TreeMap<>();
         for (int i = 1; i <= getCount(); i++) {
             mItems.put(getValue(i), i);
