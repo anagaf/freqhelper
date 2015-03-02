@@ -5,7 +5,7 @@ import com.anagaf.freqhelper.ui.views.RangeView;
 
 public abstract class AbstractFrequencyPage extends Page {
 
-    final AbstractEdit.Listener mValueComponentEditListener = new AbstractEdit.Listener() {
+    private final AbstractEdit.Listener mValueComponentEditListener = new AbstractEdit.Listener() {
         @Override
         public void onValueChanged() {
             pushCurrentStateToBackStack();

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
-    final List<PageInfo> mPages = new ArrayList<>();
+    private final List<PageInfo> mPages = new ArrayList<>();
     private ViewPager mViewPager;
     private int mCurrentPageIndex = -1;
     private View mFocusThief;

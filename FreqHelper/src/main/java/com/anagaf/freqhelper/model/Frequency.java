@@ -2,7 +2,7 @@ package com.anagaf.freqhelper.model;
 
 import org.jetbrains.annotations.NotNull;
 
-public class Frequency implements Comparable<Frequency> {
+public final class Frequency implements Comparable<Frequency> {
     private static final long DECI_HERTZ_PER_MEGAHERTZ = 10000000L;
     private static final long DECI_HERTZ_PER_KILOHERTZ = 10000L;
     private static final long DECI_HERTZ_PER_HERTZ = 10L;
@@ -30,7 +30,7 @@ public class Frequency implements Comparable<Frequency> {
         return String.format("%d.%03d.%03d.%d", getMegahertzComponent(), getKilohertzComponent(), getHertzComponent(), getDeciHertzComponent());
     }
 
-    public long getDeciHertz() {
+    private long getDeciHertz() {
         return mDecihertz;
     }
 

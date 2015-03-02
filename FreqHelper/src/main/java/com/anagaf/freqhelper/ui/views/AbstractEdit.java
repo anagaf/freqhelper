@@ -15,7 +15,7 @@ import android.widget.TextView;
 public abstract class AbstractEdit extends EditText {
     private static final int DEFAULT_MAX_LENGTH = 1;
 
-    protected int mMaxLength;
+    private int mMaxLength;
     private String mInvalidValue;
     private Listener mListener;
     private String mBackupText;
@@ -35,11 +35,11 @@ public abstract class AbstractEdit extends EditText {
         init(attrs);
     }
 
-    public void setInvalidValue() {
+    protected void setInvalidValue() {
         setText(mInvalidValue);
     }
 
-    public boolean isInvalidValue() {
+    protected boolean isInvalidValue() {
         return getText().toString().equals(mInvalidValue);
     }
 

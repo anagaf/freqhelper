@@ -18,7 +18,7 @@ public abstract class Page extends Fragment {
 
     private int mIndex;
 
-    final RangeView.Listener mRangeViewListener = new RangeView.Listener() {
+    private final RangeView.Listener mRangeViewListener = new RangeView.Listener() {
         @Override
         public void onKeyChanged(long value) {
             pushCurrentStateToBackStack();

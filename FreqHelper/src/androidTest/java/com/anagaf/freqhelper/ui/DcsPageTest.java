@@ -1,6 +1,5 @@
 package com.anagaf.freqhelper.ui;
 
-import android.support.v4.view.ViewPager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.ViewGroup;
 

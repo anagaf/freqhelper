@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActivity> {
-    public static final String INVALID_CHANNEL = "--";
+    private static final String INVALID_CHANNEL = "--";
 
     private static final int LPD69_INDEX = 0;
     private static final int LPD8_INDEX = 1;

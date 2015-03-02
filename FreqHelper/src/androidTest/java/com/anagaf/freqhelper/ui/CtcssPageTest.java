@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CtcssPageTest extends ActivityInstrumentationTestCase2<MainActivity> {
-    public static final String INVALID_CHANNEL = "--";
+    private static final String INVALID_CHANNEL = "--";
 
     private static final int TONES38_INDEX = 0;
     private static final int TONES39_INDEX = 1;
