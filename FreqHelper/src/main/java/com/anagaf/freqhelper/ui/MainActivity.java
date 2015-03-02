@@ -88,8 +88,8 @@ public class MainActivity extends FragmentActivity {
      */
 
     private class PageInfo {
-        private Page mPage;
-        private int mTitleResId;
+        private final Page mPage;
+        private final int mTitleResId;
 
         private PageInfo(Page page, int titleResId) {
             mPage = page;

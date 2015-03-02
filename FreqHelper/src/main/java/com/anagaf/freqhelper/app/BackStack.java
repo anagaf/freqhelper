@@ -27,8 +27,8 @@ public class BackStack {
     }
 
     public static class Item {
-        private int mPageIndex;
-        private long mValue;
+        private final int mPageIndex;
+        private final long mValue;
 
         public Item(int pageIndex, long value) {
             mPageIndex = pageIndex;

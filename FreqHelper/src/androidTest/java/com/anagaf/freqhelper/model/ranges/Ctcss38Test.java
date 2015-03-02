@@ -2,7 +2,7 @@ package com.anagaf.freqhelper.model.ranges;
 
 public class Ctcss38Test extends BaseCtcssRangeTest {
 
-    private Range mRange = new Ctcss38();
+    private final Range mRange = new Ctcss38();
 
     @Override
     protected String getExpectedFrequenciesFileName() {

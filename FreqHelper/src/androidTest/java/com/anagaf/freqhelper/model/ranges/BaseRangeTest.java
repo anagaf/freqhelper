@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseRangeTest extends AndroidTestCase {
-    private List<Long> mExpectedValues = new ArrayList<>();
+    private final List<Long> mExpectedValues = new ArrayList<>();
 
     protected abstract String getExpectedFrequenciesFileName();
 
