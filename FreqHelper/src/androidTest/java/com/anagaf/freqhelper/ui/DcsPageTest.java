@@ -30,17 +30,7 @@ public class DcsPageTest extends ActivityInstrumentationTestCase2<MainActivity> 
         final ViewGroup rangesLayout = (ViewGroup) getActivity().findViewById(R.id.dcs_ranges_layout);
         mRangeView = (RangeView) rangesLayout.getChildAt(0);
 
-        final ViewPager pager = (ViewPager) getActivity().findViewById(R.id.pager);
-        try {
-            runTestOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    pager.setCurrentItem(0);
-                }
-            });
-        } catch (Throwable throwable) {
-            throw new RuntimeException(throwable.getMessage());
-        }
+        TestUtils.setPage(this, getActivity(), 0);
     }
 
     public void testSetCode() throws InterruptedException {
