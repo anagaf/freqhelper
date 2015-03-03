@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Радист</string>
+    <string name="frequency">Частота</string>
+    <string name="lpd69">LPD69</string>
+    <string name="lpd8">LPD8</string>
+    <string name="pmr">PMR</string>
+    <string name="frs">FRS</string>
+    <string name="channels">Каналы</string>
+    <string name="ctcss">CTCSS</string>
+    <string name="dcs">DCS</string>
+    <string name="ctcss64">64 тона</string>
+    <string name="ctcss38">38 тона</string>
+    <string name="ctcss39">39 тона</string>
+    <string name="dcs_value">Прямой/инверсный код</string>
+    <string name="channel">Канал</string>
+</resources>
