@@ -40,12 +40,26 @@ public class RangeView extends TableRow {
                 moveToChannel(mPrevChannel);
             }
         });
+        mPrevChannelButton.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                moveToChannel(1);
+                return true;
+            }
+        });
 
         mNextChannelButton = (Button) findViewById(R.id.next_channel_button);
         mNextChannelButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 moveToChannel(mNextChannel);
+            }
+        });
+        mNextChannelButton.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                moveToChannel(mRange.getCount());
+                return true;
             }
         });
 
