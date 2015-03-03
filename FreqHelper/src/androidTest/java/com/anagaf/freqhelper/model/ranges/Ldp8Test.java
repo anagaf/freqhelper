@@ -5,7 +5,7 @@ public class Ldp8Test extends BaseChannelRangeTest {
     private final Range mRange = new Lpd8();
 
     @Override
-    protected String getExpectedFrequenciesFileName() {
+    protected String getExpectedValuesFileName() {
         return "lpd8.txt";
     }
 

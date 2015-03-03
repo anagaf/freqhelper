@@ -5,7 +5,7 @@ public class Ctcss38Test extends BaseCtcssRangeTest {
     private final Range mRange = new Ctcss38();
 
     @Override
-    protected String getExpectedFrequenciesFileName() {
+    protected String getExpectedValuesFileName() {
         return "ctcss38.txt";
     }
 

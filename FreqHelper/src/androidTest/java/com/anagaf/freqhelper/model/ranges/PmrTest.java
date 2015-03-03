@@ -5,7 +5,7 @@ public class PmrTest extends BaseChannelRangeTest {
     private final Range mRange = new Pmr();
 
     @Override
-    protected String getExpectedFrequenciesFileName() {
+    protected String getExpectedValuesFileName() {
         return "pmr.txt";
     }
 

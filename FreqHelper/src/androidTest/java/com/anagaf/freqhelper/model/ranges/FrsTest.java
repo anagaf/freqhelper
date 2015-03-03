@@ -5,7 +5,7 @@ public class FrsTest extends BaseChannelRangeTest {
     private final Range mRange = new Frs();
 
     @Override
-    protected String getExpectedFrequenciesFileName() {
+    protected String getExpectedValuesFileName() {
         return "frs.txt";
     }
 

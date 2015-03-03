@@ -5,7 +5,7 @@ public class Ctcss64Test extends BaseCtcssRangeTest {
     private final Range mRange = new Ctcss64();
 
     @Override
-    protected String getExpectedFrequenciesFileName() {
+    protected String getExpectedValuesFileName() {
         return "ctcss64.txt";
     }
 
