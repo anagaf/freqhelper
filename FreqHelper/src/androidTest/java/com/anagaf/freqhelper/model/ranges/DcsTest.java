@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DcsTest extends BaseRangeTest {
-    private List<Long> mDirectCodes = new ArrayList<>();
-    private List<Long> mInverseCodes = new ArrayList<>();
+    private final List<Long> mDirectCodes = new ArrayList<>();
+    private final List<Long> mInverseCodes = new ArrayList<>();
 
     @Override
     protected void parseExpectedValue(String[] components) {
