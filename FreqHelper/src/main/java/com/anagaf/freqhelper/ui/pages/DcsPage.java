@@ -14,6 +14,7 @@ import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.ui.views.ValueEdit;
 
 public class DcsPage extends Page {
+    public static final String KEY = "DCS";
 
     private TableLayout mRangesLayout;
     private ValueEdit mDirectCodeEdit;
@@ -54,6 +55,11 @@ public class DcsPage extends Page {
         updateValue();
 
         return view;
+    }
+
+    @Override
+    public String getKey() {
+        return KEY;
     }
 
     @Override

@@ -16,6 +16,8 @@ import com.anagaf.freqhelper.model.ranges.Pmr;
 import com.anagaf.freqhelper.ui.views.ValueComponentEdit;
 
 public class ChannelsPage extends AbstractFrequencyPage {
+    public static final String KEY = "Channels";
+
     private TableLayout mRangesLayout;
     private ValueComponentEdit mFrequencyMhzEdit;
     private ValueComponentEdit mFrequencyKhzEdit;
@@ -44,6 +46,11 @@ public class ChannelsPage extends AbstractFrequencyPage {
         updateValue();
 
         return view;
+    }
+
+    @Override
+    public String getKey() {
+        return KEY;
     }
 
     @Override

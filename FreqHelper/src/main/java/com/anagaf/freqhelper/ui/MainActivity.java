@@ -19,10 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
-    private final static String DCS_PAGE_TAG = "dcsPage";
-    private final static String CHANNELS_PAGE_TAG = "channelsPage";
-    private final static String CTCSS_PAGE_TAG = "ctcssPage";
-
     private final List<PageInfo> mPages = new ArrayList<>();
     private ViewPager mViewPager;
     private int mCurrentPageIndex = -1;
@@ -37,17 +33,17 @@ public class MainActivity extends FragmentActivity {
         final Page channelsPage;
         final Page ctcssPage;
         if (savedInstanceState != null) {
-            dcsPage = (DcsPage) getSupportFragmentManager().getFragment(savedInstanceState, DCS_PAGE_TAG);
-            channelsPage = (ChannelsPage) getSupportFragmentManager().getFragment(savedInstanceState, CHANNELS_PAGE_TAG);
-            ctcssPage = (CtcssPage) getSupportFragmentManager().getFragment(savedInstanceState, CTCSS_PAGE_TAG);
+            dcsPage = (DcsPage) getSupportFragmentManager().getFragment(savedInstanceState, DcsPage.KEY);
+            channelsPage = (ChannelsPage) getSupportFragmentManager().getFragment(savedInstanceState, ChannelsPage.KEY);
+            ctcssPage = (CtcssPage) getSupportFragmentManager().getFragment(savedInstanceState, CtcssPage.KEY);
         } else {
-            dcsPage = createPage(new DcsPage(), 0);
-            channelsPage = createPage(new ChannelsPage(), 1);
-            ctcssPage = createPage(new CtcssPage(), 2);
+            dcsPage = new DcsPage();
+            channelsPage = new ChannelsPage();
+            ctcssPage = new CtcssPage();
         }
-        mPages.add(new PageInfo(dcsPage, DCS_PAGE_TAG, R.string.dcs));
-        mPages.add(new PageInfo(channelsPage, CHANNELS_PAGE_TAG, R.string.channels));
-        mPages.add(new PageInfo(ctcssPage, CTCSS_PAGE_TAG, R.string.ctcss));
+        mPages.add(new PageInfo(dcsPage, R.string.dcs));
+        mPages.add(new PageInfo(channelsPage, R.string.channels));
+        mPages.add(new PageInfo(ctcssPage, R.string.ctcss));
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(new Adapter(getSupportFragmentManager()));
@@ -82,7 +78,8 @@ public class MainActivity extends FragmentActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         for (PageInfo pageInfo : mPages) {
-            getSupportFragmentManager().putFragment(outState, pageInfo.getTag(), pageInfo.getPage());
+            final Page page = pageInfo.getPage();
+            getSupportFragmentManager().putFragment(outState, page.getKey(), page);
         }
     }
 
@@ -94,23 +91,30 @@ public class MainActivity extends FragmentActivity {
         if (item == null) {
             super.onBackPressed();
         } else {
+            final String pageKey = item.getPageKey();
+            final int pageIndex = getPageIndexByKey(pageKey);
             final boolean shouldPopToPreventLoop = mCurrentPageIndex > 0
-                    && item.getPageIndex() != mCurrentPageIndex;
-            mViewPager.setCurrentItem(item.getPageIndex());
+                    && pageIndex != mCurrentPageIndex;
+            mViewPager.setCurrentItem(pageIndex);
             if (shouldPopToPreventLoop) {
                 BackStack.getsInstance().pop();
             }
-            final Page page = mPages.get(item.getPageIndex()).getPage();
+            final Page page = mPages.get(pageIndex).getPage();
             page.restoreState(item.getValue());
         }
     }
 
-    private Page createPage(Page page, int index) {
-        final Bundle args = new Bundle();
-        args.putInt(Page.PAGE_INDEX_KEY, index);
-        page.setArguments(args);
-        return page;
+    private int getPageIndexByKey(String pageKey) {
+        int index = -1;
+        for (int i = 0; i < mPages.size(); i++) {
+            if (mPages.get(i).getPage().getKey().equals(pageKey)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
+
 
     /**
      * ******* Inner Classes *********
@@ -118,12 +122,10 @@ public class MainActivity extends FragmentActivity {
 
     private static class PageInfo {
         private final Page mPage;
-        private final String mTag;
         private final int mTitleResId;
 
-        private PageInfo(Page page, String tag, int titleResId) {
+        private PageInfo(Page page, int titleResId) {
             mPage = page;
-            mTag = tag;
             mTitleResId = titleResId;
         }
 
@@ -133,10 +135,6 @@ public class MainActivity extends FragmentActivity {
 
         public int getTitleResId() {
             return mTitleResId;
-        }
-
-        public String getTag() {
-            return mTag;
         }
     }
 

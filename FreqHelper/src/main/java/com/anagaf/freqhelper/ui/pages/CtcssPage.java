@@ -15,6 +15,8 @@ import com.anagaf.freqhelper.model.ranges.Ctcss64;
 import com.anagaf.freqhelper.ui.views.ValueComponentEdit;
 
 public class CtcssPage extends AbstractFrequencyPage {
+    public static final String KEY = "CTCSS";
+
     private TableLayout mRangesLayout;
     private ValueComponentEdit mFrequencyHzEdit;
     private ValueComponentEdit mFrequencyDeciHzEdit;
@@ -38,6 +40,11 @@ public class CtcssPage extends AbstractFrequencyPage {
         updateValue();
 
         return view;
+    }
+
+    @Override
+    public String getKey() {
+        return KEY;
     }
 
     @Override

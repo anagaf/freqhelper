@@ -1,5 +1,7 @@
 package com.anagaf.freqhelper.app;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -27,16 +29,18 @@ public class BackStack {
     }
 
     public static class Item {
-        private final int mPageIndex;
+        @NotNull
+        private final String mPageKey;
         private final long mValue;
 
-        public Item(int pageIndex, long value) {
-            mPageIndex = pageIndex;
+        public Item(@NotNull String pageKey, long value) {
+            mPageKey = pageKey;
             mValue = value;
         }
 
-        public int getPageIndex() {
-            return mPageIndex;
+        @NotNull
+        public String getPageKey() {
+            return mPageKey;
         }
 
         public long getValue() {
@@ -50,13 +54,13 @@ public class BackStack {
 
             Item item = (Item) o;
 
-            return mPageIndex == item.mPageIndex && mValue == item.mValue;
+            return mValue == item.mValue && mPageKey.equals(item.mPageKey);
 
         }
 
         @Override
         public int hashCode() {
-            int result = mPageIndex;
+            int result = mPageKey.hashCode();
             result = 31 * result + (int) (mValue ^ (mValue >>> 32));
             return result;
         }

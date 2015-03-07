@@ -1,7 +1,6 @@
 package com.anagaf.freqhelper.ui.pages;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.anagaf.freqhelper.model.ranges.Range;
 import com.anagaf.freqhelper.ui.views.RangeView;
 
 public abstract class Page extends Fragment {
-    public static final String PAGE_INDEX_KEY = "pageIndex";
     private final RangeView.Listener mRangeViewListener = new RangeView.Listener() {
         @Override
         public void onKeyChanged(long value) {
@@ -23,7 +21,8 @@ public abstract class Page extends Fragment {
             updateValue();
         }
     };
-    private int mIndex;
+
+    public abstract String getKey();
 
     protected abstract TableLayout getRangesLayout();
 
@@ -33,12 +32,6 @@ public abstract class Page extends Fragment {
 
     protected abstract String getSettingsKey();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mIndex = getArguments().getInt(PAGE_INDEX_KEY);
-    }
-
     public void restoreState(long value) {
         writeValueToSettings(getActivity(), value);
         updateValue();
@@ -46,11 +39,7 @@ public abstract class Page extends Fragment {
 
     public void pushCurrentStateToBackStack() {
         final long value = readValueFromSettings(getActivity());
-        BackStack.getsInstance().push(new BackStack.Item(getIndex(), value));
-    }
-
-    protected int getIndex() {
-        return mIndex;
+        BackStack.getsInstance().push(new BackStack.Item(getKey(), value));
     }
 
     protected void addRangeRow(LayoutInflater inflater, Range range) {
