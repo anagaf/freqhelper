@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.anagaf.freqhelper.R;
@@ -19,6 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
+    private final static String DCS_PAGE_TAG = "dcsPage";
+    private final static String CHANNELS_PAGE_TAG = "channelsPage";
+    private final static String CTCSS_PAGE_TAG = "ctcssPage";
+
     private final List<PageInfo> mPages = new ArrayList<>();
     private ViewPager mViewPager;
     private int mCurrentPageIndex = -1;
@@ -27,11 +32,25 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("FreqHelper", "MainActivity#onCreate (savedInstanceState = " + savedInstanceState + ")");
+
         setContentView(R.layout.main);
 
-        addPage(0, new DcsPage(), R.string.dcs);
-        addPage(1, new ChannelsPage(), R.string.channels);
-        addPage(2, new CtcssPage(), R.string.ctcss);
+        final Page dcsPage;
+        final Page channelsPage;
+        final Page ctcssPage;
+        if (savedInstanceState != null) {
+            dcsPage = (DcsPage) getSupportFragmentManager().getFragment(savedInstanceState, DCS_PAGE_TAG);
+            channelsPage = (ChannelsPage) getSupportFragmentManager().getFragment(savedInstanceState, CHANNELS_PAGE_TAG);
+            ctcssPage = (CtcssPage) getSupportFragmentManager().getFragment(savedInstanceState, CTCSS_PAGE_TAG);
+        } else {
+            dcsPage = createPage(new DcsPage(), 0);
+            channelsPage = createPage(new ChannelsPage(), 1);
+            ctcssPage = createPage(new CtcssPage(), 2);
+        }
+        mPages.add(new PageInfo(dcsPage, DCS_PAGE_TAG, R.string.dcs));
+        mPages.add(new PageInfo(channelsPage, CHANNELS_PAGE_TAG, R.string.channels));
+        mPages.add(new PageInfo(ctcssPage, CTCSS_PAGE_TAG, R.string.ctcss));
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(new Adapter(getSupportFragmentManager()));
@@ -58,6 +77,19 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        for (PageInfo pageInfo : mPages) {
+            getSupportFragmentManager().putFragment(outState, pageInfo.getTag(), pageInfo.getPage());
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         mFocusThief.requestFocus();
 
@@ -76,11 +108,11 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    private void addPage(int index, Page page, int stringResId) {
+    private Page createPage(Page page, int index) {
         final Bundle args = new Bundle();
         args.putInt(Page.PAGE_INDEX_KEY, index);
         page.setArguments(args);
-        mPages.add(new PageInfo(page, stringResId));
+        return page;
     }
 
     /**
@@ -89,10 +121,12 @@ public class MainActivity extends FragmentActivity {
 
     private static class PageInfo {
         private final Page mPage;
+        private final String mTag;
         private final int mTitleResId;
 
-        private PageInfo(Page page, int titleResId) {
+        private PageInfo(Page page, String tag, int titleResId) {
             mPage = page;
+            mTag = tag;
             mTitleResId = titleResId;
         }
 
@@ -102,6 +136,10 @@ public class MainActivity extends FragmentActivity {
 
         public int getTitleResId() {
             return mTitleResId;
+        }
+
+        public String getTag() {
+            return mTag;
         }
     }
 
