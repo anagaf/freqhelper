@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.anagaf.freqhelper.R;
@@ -32,8 +31,6 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("FreqHelper", "MainActivity#onCreate (savedInstanceState = " + savedInstanceState + ")");
-
         setContentView(R.layout.main);
 
         final Page dcsPage;

@@ -7,17 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
 
-import com.anagaf.freqhelper.app.BackStack;
 import com.anagaf.freqhelper.R;
-import com.anagaf.freqhelper.ui.views.RangeView;
+import com.anagaf.freqhelper.app.BackStack;
 import com.anagaf.freqhelper.app.Settings;
 import com.anagaf.freqhelper.model.ranges.Range;
+import com.anagaf.freqhelper.ui.views.RangeView;
 
 public abstract class Page extends Fragment {
     public static final String PAGE_INDEX_KEY = "pageIndex";
-
-    private int mIndex;
-
     private final RangeView.Listener mRangeViewListener = new RangeView.Listener() {
         @Override
         public void onKeyChanged(long value) {
@@ -26,6 +23,7 @@ public abstract class Page extends Fragment {
             updateValue();
         }
     };
+    private int mIndex;
 
     protected abstract TableLayout getRangesLayout();
 
@@ -75,14 +73,4 @@ public abstract class Page extends Fragment {
     protected void writeValueToSettings(Context context, long value) {
         Settings.write(context, getSettingsKey(), value);
     }
-
-//    protected static Integer valueComponentStringToInteger(String string) {
-//        int value;
-//        if (string.isEmpty()) {
-//            value = 0;
-//        } else if (string.isEmpty())
-//            value =
-//        }
-//        return string.isEmpty() ? 0 : Integer.parseInt(string);
-//    }
 }
