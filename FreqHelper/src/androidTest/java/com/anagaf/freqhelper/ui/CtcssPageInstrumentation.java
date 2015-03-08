@@ -10,16 +10,15 @@ import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.ui.views.ValueComponentEdit;
 
+import junit.framework.Assert;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by anagaf on 07/03/15.
- */
 public class CtcssPageInstrumentation {
-    private static final int TONES38_INDEX = 0;
-    private static final int TONES39_INDEX = 1;
-    private static final int TONES64_INDEX = 2;
+    public static final int TONES38_INDEX = 0;
+    public static final int TONES39_INDEX = 1;
+    public static final int TONES64_INDEX = 2;
 
     private final ActivityInstrumentationTestCase2 mTest;
 
@@ -53,8 +52,8 @@ public class CtcssPageInstrumentation {
     }
 
     public void checkFrequency(String hz, String dHz) {
-        mTest.assertEquals(hz, mHzEdit.getText().toString());
-        mTest.assertEquals(dHz, mDHzEdit.getText().toString());
+        Assert.assertEquals(hz, mHzEdit.getText().toString());
+        Assert.assertEquals(dHz, mDHzEdit.getText().toString());
     }
 
     public void setFrequencyHzValue(String value) {
@@ -63,6 +62,22 @@ public class CtcssPageInstrumentation {
 
     public void press38TonesNextButton() {
         final View button = mRangeViews.get(TONES38_INDEX).findViewById(R.id.next_channel_button);
+        TouchUtils.tapView(mTest, button);
+    }
+
+    public void checkChannels(String[] expectedChannels) {
+        TestUtils.checkChannels(mRangeViews, expectedChannels);
+    }
+
+    // TODO: code duplication
+
+    public void pressNextChannelButton(int rangeIndex) {
+        final View button = mRangeViews.get(rangeIndex).findViewById(R.id.next_channel_button);
+        TouchUtils.tapView(mTest, button);
+    }
+
+    public void pressPrevChannelButton(int rangeIndex) {
+        final View button = mRangeViews.get(rangeIndex).findViewById(R.id.prev_channel_button);
         TouchUtils.tapView(mTest, button);
     }
 }
