@@ -36,7 +36,7 @@ public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity
         channelsPage.setFrequencyKHzValue("100");
         channelsPage.checkFrequency("433", "100", "000");
 
-        channelsPage.setLpd69Channel("3");
+        channelsPage.setChannel(ChannelsPageInstrumentation.LPD69_INDEX, "3");
         channelsPage.checkFrequency("433", "125", "000");
 
         channelsPage.pressNextChannelButton(ChannelsPageInstrumentation.LPD69_INDEX);

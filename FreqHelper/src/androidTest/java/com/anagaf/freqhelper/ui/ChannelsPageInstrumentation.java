@@ -15,7 +15,7 @@ import junit.framework.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChannelsPageInstrumentation {
+class ChannelsPageInstrumentation {
     public static final int LPD69_INDEX = 0;
     public static final int LPD8_INDEX = 1;
     public static final int FRS_INDEX = 3;
@@ -27,7 +27,7 @@ public class ChannelsPageInstrumentation {
     private final ValueComponentEdit mKHzEdit;
     private final ValueComponentEdit mHzEdit;
 
-    private List<RangeView> mRangeViews;
+    private final List<RangeView> mRangeViews;
 
     public ChannelsPageInstrumentation(ActivityInstrumentationTestCase2 test) {
         mTest = test;
@@ -65,11 +65,6 @@ public class ChannelsPageInstrumentation {
             final EditText edit = TestUtils.getChannelEdit(mRangeViews.get(i));
             Assert.assertEquals(expectedChannels[i], edit.getText().toString());
         }
-    }
-    public void setLpd69Channel(String channel) {
-        final RangeView rangeView = mRangeViews.get(LPD69_INDEX);
-        final EditText channelEdit = TestUtils.getChannelEdit(rangeView);
-        TestUtils.typeEditText(mTest.getInstrumentation(), channelEdit, channel);
     }
 
     public void pressNextChannelButton(int rangeIndex) {

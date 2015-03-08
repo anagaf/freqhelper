@@ -15,7 +15,7 @@ import junit.framework.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CtcssPageInstrumentation {
+class CtcssPageInstrumentation {
     public static final int TONES38_INDEX = 0;
     public static final int TONES39_INDEX = 1;
     public static final int TONES64_INDEX = 2;

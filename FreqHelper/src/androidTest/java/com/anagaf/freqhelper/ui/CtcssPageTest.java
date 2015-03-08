@@ -5,7 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 public class CtcssPageTest extends ActivityInstrumentationTestCase2<MainActivity> {
     private static final String INVALID_CHANNEL = "--";
 
-    CtcssPageInstrumentation mPage;
+    private CtcssPageInstrumentation mPage;
 
     public CtcssPageTest() {
         super(MainActivity.class);
