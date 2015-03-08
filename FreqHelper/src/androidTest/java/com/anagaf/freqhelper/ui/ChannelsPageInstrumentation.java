@@ -10,6 +10,8 @@ import com.anagaf.freqhelper.R;
 import com.anagaf.freqhelper.ui.views.RangeView;
 import com.anagaf.freqhelper.ui.views.ValueComponentEdit;
 
+import junit.framework.Assert;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,16 +23,16 @@ public class ChannelsPageInstrumentation {
 
     private final ActivityInstrumentationTestCase2 mTest;
 
-    private final ValueComponentEdit mMhzEdit;
-    private final ValueComponentEdit mKhzEdit;
+    private final ValueComponentEdit mMHzEdit;
+    private final ValueComponentEdit mKHzEdit;
     private final ValueComponentEdit mHzEdit;
 
     private List<RangeView> mRangeViews;
 
     public ChannelsPageInstrumentation(ActivityInstrumentationTestCase2 test) {
         mTest = test;
-        mMhzEdit = (ValueComponentEdit) mTest.getActivity().findViewById(R.id.frequency_mhz_edit);
-        mKhzEdit = (ValueComponentEdit) mTest.getActivity().findViewById(R.id.frequency_khz_edit);
+        mMHzEdit = (ValueComponentEdit) mTest.getActivity().findViewById(R.id.frequency_mhz_edit);
+        mKHzEdit = (ValueComponentEdit) mTest.getActivity().findViewById(R.id.frequency_khz_edit);
         mHzEdit = (ValueComponentEdit) mTest.getActivity().findViewById(R.id.frequency_hz_edit);
 
         mRangeViews = new ArrayList<>();
@@ -41,8 +43,8 @@ public class ChannelsPageInstrumentation {
     }
 
     public void setFrequency(String mhz, String khz, String hz) {
-        TestUtils.typeEditText(mTest.getInstrumentation(), mMhzEdit, mhz);
-        TestUtils.typeEditText(mTest.getInstrumentation(), mKhzEdit, khz);
+        TestUtils.typeEditText(mTest.getInstrumentation(), mMHzEdit, mhz);
+        TestUtils.typeEditText(mTest.getInstrumentation(), mKHzEdit, khz);
         TestUtils.typeEditText(mTest.getInstrumentation(), mHzEdit, hz);
     }
 
@@ -53,11 +55,17 @@ public class ChannelsPageInstrumentation {
     }
 
     public void checkFrequency(String mhz, String khz, String hz) {
-        mTest.assertEquals(mhz, mMhzEdit.getText().toString());
-        mTest.assertEquals(khz, mKhzEdit.getText().toString());
-        mTest.assertEquals(hz, mHzEdit.getText().toString());
+        Assert.assertEquals(mhz, mMHzEdit.getText().toString());
+        Assert.assertEquals(khz, mKHzEdit.getText().toString());
+        Assert.assertEquals(hz, mHzEdit.getText().toString());
     }
 
+    public void checkChannels(String[] expectedChannels) {
+        for (int i = 0; i < expectedChannels.length; i++) {
+            final EditText edit = TestUtils.getChannelEdit(mRangeViews.get(i));
+            Assert.assertEquals(expectedChannels[i], edit.getText().toString());
+        }
+    }
     public void setLpd69Channel(String channel) {
         final RangeView rangeView = mRangeViews.get(LPD69_INDEX);
         final EditText channelEdit = TestUtils.getChannelEdit(rangeView);
@@ -75,6 +83,18 @@ public class ChannelsPageInstrumentation {
     }
 
     public void setFrequencyKHzValue(String value) {
-        TestUtils.typeEditText(mTest.getInstrumentation(), mKhzEdit, value);
+        TestUtils.typeEditText(mTest.getInstrumentation(), mKHzEdit, value);
+    }
+
+    public EditText getMHzEdit() {
+        return mMHzEdit;
+    }
+
+    public EditText getKHzEdit() {
+        return mKHzEdit;
+    }
+
+    public EditText getHzEdit() {
+        return mHzEdit;
     }
 }
