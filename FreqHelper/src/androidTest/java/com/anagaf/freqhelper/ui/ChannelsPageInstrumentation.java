@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelsPageInstrumentation {
-    private static final int LPD69_INDEX = 0;
-    private static final int LPD8_INDEX = 1;
-    private static final int FRS_INDEX = 3;
-    private static final int PMR_INDEX = 2;
+    public static final int LPD69_INDEX = 0;
+    public static final int LPD8_INDEX = 1;
+    public static final int FRS_INDEX = 3;
+    public static final int PMR_INDEX = 2;
 
     private final ActivityInstrumentationTestCase2 mTest;
 
@@ -64,8 +64,13 @@ public class ChannelsPageInstrumentation {
         TestUtils.typeEditText(mTest.getInstrumentation(), channelEdit, channel);
     }
 
-    public void pressLpd69NextButton() {
-        final View button = mRangeViews.get(LPD69_INDEX).findViewById(R.id.next_channel_button);
+    public void pressNextChannelButton(int rangeIndex) {
+        final View button = mRangeViews.get(rangeIndex).findViewById(R.id.next_channel_button);
+        TouchUtils.tapView(mTest, button);
+    }
+
+    public void pressPrevChannelButton(int rangeIndex) {
+        final View button = mRangeViews.get(rangeIndex).findViewById(R.id.prev_channel_button);
         TouchUtils.tapView(mTest, button);
     }
 

@@ -38,10 +38,14 @@ public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity
         channelsPage.setLpd69Channel("3");
         channelsPage.checkFrequency("433", "125", "000");
 
-        channelsPage.pressLpd69NextButton();
+        channelsPage.pressNextChannelButton(ChannelsPageInstrumentation.LPD69_INDEX);
         channelsPage.checkFrequency("433", "150", "000");
 
-        // TODO: edit channel
+        channelsPage.setChannel(ChannelsPageInstrumentation.PMR_INDEX, "8");
+        channelsPage.checkFrequency("446", "093", "750");
+
+        channelsPage.pressPrevChannelButton(ChannelsPageInstrumentation.PMR_INDEX);
+        channelsPage.checkFrequency("446", "081", "250");
 
         TestUtils.setPage(this, getActivity(), 2);
         assertEquals(2, mViewPager.getCurrentItem());
@@ -57,8 +61,6 @@ public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity
         ctcssPage.press38TonesNextButton();
         ctcssPage.checkFrequency("079", "7");
 
-        // TODO: edit channel
-
         pressBack();
         ctcssPage.checkFrequency("077", "0");
 
@@ -71,6 +73,13 @@ public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity
         pressBack();
 
         assertEquals(1, mViewPager.getCurrentItem());
+
+        channelsPage.checkFrequency("446", "081", "250");
+
+        pressBack();
+        channelsPage.checkFrequency("446", "093", "750");
+
+        pressBack();
         channelsPage.checkFrequency("433", "150", "000");
 
         pressBack();
