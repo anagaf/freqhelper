@@ -7,8 +7,6 @@ import android.view.KeyEvent;
 import com.anagaf.freqhelper.R;
 
 public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity> {
-    private ChannelsPageInstrumentation channelsPageInstrumentation;
-
     private ViewPager mViewPager;
 
     public BackStackTest() {
@@ -22,9 +20,12 @@ public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity
         getInstrumentation().setInTouchMode(false);
 
         mViewPager = (ViewPager) getActivity().findViewById(R.id.pager);
+
+        resetCtcssPage();
     }
 
     public void test() {
+        TestUtils.setPage(this, getActivity(), 1);
         assertEquals(1, mViewPager.getCurrentItem());
 
         final ChannelsPageInstrumentation channelsPage = new ChannelsPageInstrumentation(this);
@@ -58,7 +59,7 @@ public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity
         ctcssPage.setFrequencyHzValue("77");
         ctcssPage.checkFrequency("077", "0");
 
-        ctcssPage.press38TonesNextButton();
+        ctcssPage.pressNextChannelButton(CtcssPageInstrumentation.TONES38_INDEX);
         ctcssPage.checkFrequency("079", "7");
 
         pressBack();
@@ -68,7 +69,8 @@ public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity
         ctcssPage.checkFrequency("067", "0");
 
         pressBack();
-        ctcssPage.checkFrequency("077", "0");
+        pressBack();
+        ctcssPage.checkFrequency("999", "9");
 
         pressBack();
 
@@ -95,5 +97,11 @@ public class BackStackTest extends ActivityInstrumentationTestCase2<MainActivity
     private void pressBack() {
         getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
         getInstrumentation().waitForIdleSync();
+    }
+
+    private void resetCtcssPage() {
+        TestUtils.setPage(this, getActivity(), 2);
+        final CtcssPageInstrumentation ctcssPage = new CtcssPageInstrumentation(this);
+        ctcssPage.setFrequency("999", "9");
     }
 }

@@ -26,19 +26,19 @@ public class ChannelsPageTest extends ActivityInstrumentationTestCase2<MainActiv
         mPage.checkFrequency("433", "075", "000");
         mPage.checkChannels(new String[]{"1", "1", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
-        TestUtils.typeEditText(getInstrumentation(), mPage.getMHzEdit(), "434");
+        mPage.setFrequencyMHzValue("434");
         mPage.checkFrequency("434", "075", "000");
         mPage.checkChannels(new String[]{"41", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
-        TestUtils.typeEditText(getInstrumentation(), mPage.getKHzEdit(), "100");
+        mPage.setFrequencyKHzValue("100");
         mPage.checkFrequency("434", "100", "000");
         mPage.checkChannels(new String[]{"42", INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
-        TestUtils.typeEditText(getInstrumentation(), mPage.getHzEdit(), "50");
+        mPage.setFrequencyHzValue("50");
         mPage.checkFrequency("434", "100", "050");
         mPage.checkChannels(new String[]{INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 
-        TestUtils.typeEditText(getInstrumentation(), mPage.getHzEdit(), "50");
+        mPage.setFrequencyHzValue("50");
         mPage.checkFrequency("434", "100", "050");
         mPage.checkChannels(new String[]{INVALID_CHANNEL_2DIGITS, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_1DIGIT, INVALID_CHANNEL_2DIGITS});
 

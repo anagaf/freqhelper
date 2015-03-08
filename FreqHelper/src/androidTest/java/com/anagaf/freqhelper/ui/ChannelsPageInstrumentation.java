@@ -82,19 +82,15 @@ public class ChannelsPageInstrumentation {
         TouchUtils.tapView(mTest, button);
     }
 
+    public void setFrequencyMHzValue(String value) {
+        TestUtils.typeEditText(mTest.getInstrumentation(), mMHzEdit, value);
+    }
+
     public void setFrequencyKHzValue(String value) {
         TestUtils.typeEditText(mTest.getInstrumentation(), mKHzEdit, value);
     }
 
-    public EditText getMHzEdit() {
-        return mMHzEdit;
-    }
-
-    public EditText getKHzEdit() {
-        return mKHzEdit;
-    }
-
-    public EditText getHzEdit() {
-        return mHzEdit;
+    public void setFrequencyHzValue(String value) {
+        TestUtils.typeEditText(mTest.getInstrumentation(), mHzEdit, value);
     }
 }

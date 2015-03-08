@@ -60,11 +60,6 @@ public class CtcssPageInstrumentation {
         TestUtils.typeEditText(mTest.getInstrumentation(), mHzEdit, value);
     }
 
-    public void press38TonesNextButton() {
-        final View button = mRangeViews.get(TONES38_INDEX).findViewById(R.id.next_channel_button);
-        TouchUtils.tapView(mTest, button);
-    }
-
     public void checkChannels(String[] expectedChannels) {
         TestUtils.checkChannels(mRangeViews, expectedChannels);
     }
